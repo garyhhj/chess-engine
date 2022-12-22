@@ -1,95 +1,44 @@
+#include "BitBoard.h"
+
 #include <iostream>
 #include <vector>
 
+
 /*
 ==================
-bit macros 
+main driver
 ==================
 */
-
-constexpr bool getBit(uint64_t exists, int square) {
-	return (exists >> square) & 0x1;
-}
-/*
-==================
-bit board 
-==================
-*/
-
-
-
-class BitBoard {
-	//need a bit board for each piece 
-
-	//need a convention on which element of piece is which piece in chess 
-
-	//1 - top rook 
-	//2 - knight 
-	//3 - bishop 
-	//
-public:
-
-	uint64_t exists; 
-	std::vector<uint64_t> pieces; 
-
-	//constructor 
-	BitBoard() : 
-		exists{0x4}, 
-		pieces{
-		0x8000000000000000 >> 0, 0x8000000000000000 >> 1, 0x8000000000000000 >> 2, 0x8000000000000000 >> 3, 0x8000000000000000 >> 4, 0x8000000000000000 >> 5, 0x8000000000000000 >> 6, 0x8000000000000000 >> 7, 
-		0x8000000000000000 >> 8, 0x8000000000000000 >> 9, 0x8000000000000000 >> 10, 0x8000000000000000 >> 11, 0x8000000000000000 >> 12, 0x8000000000000000 >> 13, 0x8000000000000000 >> 14, 0x8000000000000000 >> 15, 
-		0x0000000000000001 << 15, 0x0000000000000001 << 14, 0x0000000000000001 << 13, 0x0000000000000001 << 12, 0x0000000000000001 << 11, 0x0000000000000001 << 10, 0x0000000000000001 << 9, 0x0000000000000001 << 8,
-		0x0000000000000001 << 7, 0x0000000000000001 << 6, 0x0000000000000001 << 5, 0x0000000000000001 << 4, 0x0000000000000001 << 3, 0x0000000000000001 << 2, 0x0000000000000001 << 1, 0x0000000000000001 << 0
-	} {}
-
-	//moving 
-	void moveHorizontal(int index, int shift) {
-		//can you shift a negative number of bits? 
-
-		if (shift < 0) {
-			shift *= -1;
-			pieces[index] >>= shift;
-		}
-		else {
-			pieces[index] <<= shift; 
-		}
-	}
-
-	void moveVeritcal(int index, int shift) {
-		//shift by 8 times? 
-
-	}
-
-	void moveDiagonally(int index, int shift) {
-		//shift by 7 time? 
-	}
-
-	//generating knights movement will be weird 
-	//shift right then diagonal 
-	//somethign like combining shifting vertically and diagonally 
-
-	void printBoard(); 
-
-
-	
-};
-
-void BitBoard::printBoard() {
-	using namespace std; 
-	for (int rank = 0; rank < 8; ++rank) {
-		for (int file = 0; file < 8; ++file) {
-			int square = rank * 8 + file; 
-
-			cout << (getBit(exists, square) ? " 1 " : " 0 ");
-		}
-		cout << endl; 
-	}
-}
 
 using namespace std; 
 
 int main() {
 	BitBoard board; 
-	board.printBoard(); 
 
+	board.printBoard();
+
+	setBit(board.bitBoard, c3);
+	setBit(board.bitBoard, e4);
+	setBit(board.bitBoard, f2);
+
+	setBit(board.bitBoard, h1);
+
+
+	board.printBoard(); 
+	
+	popBit(board.bitBoard, h1); 
+
+	board.printBoard(); 
 }
+
+
+/*
+"a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
+"a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
+"a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+"a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+"a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
+"a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
+"a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
+"a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
+*/
