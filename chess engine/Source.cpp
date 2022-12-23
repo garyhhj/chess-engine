@@ -19,10 +19,10 @@ using namespace std;
 int main() {
 	BitBoard board; 
 
+	cout << a7 << endl; 
+	uint64_t atk = maskPawnAttack(white, e4);
 
-	//uint64_t atk = maskPawnAttack(white, e4);
-
-	//printBoard(atk); 
+	printBoard(atk); 
 }
 
 
