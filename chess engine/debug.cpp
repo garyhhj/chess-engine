@@ -1,23 +1,17 @@
-#include "BitBoard.h"
-#include "macro.h"
 #include <iostream>
-
-/*
-==================
-constructor 
-==================
-*/
-BitBoard::BitBoard() { 
-	bitBoard = 0x0000000000000000; 
-}
+#include <stdint.h>
+#include "debug.h"
+#include "macro.h"
 
 
 /*
 ==================
-debug 
+	  debug
 ==================
 */
-void BitBoard::printBoard() {
+
+
+void printBoard(uint64_t bitBoard) {
 	using namespace std;
 
 	//print board 
@@ -34,12 +28,7 @@ void BitBoard::printBoard() {
 	cout << "    " << "a  b  c  d  e  f  g  h" << '\n';
 
 	//print board as unsigned decimal 
-	cout << "    " << "Bitboard: 0x" << hex << bitBoard << dec << '\n'; 
-	cout << endl; 
+	cout << "    " << "Bitboard: 0x" << hex << bitBoard << dec << '\n';
+	cout << endl;
 
 }
-
-
-
-
-

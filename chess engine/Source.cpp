@@ -1,5 +1,9 @@
 #include "BitBoard.h"
 
+#include "precalculation.h"
+#include "macro.h"
+#include "debug.h"
+
 #include <iostream>
 #include <vector>
 
@@ -15,20 +19,10 @@ using namespace std;
 int main() {
 	BitBoard board; 
 
-	board.printBoard();
 
-	uint64_t bitboard = 0x0ULL; 
+	//uint64_t atk = maskPawnAttack(white, e4);
 
-	for (int rank = 0; rank < 8; ++rank) {
-		for (int file = 0; file < 8; ++file) {
-			if (file != 6) {
-				setBit(bitboard, 8 * rank + file); 
-			}
-			
-		}
-	}
-
-	board.printBoard(bitboard); 
+	//printBoard(atk); 
 }
 
 
