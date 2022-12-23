@@ -17,18 +17,18 @@ int main() {
 
 	board.printBoard();
 
-	setBit(board.bitBoard, c3);
-	setBit(board.bitBoard, e4);
-	setBit(board.bitBoard, f2);
+	uint64_t bitboard = 0x0ULL; 
 
-	setBit(board.bitBoard, h1);
+	for (int rank = 0; rank < 8; ++rank) {
+		for (int file = 0; file < 8; ++file) {
+			if (file != 6) {
+				setBit(bitboard, 8 * rank + file); 
+			}
+			
+		}
+	}
 
-
-	board.printBoard(); 
-	
-	popBit(board.bitBoard, h1); 
-
-	board.printBoard(); 
+	board.printBoard(bitboard); 
 }
 
 

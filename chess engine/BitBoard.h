@@ -32,6 +32,7 @@ enum {
 	a1, b1, c1, d1, e1, f1, g1, h1,
 };
 
+
 /*
 "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
 "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
@@ -42,6 +43,37 @@ enum {
 "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
 "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
 */
+
+//sides
+enum {
+	white, 
+	black, 
+};
+
+//file constants 
+/*
+NOTAFILE example: 
+8   0  1  1  1  1  1  1  1
+7   0  1  1  1  1  1  1  1
+6   0  1  1  1  1  1  1  1
+5   0  1  1  1  1  1  1  1
+4   0  1  1  1  1  1  1  1
+3   0  1  1  1  1  1  1  1
+2   0  1  1  1  1  1  1  1
+1   0  1  1  1  1  1  1  1
+
+a  b  c  d  e  f  g  h
+*/
+
+const uint64_t NOTAFILE = 0x7f7f7f7f7f7f7f7f; 
+const uint64_t NOTBFILE = 0xbfbfbfbfbfbfbfbf;
+const uint64_t NOTCFILE = 0xdfdfdfdfdfdfdfdf; 
+const uint64_t NOTDFILE = 0xefefefefefefefef;
+
+const uint64_t NOTEFILE = 0xf7f7f7f7f7f7f7f7; 
+const uint64_t NOTFFILE = 0xfbfbfbfbfbfbfbfb; 
+const uint64_t NOTGFILE = 0xfdfdfdfdfdfdfdfd; 
+const uint64_t NOTHFILE = 0xfefefefefefefefe;
 
 
 /*
@@ -58,4 +90,5 @@ public:
 	//constructor 
 	BitBoard();
 	void printBoard();
+	void printBoard(uint64_t bitBoard); 
 };
