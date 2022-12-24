@@ -25,13 +25,20 @@ uint64_t maskPawnAttack(int side, int square) {
 
 	//white pawn 
 	if (!side) {
-		attack |= (bitboard << 9);
-		attack |= (bitboard << 7);
+		if (square & NOTFILE_H) {
+			attack |= (bitboard << 9);
+			printBoard(attack); 
+		}
+		if (square & NOTFILE_A) {
+			attack |= (bitboard << 7);
+			printBoard(attack); 
+		}
 	}
 
 	//black pawn 
 	else {
-
+		attack |= (bitboard >> 9); 
+		attack |= (bitboard >> 7); 
 	}
 
 
