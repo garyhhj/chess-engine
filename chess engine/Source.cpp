@@ -19,11 +19,19 @@ using namespace std;
 int main() {
 	BitBoard board; 
 	
-	//initializing attack table 
+	//initializing occupancy table 
+	initBishopOccupancy(); 
 
-	for (int i = 0; i < 64; ++i) {
-		printBoard(maskRookAttack(position[i])); 
-	}
+
+	uint64_t block = 0x0; 
+	setBit(block, f5); 
+	setBit(block, e4); 
+	setBit(block, b7); 
+	setBit(block, b1); 
+
+	auto atk =  maskBishopAttackRT(e4, block);
+	printBoard(atk); 
+
 
 
 	//cout << hex << a << endl; 

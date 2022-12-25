@@ -25,11 +25,14 @@ extern uint64_t maskKingAttack(uint64_t square);
 extern void initKingAttack();
 
 
-//bishop attack table [position index]
-//uint64_t bishopAttack[64]; 
-extern uint64_t maskBishopAttack(uint64_t square);
+//bishop occupancy table [position index]
+extern uint64_t bishopOccupancy[64]; 
+extern uint64_t maskBishopOccupancy(uint64_t square);
+extern void initBishopOccupancy();
+extern uint64_t maskBishopAttackRT(uint64_t square, uint64_t block);
 
 
-//rook attack table [position index] 
-//uint64_t rookAttack[64]; 
-extern uint64_t maskRookAttack(uint64_t square);
+
+//rook occupancy table [position index] 
+extern uint64_t rookOccupancy[64]; 
+extern uint64_t maskRookOccupancy(uint64_t square);

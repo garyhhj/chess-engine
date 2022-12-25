@@ -140,10 +140,10 @@ bishop
 ==================
 */
 
-//bishop attack table [position index] 
-//uint64_t bishopAttack[64]; 
+//bishop occupancy table [position index] 
+uint64_t bishopOccupancy[64]; 
 
-uint64_t maskBishopAttack(uint64_t square) {
+uint64_t maskBishopOccupancy(uint64_t square) {
 	//piece bitboard 
 	uint64_t bitboard = 0x0;
 
@@ -164,6 +164,49 @@ uint64_t maskBishopAttack(uint64_t square) {
 	return attack;
 }
 
+void initBishopOccupancy() {
+	for (int i = 0; i < 64; ++i) {
+		bishopOccupancy[i] = maskBishopOccupancy(position[i]); 
+	}
+}
+
+uint64_t maskBishopAttackRT(uint64_t square, uint64_t block) {
+	//piece bitboard 
+	uint64_t bitboard = 0x0;
+
+	//result bitboard 
+	uint64_t attack = 0x0;
+
+	//set pieces on board 
+	setBit(bitboard, square);
+
+	//bottom left to top right diagonal 
+	for (int i = 1; bitboard << 7 * i & NOTFILE_A; ++i) {
+		attack |= bitboard << 7 * i;
+		if (bitboard << 7 * i & block) break; 
+	}
+
+	for (int i = 1; bitboard >> 7 * i & NOTFILE_H; ++i) {
+		attack |= bitboard >> 7 * i;
+		if (bitboard >> 7 * i & block) break; 
+	}
+
+
+	//bottom right to top left diagonal 
+	for (int i = 1; bitboard << 9 * i & NOTFILE_H; ++i) {
+		attack |= bitboard << 9 * i;
+		if (bitboard << 9 * i & block) break; 
+	}
+
+	for (int i = 1; bitboard >> 9 * i & NOTFILE_A; ++i) {
+		attack |= bitboard >> 9 * i;
+		if (bitboard >> 9 * i & block) break; 
+	}
+
+
+	return attack; 
+}
+
 
 /*
 ==================
@@ -171,10 +214,10 @@ rook
 ==================
 */
 
-//rook attack table [position index] 
-//uint64_t rookAttack[64]; 
+//rook occupancy table [position index] 
+uint64_t rookOccupancy[64]; 
 
-uint64_t maskRookAttack(uint64_t square) {
+uint64_t maskRookOccupancy(uint64_t square) {
 	//piece bitboard 
 	uint64_t bitboard = 0x0;
 
@@ -195,3 +238,10 @@ uint64_t maskRookAttack(uint64_t square) {
 
 	return attack; 
 }
+
+void initRookOccupancy() {
+	for (int i = 0; i < 64; ++i) {
+		rookOccupancy[i] = maskRookOccupancy(position[i]); 
+	}
+}
+
