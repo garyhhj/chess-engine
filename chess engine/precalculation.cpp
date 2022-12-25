@@ -96,3 +96,39 @@ void initKnightAttack() {
 	}
 }
 
+
+/*
+==================
+king
+==================
+*/
+
+//king attack table [position index] 
+uint64_t kingAttack[64];
+
+uint64_t maskKingAttack(uint64_t square) {
+	//piece bitboard 
+	uint64_t bitboard = 0x0;
+
+	//result bitboard 
+	uint64_t attack = 0x0;
+
+	//set pieces on board 
+	setBit(bitboard, square);
+
+	//up and down
+	attack |= (bitboard << 8);
+	attack |= (bitboard >> 8); 
+
+	//left and right 
+	if (bitboard & NOTFILE_A) attack |= (bitboard << 1); 
+	if (bitboard & NOTFILE_H) attack |= (bitboard >> 1); 
+
+	return attack;
+}
+
+void initKingAttack() {
+	for (int i = 0; i < 64; ++i) {
+		kingAttack[i] = maskKingAttack(position[i]); 
+	}
+}

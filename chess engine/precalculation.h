@@ -17,3 +17,9 @@ extern void initPawnAttack();
 extern uint64_t knightAttack[64];
 extern uint64_t maskKnightAttack(uint64_t square);
 extern void initKnightAttack(); 
+
+
+//king attack table [position index] 
+extern uint64_t kingAttack[64];
+extern uint64_t maskKingAttack(uint64_t square);
+extern void initKingAttack();
