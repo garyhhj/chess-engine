@@ -23,3 +23,9 @@ extern void initKnightAttack();
 extern uint64_t kingAttack[64];
 extern uint64_t maskKingAttack(uint64_t square);
 extern void initKingAttack();
+
+
+//bishop attack table [position index]
+//uint64_t bishopAttack[64]; 
+extern uint64_t maskBishopAttack(uint64_t square);
+

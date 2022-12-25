@@ -20,12 +20,13 @@ int main() {
 	BitBoard board; 
 	
 	//initializing attack table 
-	initKingAttack(); 
 
 	for (int i = 0; i < 64; ++i) {
-		cout << "PRINTING I : " << i << endl; 
-		printBoard(kingAttack[i]); 
+		printBoard(maskBishopAttack(position[i])); 
 	}
+
+
+	//cout << hex << a << endl; 
 }
 
 

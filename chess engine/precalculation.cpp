@@ -132,3 +132,34 @@ void initKingAttack() {
 		kingAttack[i] = maskKingAttack(position[i]); 
 	}
 }
+
+
+/*
+==================
+bishop
+==================
+*/
+
+//bishop attack table [position index] 
+//uint64_t bishopAttack[64]; 
+
+uint64_t maskBishopAttack(uint64_t square) {
+	//piece bitboard 
+	uint64_t bitboard = 0x0;
+
+	//result bitboard 
+	uint64_t attack = 0x0;
+
+	//set pieces on board 
+	setBit(bitboard, square);
+
+	//bottom left to top right diagonal 
+	for (int i = 1; bitboard << 7 * i & NOTFILE_AH_NOTRANK_12; ++i) attack |= bitboard << 7 * i; 
+	for (int i = 1; bitboard >> 7 * i & NOTFILE_AH_NOTRANK_12; ++i) attack |= bitboard >> 7 * i; 
+
+	//bottom right to top left diagonal 
+	for (int i = 1; bitboard << 9 * i & NOTFILE_AH_NOTRANK_12; ++i) attack |= bitboard << 9 * i; 
+	for (int i = 1; bitboard >> 9 * i & NOTFILE_AH_NOTRANK_12; ++i) attack |= bitboard >> 9 * i; 
+
+	return attack;
+}
