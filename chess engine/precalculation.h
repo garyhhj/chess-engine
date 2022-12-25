@@ -1,4 +1,6 @@
 #pragma once
 #include <stdint.h>
 
-uint64_t maskPawnAttack(int side, int square);
+//pawn attack table 
+extern uint64_t maskPawnAttack(int side, uint64_t square);
+extern void initPawnAttack(); 

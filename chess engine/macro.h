@@ -8,8 +8,9 @@ bit macros constexpr
 */
 
 constexpr extern bool getBit(const uint64_t bitBoard, const int square);
-constexpr extern void setBit(uint64_t& bitBoard, const int square);
-constexpr extern void popBit(uint64_t& bitBoard, const int square); 
+constexpr extern void setBit(uint64_t& bitBoard, const uint64_t square);
+constexpr extern void popBit(uint64_t& bitBoard, const uint64_t square);
+
 
 /*
 =====================
@@ -17,7 +18,7 @@ bit macros constants
 =====================
 */
 
-//chess square coordinate to index 
+//chess position(square) coordinate to index 
 const extern uint64_t a8;// = 0x8000000000000000;
 const extern uint64_t b8;// = a8 >> 1;
 const extern uint64_t c8;// = a8 >> 2;
@@ -90,6 +91,18 @@ const extern uint64_t f1;// = a1 >> 5;
 const extern uint64_t g1;// = a1 >> 6;
 const extern uint64_t h1;// = a1 >> 7;
 
+const extern uint64_t position[64];/*= {
+	a8, b8, c8, d8, e8, f8, g8, h8,
+	a7, b7, c7, d7, e7, f7, g7, h7,
+	a6, b6, c6, d6, e6, f6, g6, h6,
+	a5, b5, c5, d5, e5, f5, g5, h5,
+	a4, b4, c4, d4, e4, f4, g4, h4,
+	a3, b3, c3, d3, e3, f3, g3, h3,
+	a2, b2, c2, d2, e2, f2, g2, h2,
+	a1, b1, c1, d1, e1, f1, g1, h1,
+};
+*/
+
 
 
 /*
@@ -155,3 +168,12 @@ const extern uint64_t NOTFILE_H;// = 0xfefefefefefefefe;
 
 const extern uint64_t NOTFILE_AB;// = 0x3f3f3f3f3f3f3f3f;
 const extern uint64_t NOTFILE_GH;// = 0xfcfcfcfcfcfcfcfc;
+
+/*
+=====================
+pre-calculated tables
+=====================
+*/
+
+//pawn attack table 
+extern uint64_t pawnAttack[2][64];
