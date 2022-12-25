@@ -163,3 +163,35 @@ uint64_t maskBishopAttack(uint64_t square) {
 
 	return attack;
 }
+
+
+/*
+==================
+rook
+==================
+*/
+
+//rook attack table [position index] 
+//uint64_t rookAttack[64]; 
+
+uint64_t maskRookAttack(uint64_t square) {
+	//piece bitboard 
+	uint64_t bitboard = 0x0;
+
+	//result bitboard 
+	uint64_t attack = 0x0;
+
+	//set pieces on board 
+	setBit(bitboard, square);
+
+	//up and down
+	for (int i = 1; bitboard << 8 * i & NOTRANK_8; ++i) attack |= bitboard << 8 * i; 
+	for (int i = 1; bitboard >> 8 * i & NOTRANK_1; ++i) attack |= bitboard >> 8 * i; 
+
+	//left and right 
+	for (int i = 1; bitboard << 1 * i & NOTFILE_A && bitboard << 1 * i & NOTFILE_H; ++i) attack |= bitboard << 1 * i;
+	for (int i = 1; bitboard >> 1 * i & NOTFILE_H && bitboard >> 1 * i & NOTFILE_A; ++i) attack |= bitboard >> 1 * i; 
+
+
+	return attack; 
+}

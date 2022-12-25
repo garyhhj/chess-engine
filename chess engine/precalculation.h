@@ -29,3 +29,7 @@ extern void initKingAttack();
 //uint64_t bishopAttack[64]; 
 extern uint64_t maskBishopAttack(uint64_t square);
 
+
+//rook attack table [position index] 
+//uint64_t rookAttack[64]; 
+extern uint64_t maskRookAttack(uint64_t square);

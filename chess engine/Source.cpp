@@ -22,7 +22,7 @@ int main() {
 	//initializing attack table 
 
 	for (int i = 0; i < 64; ++i) {
-		printBoard(maskBishopAttack(position[i])); 
+		printBoard(maskRookAttack(position[i])); 
 	}
 
 
