@@ -20,13 +20,13 @@ int main() {
 	BitBoard board; 
 	
 	//initializing attack table 
-	initPawnAttack(); 
-
+	initKnightAttack(); 
 
 	for (int i = 0; i < 64; ++i) {
 		cout << "PRINTING I: " << i << endl; 
-		printBoard(pawnAttack[black][i]); 
+		printBoard(knightAttack[i]); 
 	}
+
 }
 
 

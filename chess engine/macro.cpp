@@ -181,11 +181,3 @@ const uint64_t NOTFILE_AB = 0x3f3f3f3f3f3f3f3f;
 const uint64_t NOTFILE_GH = 0xfcfcfcfcfcfcfcfc;
 
 
-/*
-=====================
-pre-calculated tables 
-=====================
-*/
-
-//pawn attack table 
-uint64_t pawnAttack[2][64];

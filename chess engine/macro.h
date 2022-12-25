@@ -18,7 +18,7 @@ bit macros constants
 =====================
 */
 
-//chess position(square) coordinate to index 
+//coordinates on chess board (position) 
 const extern uint64_t a8;// = 0x8000000000000000;
 const extern uint64_t b8;// = a8 >> 1;
 const extern uint64_t c8;// = a8 >> 2;
@@ -91,6 +91,7 @@ const extern uint64_t f1;// = a1 >> 5;
 const extern uint64_t g1;// = a1 >> 6;
 const extern uint64_t h1;// = a1 >> 7;
 
+//chess coordinates (positions) indexed into array 
 const extern uint64_t position[64];/*= {
 	a8, b8, c8, d8, e8, f8, g8, h8,
 	a7, b7, c7, d7, e7, f7, g7, h7,
@@ -116,7 +117,7 @@ const extern uint64_t position[64];/*= {
 "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
 */
 
-//sides
+//sides (colors)
 enum : int {
 	white,
 	black,
@@ -169,11 +170,3 @@ const extern uint64_t NOTFILE_H;// = 0xfefefefefefefefe;
 const extern uint64_t NOTFILE_AB;// = 0x3f3f3f3f3f3f3f3f;
 const extern uint64_t NOTFILE_GH;// = 0xfcfcfcfcfcfcfcfc;
 
-/*
-=====================
-pre-calculated tables
-=====================
-*/
-
-//pawn attack table 
-extern uint64_t pawnAttack[2][64];
