@@ -23,6 +23,19 @@ constexpr void popBit(uint64_t& bitBoard, const uint64_t square) {
 }
 
 
+constexpr int numBit(uint64_t bitboard) {
+	int count = 0;
+
+	while (bitboard) {
+		++count;
+
+		bitboard &= bitboard - 1;
+	}
+	return count;
+}
+
+
+
 /*
 =====================
 bit macros constants
