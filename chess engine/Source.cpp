@@ -23,15 +23,21 @@ int main() {
 	initBishopOccupancy(); 
 
 
-	uint64_t block = 0x0; 
-	setBit(block, f5); 
+
+	uint64_t block = 0x0;
+
+	setBit(block, e6); 
+	setBit(block, a4); 
 	setBit(block, e4); 
-	setBit(block, b7); 
-	setBit(block, b1); 
+	setBit(block, f4); 
 
-	auto atk =  maskBishopAttackRT(e4, block);
+	auto atk = maskRookAttackRT(e4, block); 
 	printBoard(atk); 
+	
 
+
+	//auto atk = maskRookAttackRT(position[56], block); 
+	//printBoard(atk); 
 
 
 	//cout << hex << a << endl; 

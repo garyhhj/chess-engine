@@ -245,3 +245,41 @@ void initRookOccupancy() {
 	}
 }
 
+uint64_t maskRookAttackRT(uint64_t square, uint64_t block) {
+	//piece bitboard 
+	uint64_t bitboard = 0x0ULL;
+
+	//result bitboard 
+	uint64_t attack = 0x0;
+
+	//set pieces on board 
+	setBit(bitboard, square);
+
+
+	//up and down 
+	for (int i = 1; 8 * i != 64 && bitboard << 8 * i ; ++i) {
+		attack |= bitboard << 8 * i; 
+		if (bitboard << 8 * i & block) break; 
+	}
+	
+	for (int i = 1; 8 * i != 64 && bitboard >> 8 * i; ++i) {
+		attack |= bitboard >> 8 * i; 
+		if (bitboard >> 8 * i & block) break; 
+	}
+
+
+	//left and right 
+	for (int i = 1; bitboard << 1 * i & NOTFILE_H; ++i) {
+		attack |= bitboard << 1 * i; 
+		if (bitboard << 1 * i & block) break; 
+	}
+	
+	for (int i = 1; bitboard >> 1 * i & NOTFILE_A; ++i) {
+		attack |= bitboard >> 1 * i; 
+		if (bitboard >> 1 * i & block) break; 
+	}
+
+
+	return attack; 
+}
+

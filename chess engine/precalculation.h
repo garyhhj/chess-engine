@@ -36,3 +36,6 @@ extern uint64_t maskBishopAttackRT(uint64_t square, uint64_t block);
 //rook occupancy table [position index] 
 extern uint64_t rookOccupancy[64]; 
 extern uint64_t maskRookOccupancy(uint64_t square);
+extern void initRookOccupancy();
+extern uint64_t maskRookAttackRT(uint64_t square, uint64_t block);
+
