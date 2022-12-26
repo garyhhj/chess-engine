@@ -34,6 +34,33 @@ constexpr int numBit(uint64_t bitboard) {
 	return count;
 }
 
+//returns index to lsb 
+/*
+		Index: 58 
+
+8   0  0  0  0  0  0  0  0
+7   0  0  0  0  0  0  0  0
+6   0  0  0  0  0  0  0  0
+5   0  0  0  0  0  0  0  0
+4   0  0  0  0  0  0  0  0
+3   0  0  0  0  0  0  0  0
+2   0  0  0  0  0  0  0  0
+1   0  0  1  0  0  0  0  0
+
+	a  b  c  d  e  f  g  h
+*/
+constexpr int lsbBitIndex(uint64_t bitboard) {
+
+	//make sure bitboard is not zero 
+	if (bitboard) {
+		return 63 - numBit((bitboard & (~bitboard +1)) - 1); 
+	}
+
+	else {
+		//invalid index 
+		return -1; 
+	}
+}
 
 
 /*

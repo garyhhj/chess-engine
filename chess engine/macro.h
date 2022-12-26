@@ -12,6 +12,7 @@ constexpr extern void setBit(uint64_t& bitBoard, const uint64_t square);
 constexpr extern void popBit(uint64_t& bitBoard, const uint64_t square);
 
 constexpr extern int numBit(uint64_t bitboard);
+constexpr extern int lsbBitIndex(uint64_t bitboard);
 
 
 /*

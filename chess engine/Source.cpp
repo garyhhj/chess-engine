@@ -26,14 +26,17 @@ int main() {
 
 	uint64_t block = 0x0;
 
-	setBit(block, e6); 
-	setBit(block, a4); 
-	setBit(block, e4); 
-	setBit(block, f4); 
+	setBit(block, c1);
 
-	auto atk = maskRookAttackRT(e4, block); 
-	printBoard(atk); 
-	
+	printBoard(block); 
+
+	cout << lsbBitIndex(block) << endl; 
+
+	auto a = lsbBitIndex(block); 
+
+	cout << 63 - a << endl; 
+
+	printBoard(position[58]); 
 
 
 	//auto atk = maskRookAttackRT(position[56], block); 
