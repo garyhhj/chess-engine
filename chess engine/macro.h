@@ -7,7 +7,7 @@ bit macros constexpr
 =====================
 */
 
-constexpr extern bool getBit(const uint64_t bitBoard, const int square);
+constexpr extern bool getBit(const uint64_t bitBoard, const int index);
 constexpr extern void setBit(uint64_t& bitBoard, const uint64_t square);
 constexpr extern void popBit(uint64_t& bitBoard, const uint64_t square);
 

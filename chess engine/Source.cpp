@@ -22,15 +22,16 @@ int main() {
 	//initializing occupancy table 
 	initBishopOccupancy(); 
 
-	
-	//attack 
-	auto atkMask = maskRookOccupancy(a1); 
+	for (int rank = 0; rank < 8; ++rank) {
+		for (int file = 0; file < 8; ++file) {
+			int index = 8 * rank + file; 
 
-	//init occupancy 
+			cout << numBit(maskRookOccupancy(position[index])) << ", ";
+		}
+		cout << '\n'; 
+	}
 
-	auto occ = setOccupancy(4095, numBit(atkMask), atkMask); 
-	printBoard(occ); 
-
+	cout << endl; 
 }
 
 

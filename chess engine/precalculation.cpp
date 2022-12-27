@@ -143,6 +143,19 @@ bishop
 //bishop occupancy table [position index] 
 uint64_t bishopOccupancy[64]; 
 
+//bishop occupancy bit count for bishop at position index [position index] 
+const int bishopOccupancyCount[64] = {
+	6, 5, 5, 5, 5, 5, 5, 6,
+	5, 5, 5, 5, 5, 5, 5, 5,
+	5, 5, 7, 7, 7, 7, 5, 5,
+	5, 5, 7, 9, 9, 7, 5, 5,
+	5, 5, 7, 9, 9, 7, 5, 5,
+	5, 5, 7, 7, 7, 7, 5, 5,
+	5, 5, 5, 5, 5, 5, 5, 5,
+	6, 5, 5, 5, 5, 5, 5, 6,
+};
+
+
 uint64_t maskBishopOccupancy(uint64_t square) {
 	//piece bitboard 
 	uint64_t bitboard = 0x0;
@@ -216,6 +229,18 @@ rook
 
 //rook occupancy table [position index] 
 uint64_t rookOccupancy[64]; 
+
+//rook occupancy bit count for bishop at position index [position index] 
+const int rookOccupancyCount[64] = {
+	12, 11, 11, 11, 11, 11, 11, 12,
+	11, 10, 10, 10, 10, 10, 10, 11,
+	11, 10, 10, 10, 10, 10, 10, 11,
+	11, 10, 10, 10, 10, 10, 10, 11,
+	11, 10, 10, 10, 10, 10, 10, 11,
+	11, 10, 10, 10, 10, 10, 10, 11,
+	11, 10, 10, 10, 10, 10, 10, 11,
+	12, 11, 11, 11, 11, 11, 11, 12,
+};
 
 uint64_t maskRookOccupancy(uint64_t square) {
 	//piece bitboard 
@@ -313,3 +338,4 @@ uint64_t setOccupancy(int index, int numBits, uint64_t attackMask) {
 
 	return occupancy; 
 }
+

@@ -7,8 +7,8 @@ bit macros
 ==================
 */
 
-constexpr bool getBit(const uint64_t bitBoard, const int square) {
-	return bitBoard & (0x8000000000000000 >> square);
+constexpr bool getBit(const uint64_t bitBoard, const int index) {
+	return bitBoard & (0x8000000000000000 >> index);
 	//return bitBoard & square; 
 }
 
