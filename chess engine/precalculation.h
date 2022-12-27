@@ -39,3 +39,6 @@ extern uint64_t maskRookOccupancy(uint64_t square);
 extern void initRookOccupancy();
 extern uint64_t maskRookAttackRT(uint64_t square, uint64_t block);
 
+
+//general 
+extern uint64_t setOccupancy(int index, int numBits, uint64_t attackMask);

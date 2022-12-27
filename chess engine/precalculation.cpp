@@ -283,3 +283,33 @@ uint64_t maskRookAttackRT(uint64_t square, uint64_t block) {
 	return attack; 
 }
 
+
+/*
+==================
+all
+==================
+*/
+
+uint64_t setOccupancy(int index, int numBits, uint64_t attackMask) {
+
+	//occupancy map 
+	uint64_t occupancy = 0x0; 
+
+	//loop over range of bits for attackmask 
+
+	int initNumBits = numBits; 
+	for (int numBit = 0; numBit < numBits; ++numBit) {
+		//index of lsb of attackMask 
+		int lsbIndex = lsbBitIndex(attackMask);
+
+		//pop lsb in attackMask 
+		popBit(attackMask, position[lsbIndex]);
+
+		//mask occupancy
+		if (index & (1 << numBit)) {
+			occupancy |= position[lsbIndex]; 
+		}
+	}
+
+	return occupancy; 
+}

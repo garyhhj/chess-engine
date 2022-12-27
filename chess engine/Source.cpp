@@ -22,28 +22,15 @@ int main() {
 	//initializing occupancy table 
 	initBishopOccupancy(); 
 
+	
+	//attack 
+	auto atkMask = maskRookOccupancy(a1); 
 
+	//init occupancy 
 
-	uint64_t block = 0x0;
+	auto occ = setOccupancy(4095, numBit(atkMask), atkMask); 
+	printBoard(occ); 
 
-	setBit(block, c1);
-
-	printBoard(block); 
-
-	cout << lsbBitIndex(block) << endl; 
-
-	auto a = lsbBitIndex(block); 
-
-	cout << 63 - a << endl; 
-
-	printBoard(position[58]); 
-
-
-	//auto atk = maskRookAttackRT(position[56], block); 
-	//printBoard(atk); 
-
-
-	//cout << hex << a << endl; 
 }
 
 
