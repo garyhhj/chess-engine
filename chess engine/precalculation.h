@@ -26,9 +26,11 @@ extern void initKingAttack();
 
 
 //bishop occupancy table [position index]
-extern uint64_t bishopOccupancy[64]; 
+extern uint64_t bishopOccupancy[64];
 //bishop occupancy bit count for bishop at position index [position index] 
 extern const int bishopOccupancyCount[64];
+//rook magic number table [position index] 
+extern uint64_t bishopMagicNum[64];
 
 extern uint64_t maskBishopOccupancy(uint64_t square);
 extern void initBishopOccupancy();
@@ -40,11 +42,24 @@ extern uint64_t maskBishopAttackRT(uint64_t square, uint64_t block);
 extern uint64_t rookOccupancy[64];
 //rook occupancy bit count for rook at position index [position index] 
 extern const int rookOccupancyCount[64];
+//rook magic number table [position index] 
+extern uint64_t rookMagicNum[64];
 
 extern uint64_t maskRookOccupancy(uint64_t square);
 extern void initRookOccupancy();
 extern uint64_t maskRookAttackRT(uint64_t square, uint64_t block);
 
 
-//general 
-extern uint64_t setOccupancy(int index, int numBits, uint64_t attackMask);
+/*
+=====================
+magic numbers 
+=====================
+*/
+//generate magic number 
+extern uint64_t setOccupancyCombination(int index, int numBits, uint64_t attackMask);
+
+extern uint32_t state;
+extern uint32_t generateRandomUint32();
+extern uint64_t generateRandomUint64();
+extern uint64_t generateMagicNumCandidate();
+extern uint64_t verifyMagicNum(uint64_t square, bool isRook, bool isBishop, int numBits);

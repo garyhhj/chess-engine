@@ -21,14 +21,14 @@ int main() {
 	
 	//initializing occupancy table 
 	initBishopOccupancy(); 
+	
+	//rook magicNumbers 
+	for (int i = 0; i < 64; ++i) {
+		uint64_t magicNum = verifyMagicNum(position[i], false, true, numBit(maskBishopOccupancy(position[i])));
+		cout << hex << "0x" << magicNum << ", "; 
 
-	for (int rank = 0; rank < 8; ++rank) {
-		for (int file = 0; file < 8; ++file) {
-			int index = 8 * rank + file; 
+		if (i % 8 == 0) cout << '\n'; 
 
-			cout << numBit(maskRookOccupancy(position[index])) << ", ";
-		}
-		cout << '\n'; 
 	}
 
 	cout << endl; 
