@@ -24,7 +24,7 @@ int main() {
 	
 	//rook magicNumbers 
 	for (int i = 0; i < 64; ++i) {
-		uint64_t magicNum = verifyMagicNum(position[i], false, true, numBit(maskBishopOccupancy(position[i])));
+		uint64_t magicNum = verifyMagicNum(position[i], true, false, numBit(maskRookOccupancy(position[i])));
 		cout << hex << "0x" << magicNum << ", "; 
 
 		if (i % 8 == 0) cout << '\n'; 

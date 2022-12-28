@@ -141,6 +141,9 @@ bishop
 ==================
 */
 
+//bishop attack table [position index][magic index]
+uint64_t bishopAttack[64][512];
+
 //bishop occupancy table [position index] 
 uint64_t bishopOccupancy[64]; 
 uint64_t bishopMagicNum[64] = {
@@ -155,6 +158,19 @@ uint64_t bishopMagicNum[64] = {
 	0x4020910780203, 0x4012080404006004, 0x42040c6040000006, 0x4609140101088100, 0x129200820200a471, 0x510060820418829, 0x20201502510040,
 };
 
+//second set of magic number (in case) 
+/*
+0x40040822862081,
+0xa168041010224880, 0x8010141024304420, 0x850000c804208209, 0x2400115284c20a00, 0x100420c021080800, 0x100310402010480, 0x22010108410402, 0x1010300200425028,
+0x4044408022444, 0x18200202820010, 0x81001082022481, 0x20804202a080080, 0x40004200908000, 0x4885a80d100080, 0x860990400200, 0x802024046000100,
+0xd48010802018090, 0x4402600040802100, 0x160401008803101, 0x800062011004800, 0x4082090001800, 0x8028a1002201100, 0x418110084500a100, 0x19450020010c00,
+0x2008222040048818, 0x20010040160800, 0x810048200082200, 0x2285400808008200, 0x8804229000080024, 0x80822000080800, 0x1004442200403a20, 0xc0010440120a0084,
+0x404140008410400, 0x4010108001004128, 0x85010002104014, 0x480a040008010820, 0x822050040010, 0x10102004440080, 0x260310584041800, 0x2210811050441020,
+0x1208401011009, 0x8084210068c004, 0x829400a0000c, 0x40042008042100c0, 0x4190000220220022, 0x9008020202d80201, 0xeac0c0020c0400, 0xc10082412010,
+0x104008208224020, 0x2100008211400024, 0x2324240420008040, 0x820a02000400, 0x2118104030101, 0xc0287000828104, 0x400484108601, 0x182008400821080,
+0x7009084130080800, 0x84240440c00008, 0x161104180402002, 0x20a80a002100c04a, 0xc08008408801000, 0x2820010421004828, 0x40502008025080a8,
+*/
+
 //bishop occupancy bit count for bishop at position index [position index] 
 const int bishopOccupancyCount[64] = {
 	6, 5, 5, 5, 5, 5, 5, 6,
@@ -166,6 +182,23 @@ const int bishopOccupancyCount[64] = {
 	5, 5, 5, 5, 5, 5, 5, 5,
 	6, 5, 5, 5, 5, 5, 5, 6,
 };
+
+//generate maskBishopAttack for rookAttack table with magic index 
+void maskBishopAttack(int index) {
+	//initialize occupancy 
+	uint64_t occupancy = maskBishopOccupancy(position[index]);
+
+	int numCombinations = (1 << numBit(occupancy));
+
+	//rookAttack[index][magicIndex] = something; 
+
+	for (int i = 0; i < numCombinations; ++i) {
+		uint64_t relOccupancy = setOccupancyCombination(i, numBit(occupancy), occupancy);
+
+		int magicIndex = relOccupancy * rookMagicNum[index];
+		bishopAttack[index][magicIndex] = maskBishopAttackRT(position[index], relOccupancy);
+	}
+}
 
 
 uint64_t maskBishopOccupancy(uint64_t square) {
@@ -239,6 +272,9 @@ rook
 ==================
 */
 
+//rook attack table [position index][magic index]
+uint64_t rookAttack[64][4096];
+
 //rook occupancy table [position index] 
 uint64_t rookOccupancy[64]; 
 uint64_t rookMagicNum[64] = {
@@ -253,6 +289,19 @@ uint64_t rookMagicNum[64] = {
 	0x9000c0200058300, 0x400881020040012, 0x4580080007801400, 0xc800c0800100082, 0x80200080900088, 0x840002000405008, 0x80014000802034,
 };
 
+//second set of magic numbers (in case) 
+/*
+0x1010549228402,
+0x2000011002080084, 0x8012004824011022, 0x9202002005881002, 0x8010210408100101, 0x820040081022, 0x804012400081a103, 0x8004852200104502, 0x10040a41200,
+0x1404308802014400, 0x402000408100200, 0x8001040080280280, 0x408081000210100, 0x4200200100401100, 0xa820200040008080, 0x2000210050800100, 0x200204846c020009,
+0x88084102840010, 0x8000040002008080, 0x202000890060020, 0x1001000090020, 0x2020004021010012, 0x9150500020084000, 0x8002400080018028, 0x209000041001082,
+0xa000080144003002, 0x8004040080800200, 0x18002004040040, 0x801002009001000, 0x802000801000, 0x1000442002c01000, 0x2080004001402000, 0x4200008421,
+0x41000100020004, 0x9024008080040200, 0x100080080040080, 0x4080100100082101, 0x1101004700200110, 0x400400080200080, 0x8c40400080208000, 0x44008600010882c4,
+0x280808002000100, 0x184808004010200, 0x122020008100520, 0x848010000802, 0x8810820010420820, 0x100808020004000, 0x800228004804000, 0x40280018022d300,
+0x8029010402000100, 0x62000408020010, 0x800400800800, 0x200808010000800, 0x2004200108024, 0x1000400020100048, 0xd000800020804010, 0x200010200402894,
+0x280008001000200, 0x100010008040002, 0x4200201008040200, 0x2200104200080420, 0x0, 0x40400020001000, 0x3880004000201080,
+*/
+
 //rook occupancy bit count for bishop at position index [position index] 
 const int rookOccupancyCount[64] = {
 	12, 11, 11, 11, 11, 11, 11, 12,
@@ -264,6 +313,23 @@ const int rookOccupancyCount[64] = {
 	11, 10, 10, 10, 10, 10, 10, 11,
 	12, 11, 11, 11, 11, 11, 11, 12,
 };
+
+//generate maskRookAttack for rookAttack table with magic index 
+void maskRookAttack(int index) {
+	//initialize occupancy 
+	uint64_t occupancy = maskRookOccupancy(position[index]); 
+
+	int numCombinations = (1 << numBit(occupancy)); 
+	
+	//rookAttack[index][magicIndex] = something; 
+
+	for (int i = 0; i < numCombinations; ++i) {
+		uint64_t relOccupancy = setOccupancyCombination(i, numBit(occupancy), occupancy); 
+
+		int magicIndex = relOccupancy * rookMagicNum[index]; 
+		rookAttack[index][magicIndex] = maskRookAttackRT(position[index], relOccupancy); 
+	}
+}
 
 uint64_t maskRookOccupancy(uint64_t square) {
 	//piece bitboard 
@@ -436,6 +502,9 @@ uint64_t verifyMagicNum(uint64_t square, bool isRook, bool isBishop, int numBits
 	for (int i = 0; i < 1000000; ++i) {
 		//generate magic num 
 		uint64_t magicNum = generateMagicNumCandidate(); 
+
+		//reject non useful magic num 
+		if (numBit((attackMask* magicNum) & 0xFF00000000000000) < 6) continue;
 
 		//fill visited array with 0 
 		std::fill_n(visited, 4096, 0); 
