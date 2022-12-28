@@ -22,16 +22,22 @@ int main() {
 	//initializing occupancy table 
 	initBishopOccupancy(); 
 	
-	//rook magicNumbers 
+	
+	//initialize magic attack table for rook 
 	for (int i = 0; i < 64; ++i) {
-		uint64_t magicNum = verifyMagicNum(position[i], true, false, numBit(maskRookOccupancy(position[i])));
-		cout << hex << "0x" << magicNum << ", "; 
-
-		if (i % 8 == 0) cout << '\n'; 
-
+		maskRookAttack(i); 
 	}
+	
+	
 
-	cout << endl; 
+	//testing 
+	uint64_t occupancy = generateRandomUint64() & maskRookOccupancy(a3);
+
+	int magicIndex = (occupancy * rookMagicNum[36]) >> (64 - numBit(maskRookOccupancy(e4)));
+	uint64_t atk = rookAttack[36][magicIndex]; 
+
+	printBoard(occupancy); 
+	printBoard(atk); 
 }
 
 

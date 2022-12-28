@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "macro.h"
 #include "debug.h"
+#include "precalculation.h"
 
 /*
 ==================
@@ -195,7 +196,7 @@ void maskBishopAttack(int index) {
 	for (int i = 0; i < numCombinations; ++i) {
 		uint64_t relOccupancy = setOccupancyCombination(i, numBit(occupancy), occupancy);
 
-		int magicIndex = relOccupancy * rookMagicNum[index];
+		int magicIndex = relOccupancy * bishopMagicNum[index] >> (64 - numBit(occupancy));
 		bishopAttack[index][magicIndex] = maskBishopAttackRT(position[index], relOccupancy);
 	}
 }
@@ -324,9 +325,10 @@ void maskRookAttack(int index) {
 	//rookAttack[index][magicIndex] = something; 
 
 	for (int i = 0; i < numCombinations; ++i) {
-		uint64_t relOccupancy = setOccupancyCombination(i, numBit(occupancy), occupancy); 
+		uint64_t relOccupancy = setOccupancyCombination(i, numCombinations, occupancy); 
 
-		int magicIndex = relOccupancy * rookMagicNum[index]; 
+		int magicIndex = relOccupancy * rookMagicNum[index] >> (64 - numBit(occupancy)); 
+		
 		rookAttack[index][magicIndex] = maskRookAttackRT(position[index], relOccupancy); 
 	}
 }
@@ -473,7 +475,7 @@ uint64_t verifyMagicNum(uint64_t square, bool isRook, bool isBishop, int numBits
 
 	int numCombination = (1 << numBits);
 
-	uint64_t attackMask; 
+	uint64_t attackMask = 0x0; 
 	if (isRook) {
 		attackMask = maskRookOccupancy(square); 
 	}
@@ -497,14 +499,14 @@ uint64_t verifyMagicNum(uint64_t square, bool isRook, bool isBishop, int numBits
 
 	}
 
-	//generate and verify magic number (make sure there is no collisions) 
+	//generate and verify magic number 
 	uint64_t visited[4096];
 	for (int i = 0; i < 1000000; ++i) {
 		//generate magic num 
 		uint64_t magicNum = generateMagicNumCandidate(); 
 
 		//reject non useful magic num 
-		if (numBit((attackMask* magicNum) & 0xFF00000000000000) < 6) continue;
+		if (numBit((attackMask * magicNum) & 0xFF00000000000000) < 6) continue;
 
 		//fill visited array with 0 
 		std::fill_n(visited, 4096, 0); 

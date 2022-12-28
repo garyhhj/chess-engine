@@ -107,6 +107,79 @@ const extern uint64_t position[64];/*= {
 };
 */
 
+//chess coordinates(position) to index 
+const extern int A8;// = 0;
+const extern int B8;// = A8 + 1;
+const extern int C8;// = A8 + 2;
+const extern int D8;// = A8 + 3;
+const extern int E8;// = A8 + 4;
+const extern int F8;// = A8 + 5;
+const extern int G8;// = A8 + 6;
+const extern int H8;// = A8 + 7;
+
+const extern int A7;// = 8;
+const extern int B7;// = A7 + 1;
+const extern int C7;// = A7 + 2;
+const extern int D7;// = A7 + 3;
+const extern int E7;// = A7 + 4;
+const extern int F7;// = A7 + 5;
+const extern int G7;// = A7 + 6;
+const extern int H7;// = A7 + 7;
+
+const extern int A6;// = 16;
+const extern int B6;// = A6 + 1;
+const extern int C6;// = A6 + 2;
+const extern int D6;// = A6 + 3;
+const extern int E6;// = A6 + 4;
+const extern int F6;// = A6 + 5;
+const extern int G6;// = A6 + 6;
+const extern int H6;// = A6 + 7;
+
+const extern int A5;// = 24;
+const extern int B5;// = A5 + 1;
+const extern int C5;// = A5 + 2;
+const extern int D5;// = A5 + 3;
+const extern int E5;// = A5 + 4;
+const extern int F5;// = A5 + 5;
+const extern int G5;// = A5 + 6;
+const extern int H5;// = A5 + 7;
+
+const extern int A4;// = 32;
+const extern int B4;// = A4 + 1;
+const extern int C4;// = A4 + 2;
+const extern int D4;// = A4 + 3;
+const extern int E4;// = A4 + 4;
+const extern int F4;// = A4 + 5;
+const extern int G4;// = A4 + 6;
+const extern int H4;// = A4 + 7;
+
+const extern int A3;// = 40;
+const extern int B3;// = A3 + 1;
+const extern int C3;// = A3 + 2;
+const extern int D3;// = A3 + 3;
+const extern int E3;// = A3 + 4;
+const extern int F3;// = A3 + 5;
+const extern int G3;// = A3 + 6;
+const extern int H3;// = A3 + 7;
+
+const extern int A2;// = 48;
+const extern int B2;// = A2 + 1;
+const extern int C2;// = A2 + 2;
+const extern int D2;// = A2 + 3;
+const extern int E2;// = A2 + 4;
+const extern int F2;// = A2 + 5;
+const extern int G2;// = A2 + 6;
+const extern int H2;// = A2 + 7;
+
+const extern int A1;// = 56;
+const extern int B1;// = A1 + 1;
+const extern int C1;// = A1 + 2;
+const extern int D1;// = A1 + 3;
+const extern int E1;// = A1 + 4;
+const extern int F1;// = A1 + 5;
+const extern int G1;// = A1 + 6;
+const extern int H1;// = A1 + 7;
+
 
 
 /*

@@ -155,7 +155,78 @@ const extern uint64_t position[64] = {
 
 
 
+//chess coordinates(position) to index 
+const int A8 = 0;
+const int B8 = A8 + 1;
+const int C8 = A8 + 2;
+const int D8 = A8 + 3;
+const int E8 = A8 + 4;
+const int F8 = A8 + 5;
+const int G8 = A8 + 6;
+const int H8 = A8 + 7;
 
+const int A7 = 8;
+const int B7 = A7 + 1;
+const int C7 = A7 + 2;
+const int D7 = A7 + 3;
+const int E7 = A7 + 4;
+const int F7 = A7 + 5;
+const int G7 = A7 + 6;
+const int H7 = A7 + 7;
+
+const int A6 = 16;
+const int B6 = A6 + 1;
+const int C6 = A6 + 2;
+const int D6 = A6 + 3;
+const int E6 = A6 + 4;
+const int F6 = A6 + 5;
+const int G6 = A6 + 6;
+const int H6 = A6 + 7;
+
+const int A5 = 24;
+const int B5 = A5 + 1;
+const int C5 = A5 + 2;
+const int D5 = A5 + 3;
+const int E5 = A5 + 4;
+const int F5 = A5 + 5;
+const int G5 = A5 + 6;
+const int H5 = A5 + 7;
+
+const int A4 = 32;
+const int B4 = A4 + 1;
+const int C4 = A4 + 2;
+const int D4 = A4 + 3;
+const int E4 = A4 + 4;
+const int F4 = A4 + 5;
+const int G4 = A4 + 6;
+const int H4 = A4 + 7;
+
+const int A3 = 40;
+const int B3 = A3 + 1;
+const int C3 = A3 + 2;
+const int D3 = A3 + 3;
+const int E3 = A3 + 4;
+const int F3 = A3 + 5;
+const int G3 = A3 + 6;
+const int H3 = A3 + 7;
+
+const int A2 = 48;
+const int B2 = A2 + 1;
+const int C2 = A2 + 2;
+const int D2 = A2 + 3;
+const int E2 = A2 + 4;
+const int F2 = A2 + 5;
+const int G2 = A2 + 6;
+const int H2 = A2 + 7;
+
+const int A1 = 56;
+const int B1 = A1 + 1;
+const int C1 = A1 + 2;
+const int D1 = A1 + 3;
+const int E1 = A1 + 4;
+const int F1 = A1 + 5;
+const int G1 = A1 + 6;
+const int H1 = A1 + 7;
 
 
 /*
