@@ -7,6 +7,19 @@ pre-calculated tables
 =====================
 */
 
+/*
+==================
+initialization
+==================
+*/
+//initialization 
+extern void initLeaperPiece(); 
+
+/*
+==================
+leaper pieces 
+==================
+*/
 //pawn attack table [sides][position index]
 extern uint64_t pawnAttack[2][64];
 extern uint64_t maskPawnAttack(int side, uint64_t square);
@@ -24,6 +37,11 @@ extern uint64_t kingAttack[64];
 extern uint64_t maskKingAttack(uint64_t square);
 extern void initKingAttack();
 
+/*
+==================
+slider pieces 
+==================
+*/
 //bishop attack table [position index][magic index]
 extern uint64_t bishopAttack[64][512];
 //bishop occupancy table [position index]

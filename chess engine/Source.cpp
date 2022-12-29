@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 
 /*
@@ -19,25 +20,15 @@ using namespace std;
 int main() {
 	BitBoard board; 
 	
-	//initializing occupancy table 
-	initBishopOccupancy(); 
+	//initializing occupancy table
+
 	
-	
-	//initialize magic attack table for rook 
 	for (int i = 0; i < 64; ++i) {
-		maskRookAttack(i); 
+		auto occ = maskRookOccupancy(position[i]);
+		printBoard(occ);
+
 	}
-	
-	
 
-	//testing 
-	uint64_t occupancy = generateRandomUint64() & maskRookOccupancy(a3);
-
-	int magicIndex = (occupancy * rookMagicNum[36]) >> (64 - numBit(maskRookOccupancy(e4)));
-	uint64_t atk = rookAttack[36][magicIndex]; 
-
-	printBoard(occupancy); 
-	printBoard(atk); 
 }
 
 
