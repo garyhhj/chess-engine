@@ -193,15 +193,47 @@ const extern int H1;// = A1 + 7;
 "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
 */
 
+/*
+=====================
+enumerations 
+=====================
+*/
+
 //sides (colors)
 enum : int {
 	white,
 	black,
+	both, 
 };
 
+enum : int {
+	//white 
+	wPawn, 
+	wKnight,//(n)  
+	wBishop, 
+	wRook, 
+	wQueen, 
+	wKing, 
+
+	//black 
+	bPawn, 
+	bKnight,//(N) 
+	bBishop, 
+	bRook, 
+	bQueen, 
+	bKing, 
+};
+
+//define some enum for p n b r q k 
 
 
-//file constants 
+/*
+=====================
+file constants 
+=====================
+*/
+
+ 
 /*
 		NOT A FILE
 
