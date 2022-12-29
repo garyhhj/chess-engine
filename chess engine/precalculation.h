@@ -55,6 +55,8 @@ extern void maskBishopAttack(int index);
 extern uint64_t maskBishopOccupancy(uint64_t square);
 extern void initBishopOccupancy();
 extern uint64_t maskBishopAttackRT(uint64_t square, uint64_t block);
+extern uint64_t verifyMagicNumBishop(int index);
+
 
 
 

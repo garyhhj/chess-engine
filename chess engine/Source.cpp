@@ -22,30 +22,40 @@ int main() {
 	
 	//initializing occupancy table
 
+	//for (int i = 0; i < 64; ++i) {
+		//auto meow = verifyMagicNumBishop(i); 
+		//cout << "0x" << hex << meow << ", " << endl; 
+	//}
 
+	//initalize bishop attacks 
 	for (int i = 0; i < 64; ++i) {
-		maskRookAttack(i); 
+		maskBishopAttack(i); 
 	}
+
+	
+	//for (int i = 0; i < 64; ++i) {
+	//	maskRookAttack(i); 
+	//}
 
 
 	//test the function :) 
 	
 	//generate some random occupancy 
 	for (int i = 0; i < 64; ++i) {
-		auto occ = maskRookOccupancy(position[i]); 
+		auto occ = maskBishopOccupancy(position[i]); 
 		int numBits = numBit(occ); 
 		occ &= generateRandomUint64(); 
 		
 		cout << "PRINTING I: " << i << endl; 
 		printBoard(occ); 
 
-		int magicIndex = (occ * rookMagicNum[i]) >> (64 - numBits);
-		printBoard(rookAttack[i][magicIndex]); 
+		int magicIndex = (occ * bishopMagicNum[i]) >> (64 - numBits);
+		printBoard(bishopAttack[i][magicIndex]); 
 	}
 	//print occupancy 
 
 	//print the board gotten from the magic index 
-
+	
 	
 
 }
