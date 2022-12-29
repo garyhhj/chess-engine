@@ -79,7 +79,7 @@ magic numbers
 =====================
 */
 //generate magic number 
-extern uint64_t setOccupancyCombination(int index, int numBits, uint64_t attackMask);
+extern uint64_t occupancyCombination(int index, int numBits, uint64_t occupancy);
 
 extern uint32_t state;
 extern uint32_t generateRandomUint32();

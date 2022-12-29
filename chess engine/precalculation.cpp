@@ -17,10 +17,17 @@ initialization
 ==================
 */
 
+//leaper pieces 
 void initLeaperPiece() {
 	initPawnAttack(); 
 	initKnightAttack(); 
 	initKingAttack(); 
+}
+
+//slider pieces 
+void initSliderPieces() {
+	//rook 
+	initRookOccupancy(); 
 }
 
 
@@ -199,19 +206,7 @@ const int bishopOccupancyCount[64] = {
 
 //generate maskBishopAttack for rookAttack table with magic index 
 void maskBishopAttack(int index) {
-	//initialize occupancy 
-	uint64_t occupancy = maskBishopOccupancy(position[index]);
 
-	int numCombinations = (1 << numBit(occupancy));
-
-	//rookAttack[index][magicIndex] = something; 
-
-	for (int i = 0; i < numCombinations; ++i) {
-		uint64_t relOccupancy = setOccupancyCombination(i, numBit(occupancy), occupancy);
-
-		int magicIndex = relOccupancy * bishopMagicNum[index] >> (64 - numBit(occupancy));
-		bishopAttack[index][magicIndex] = maskBishopAttackRT(position[index], relOccupancy);
-	}
 }
 
 
@@ -368,6 +363,7 @@ void maskRookAttack(int index) {
 
 }
 
+//returns occupancy for rook 
 uint64_t maskRookOccupancy(uint64_t square) {
 	//piece bitboard 
 	uint64_t bitboard = 0x0;
@@ -397,7 +393,7 @@ void initRookOccupancy() {
 
 uint64_t maskRookAttackRT(uint64_t square, uint64_t block) {
 	//piece bitboard 
-	uint64_t bitboard = 0x0ULL;
+	uint64_t bitboard = 0x0;
 
 	//result bitboard 
 	uint64_t attack = 0x0;
@@ -407,28 +403,24 @@ uint64_t maskRookAttackRT(uint64_t square, uint64_t block) {
 
 
 	//up and down 
-	for (int i = 1; 8 * i != 64 && bitboard << 8 * i ; ++i) {
+	for (int i = 1; 8 * i != 64 && bitboard << 8 * i; ++i) {
 		attack |= bitboard << 8 * i; 
 		if (bitboard << 8 * i & block) break; 
 	}
-	
 	for (int i = 1; 8 * i != 64 && bitboard >> 8 * i; ++i) {
 		attack |= bitboard >> 8 * i; 
 		if (bitboard >> 8 * i & block) break; 
 	}
-
 
 	//left and right 
 	for (int i = 1; bitboard << 1 * i & NOTFILE_H; ++i) {
 		attack |= bitboard << 1 * i; 
 		if (bitboard << 1 * i & block) break; 
 	}
-	
 	for (int i = 1; bitboard >> 1 * i & NOTFILE_A; ++i) {
 		attack |= bitboard >> 1 * i; 
 		if (bitboard >> 1 * i & block) break; 
 	}
-
 
 	return attack; 
 }
@@ -440,13 +432,13 @@ magic numbers
 ==================
 */
 
-uint64_t setOccupancyCombination(int index, int numBits, uint64_t occupancy) {
+//bitmask (kinda) to find all combinations 
+uint64_t occupancyCombination(int index, int numBits, uint64_t occupancy) {
 
 	//occupancy map 
 	uint64_t occupancyCombination = 0x0;
 
-	//loop over range of bits for attackmask 
-
+	//loop over range of bits for occupancy 
 	int initNumBits = numBits;
 	for (int numBit = 0; numBit < numBits; ++numBit) {
 		//index of lsb of attackMask 

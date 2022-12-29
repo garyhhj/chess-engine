@@ -22,12 +22,19 @@ int main() {
 	
 	//initializing occupancy table
 
-	
-	for (int i = 0; i < 64; ++i) {
-		auto occ = maskRookOccupancy(position[i]);
-		printBoard(occ);
 
+	for (int i = 0; i < 64; ++i) {
+		cout << "PRINTING I : " << i << endl; 
+		auto occ = maskRookOccupancy(position[i]); 
+		uint64_t occd = occ & generateMagicNumCandidate(); 
+
+		printBoard(occd);
+		printBoard(maskRookAttackRT(position[i], occd)); 
 	}
+
+
+
+
 
 }
 
