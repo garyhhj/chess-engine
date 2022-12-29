@@ -14,6 +14,8 @@ initialization
 */
 //initialization 
 extern void initLeaperPiece(); 
+extern void initSliderPieces();
+
 
 /*
 ==================
@@ -56,6 +58,8 @@ extern uint64_t maskBishopOccupancy(uint64_t square);
 extern void initBishopOccupancy();
 extern uint64_t maskBishopAttackRT(uint64_t square, uint64_t block);
 extern uint64_t verifyMagicNumBishop(int index);
+extern void initBishopAttack();
+
 
 
 
@@ -90,4 +94,3 @@ extern uint32_t state;
 extern uint32_t generateRandomUint32();
 extern uint64_t generateRandomUint64();
 extern uint64_t generateMagicNumCandidate();
-extern uint64_t verifyMagicNum(uint64_t square, bool isRook, bool isBishop, int numBits);

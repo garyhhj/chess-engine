@@ -28,12 +28,11 @@ void initLeaperPiece() {
 void initSliderPieces() {
 	//bishop 
 	initBishopOccupancy();
+	initBishopAttack();
 
-	
 	//rook 
 	initRookOccupancy(); 
 	initRookAttack();
-
 }
 
 
@@ -275,6 +274,12 @@ void maskBishopAttack(int index) {
 	for (int i = 0; i < numberOfBitsP2; ++i) {
 		int magicIndex = (possibleOccupancy[i] * bishopMagicNum[index]) >> (64 - numberOfBits);
 		bishopAttack[index][magicIndex] = possibleAtk[i]; 
+	}
+}
+
+void initBishopAttack() {
+	for (int i = 0; i < 64; ++i) {
+		maskBishopAttack(i); 
 	}
 }
 
