@@ -26,8 +26,13 @@ void initLeaperPiece() {
 
 //slider pieces 
 void initSliderPieces() {
+	//bishop 
+
+	
 	//rook 
 	initRookOccupancy(); 
+	initRookAttack();
+
 }
 
 
@@ -287,62 +292,70 @@ uint64_t rookAttack[64][4096];
 //rook occupancy table [position index] 
 uint64_t rookOccupancy[64]; 
 uint64_t rookMagicNum[64] = {
-	0x8a80104000800020ULL, 0x140002000100040ULL, 0x2801880a0017001ULL, 0x100081001000420ULL, 0x200020010080420ULL, 0x3001c0002010008ULL, 0x8480008002000100ULL, 0x2080088004402900ULL,
-	0x800098204000ULL, 0x2024401000200040ULL,
-	0x100802000801000ULL,
-	0x120800800801000ULL,
-	0x208808088000400ULL,
-	0x2802200800400ULL,
-	0x2200800100020080ULL,
-	0x801000060821100ULL,
-	0x80044006422000ULL,
-	0x100808020004000ULL,
-	0x12108a0010204200ULL,
-	0x140848010000802ULL,
-	0x481828014002800ULL,
-	0x8094004002004100ULL,
-	0x4010040010010802ULL,
-	0x20008806104ULL,
-	0x100400080208000ULL,
-	0x2040002120081000ULL,
-	0x21200680100081ULL,
-	0x20100080080080ULL,
-	0x2000a00200410ULL,
-	0x20080800400ULL,
-	0x80088400100102ULL,
-	0x80004600042881ULL,
-	0x4040008040800020ULL,
-	0x440003000200801ULL,
-	0x4200011004500ULL,
-	0x188020010100100ULL,
-	0x14800401802800ULL,
-	0x2080040080800200ULL,
-	0x124080204001001ULL,
-	0x200046502000484ULL,
-	0x480400080088020ULL,
-	0x1000422010034000ULL,
-	0x30200100110040ULL,
-	0x100021010009ULL,
-	0x2002080100110004ULL,
-	0x202008004008002ULL,
-	0x20020004010100ULL,
-	0x2048440040820001ULL,
-	0x101002200408200ULL,
-	0x40802000401080ULL,
-	0x4008142004410100ULL,
-	0x2060820c0120200ULL,
-	0x1001004080100ULL,
-	0x20c020080040080ULL,
-	0x2935610830022400ULL,
-	0x44440041009200ULL,
-	0x280001040802101ULL,
-	0x2100190040002085ULL,
-	0x80c0084100102001ULL,
-	0x4024081001000421ULL,
-	0x20030a0244872ULL,
-	0x12001008414402ULL,
-	0x2006104900a0804ULL,
-	0x1004081002402ULL
+	0x1010549228402,
+	0x2000011002080084,
+	0x11004802040005,
+	0x406002014300842,
+	0x104a00080440a012,
+	0x2001200095004009,
+	0x882004883210112,
+	0x100c020800417,
+	0x41048c0200,
+	0x4106002144080600,
+	0x800a800a00040080,
+	0x426000420109a00,
+	0x8000680310008080,
+	0x822008060401600,
+	0x406400088200080,
+	0x202208001104100,
+	0x501224008e460001,
+	0x4802010802640010,
+	0x400102040080104,
+	0x2011001008030004,
+	0x1001009000090020,
+	0x201e420080320020,
+	0x9869008040010020,
+	0x810308040028008,
+	0x220081020001c4,
+	0x2000101704000a08,
+	0x216000802009004,
+	0x28820400800800,
+	0x2012002046001008,
+	0x60450231002000,
+	0x405024001002080,
+	0x800400030800084,
+	0x5060010824c,
+	0x242100010012003c,
+	0x4800c0080120080,
+	0x9004040080080081,
+	0x1200b00100100,
+	0x800910100402000,
+	0x24a00040100040,
+	0x8500802080024000,
+	0x202020004004087,
+	0x440021702248,
+	0x540080800c000200,
+	0x2088008004028088,
+	0x808008001002,
+	0x828020053000,
+	0x802000c0100222c0,
+	0x281808004c00020,
+	0x8006000225009044,
+	0x9005001402000100,
+	0x40800600440080,
+	0x24808084000800,
+	0x200801002802800,
+	0xa2002056008042,
+	0x1003040008101,
+	0x401002080010240,
+	0x280104063000480,
+	0x9000c0200058300,
+	0x400881020040012,
+	0x4580080007801400,
+	0xc800c0800100082,
+	0x80200080900088,
+	0x840002000405008,
+	0x80014000802034,
 };
 
 
@@ -360,7 +373,34 @@ const int rookOccupancyCount[64] = {
 
 //generate maskRookAttack for rookAttack table with magic index 
 void maskRookAttack(int index) {
+	//initilaize bitboard 
+	uint64_t bitboard = position[index];
 
+	uint64_t allRelOccupancy = maskRookOccupancy(bitboard);
+
+	int numberOfBits = numBit(allRelOccupancy);
+	int numberOfBitsP2 = (1 << numberOfBits);
+
+	//generate all rook attacks occupancy
+	uint64_t possibleAtk[4096];
+	uint64_t possibleOccupancy[4096];
+	for (int i = 0; i < numberOfBitsP2; ++i) {
+		possibleOccupancy[i] = occupancyCombination(i, numberOfBits, allRelOccupancy);
+		possibleAtk[i] = maskRookAttackRT(bitboard, possibleOccupancy[i]); 
+	}
+
+	//populate attack table 
+	for (int i = 0; i < numberOfBitsP2; ++i) {
+		int magicIndex = (possibleOccupancy[i] * rookMagicNum[index]) >> (64 - numberOfBits); 
+
+		rookAttack[index][magicIndex] = possibleAtk[i]; 
+	}
+}
+
+void initRookAttack() {
+	for (int i = 0; i < 64; ++i) {
+		maskRookAttack(i);
+	}
 }
 
 //returns occupancy for rook 
@@ -425,6 +465,62 @@ uint64_t maskRookAttackRT(uint64_t square, uint64_t block) {
 	return attack; 
 }
 
+uint64_t verifyMagicNumRook(int index) {
+	//initilaize bitboard 
+	uint64_t bitboard = position[index]; 
+
+	uint64_t allRelOccupancy = maskRookOccupancy(bitboard); 
+
+	int numberOfBits = numBit(allRelOccupancy); 
+	int numberOfBitsP2 = (1 << numberOfBits); 
+
+	//generate all rook attacks occupancy
+	uint64_t possibleAtk[4096]; 
+	uint64_t possibleOccupancy[4096]; 
+	for (int i = 0; i < numberOfBitsP2; ++i) {
+		possibleOccupancy[i] = occupancyCombination(i, numberOfBits, allRelOccupancy); 
+		possibleAtk[i] = maskRookAttackRT(bitboard, possibleOccupancy[i]); 
+
+		using namespace std; 
+		//cout << "PRINTING I : " << i << endl; 
+		//printBoard(possibleOccupancy[i]); 
+		//printBoard(possibleAtk[i]); 
+	}
+
+	//generate and try magic number
+	for (int trial = 0; trial < 100000000; ++trial) {
+		uint64_t magicNum = generateMagicNumCandidate(); 
+		
+		//array to keep track of collisions 
+		uint64_t visited[4096]; 
+		std::fill_n(visited, 4096, 0); 
+		
+		//fail flag
+		bool fail = false; 
+		for (int i = 0; i < numberOfBitsP2; ++i) {
+			int magicIndex = (possibleOccupancy[i] * magicNum) >> (64 - numberOfBits); 
+
+			if (visited[magicIndex] == 0) {
+				visited[magicIndex] = possibleAtk[i]; 
+			}
+			else if (visited[magicIndex] != possibleAtk[i]) {
+				fail = true; 
+				break; 
+			}
+			
+		}
+
+		if (fail) {
+			continue; 
+		}
+		else {
+			return magicNum; 
+		}
+	}
+
+	//return 0 for fail ; 
+	return 0; 
+}
 
 /*
 ==================

@@ -71,6 +71,9 @@ extern void maskRookAttack(int index);
 extern uint64_t maskRookOccupancy(uint64_t square);
 extern void initRookOccupancy();
 extern uint64_t maskRookAttackRT(uint64_t square, uint64_t block);
+extern uint64_t verifyMagicNumRook(int index);
+extern void initRookAttack();
+
 
 
 /*

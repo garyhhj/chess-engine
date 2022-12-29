@@ -24,17 +24,29 @@ int main() {
 
 
 	for (int i = 0; i < 64; ++i) {
-		cout << "PRINTING I : " << i << endl; 
-		auto occ = maskRookOccupancy(position[i]); 
-		uint64_t occd = occ & generateMagicNumCandidate(); 
-
-		printBoard(occd);
-		printBoard(maskRookAttackRT(position[i], occd)); 
+		maskRookAttack(i); 
 	}
 
 
+	//test the function :) 
+	
+	//generate some random occupancy 
+	for (int i = 0; i < 64; ++i) {
+		auto occ = maskRookOccupancy(position[i]); 
+		int numBits = numBit(occ); 
+		occ &= generateRandomUint64(); 
+		
+		cout << "PRINTING I: " << i << endl; 
+		printBoard(occ); 
 
+		int magicIndex = (occ * rookMagicNum[i]) >> (64 - numBits);
+		printBoard(rookAttack[i][magicIndex]); 
+	}
+	//print occupancy 
 
+	//print the board gotten from the magic index 
+
+	
 
 }
 
