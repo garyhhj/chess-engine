@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include <string>
 
 /*
 =====================
@@ -107,6 +108,20 @@ const extern uint64_t position[64];/*= {
 };
 */
 
+//chess coodinates (position) index to string 
+const extern std::string positionStr[65]; /* = {
+	"a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
+	"a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
+	"a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+	"a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+	"a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
+	"a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
+	"a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
+	"a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
+	"",
+};
+*/
+
 //chess coordinates(position) to index 
 const extern int A8;// = 0;
 const extern int B8;// = A8 + 1;
@@ -182,16 +197,7 @@ const extern int H1;// = A1 + 7;
 
 
 
-/*
-"a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
-"a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-"a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
-"a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-"a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-"a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-"a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-"a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
-*/
+
 
 /*
 =====================
@@ -225,8 +231,28 @@ enum : int {
 	bKing, 
 };
 
-//define some enum for p n b r q k 
+//castling right (bit encoded) 
+/*
+1000 => white king side castle
+0100 => white queen side castle
+0010 => black king side castle
+0001 => black queen side castle
+*/
+enum : uint32_t {
+	wkc = 0b1000,
+	wqc = 0b0100,
+	bkc = 0b0010, 
+	bqc = 0b0001, 
+};
 
+/*
+=====================
+misc
+=====================
+*/
+
+//pieces from enum to letter repesentation 
+extern const char piecesLetter[12];
 
 /*
 =====================

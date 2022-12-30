@@ -24,9 +24,7 @@ int main() {
 	initSliderPieces(); 
 	initLeaperPiece(); 
 
-	printBoard(board.occupancy[white]); 
-	printBoard(board.occupancy[black]);
-	printBoard(board.occupancy[both]);
+	board.printBoard(); 
 
 }
 

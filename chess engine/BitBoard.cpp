@@ -100,7 +100,11 @@ BitBoard::BitBoard() :
 		0x0 | ~NOTRANK_8 | ~NOTRANK_7 | ~NOTRANK_1 | ~NOTRANK_2, //both 
 	},
 
-	side(white)
+	side(white),
+
+	enpassant(-1), 
+
+	castle(0)
 {	}
 
 
@@ -112,7 +116,42 @@ debug
 void BitBoard::printBoard() {
 	using namespace std;
 
-	
+	for (int rank = 0; rank < 8; ++rank) {
+		cout << 8 - rank << "  ";
+		for (int file = 0; file < 8; ++file) {
+			//gets square
+			int index = 8 * rank + file; 
+			uint64_t square = position[index]; 
+
+			//loops over all bitboards and checks for pieces 
+			char pieceAscii = '.';
+			for (int i = wPawn; i <= bKing; ++i) {
+				if (this->pieces[i] & square) {
+					pieceAscii = piecesLetter[i]; 
+				}
+			}
+
+			//printing piece 
+			cout << pieceAscii << ' '; 
+		}
+		cout << '\n'; 
+	}
+	cout << '\n'; 
+	cout << "   a b c d e f g h " << '\n'; 
+
+	//printing side to move 
+	cout << "   side:     " << (!this->side ? "white" : "black") << '\n';
+
+	//printing enpassent bit
+	cout << "   enpassant: " << positionStr[this->enpassant] << '\n';
+
+	//printing castling rights
+	cout << "   castling: "; 
+	if (this->castle & wkc) cout << "wkc, "; 
+	if (this->castle & wqc) cout << "wqc, "; 
+	if (this->castle & bkc) cout << "bkc, "; 
+	if (this->castle & bqc) cout << "bqc, "; 
+	cout << endl; 
 }
 
 

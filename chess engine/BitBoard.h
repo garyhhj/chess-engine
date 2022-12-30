@@ -92,7 +92,7 @@ public:
     0010 => black king side castle 
     0001 => black queen side castle 
     */
-    int castle; 
+    uint32_t castle; 
 
 	//constructor 
 	BitBoard();
