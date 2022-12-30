@@ -292,6 +292,8 @@ const uint64_t NOTFILE_AB = 0x3f3f3f3f3f3f3f3f;
 const uint64_t NOTFILE_GH = 0xfcfcfcfcfcfcfcfc;
 
 const uint64_t NOTRANK_1 = 0xffffffffffffff00;
+const uint64_t NOTRANK_2 = 0xffffffffffff00ff;  
+const uint64_t NOTRANK_7 = 0xff00ffffffffffff;
 const uint64_t NOTRANK_8 = 0x00ffffffffffffff;
 
 const uint64_t NOTFILE_AH_NOTRANK_12 = 0x007e7e7e7e7e7e00;

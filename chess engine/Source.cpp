@@ -24,7 +24,40 @@ int main() {
 	initSliderPieces(); 
 	initLeaperPiece(); 
 
+	printBoard(board.occupancy[white]); 
+	printBoard(board.occupancy[black]);
+	printBoard(board.occupancy[both]);
+
 }
+
+/*
+//sides (colors)
+enum : int {
+	white,
+	black,
+	both,
+};
+
+//pieces 
+enum : int {
+	//white 
+	wPawn,
+	wKnight,//(n)  
+	wBishop,
+	wRook,
+	wQueen,
+	wKing,
+
+	//black 
+	bPawn,
+	bKnight,//(N) 
+	bBishop,
+	bRook,
+	bQueen,
+	bKing,
+};
+*/
+
 
 
 /*
