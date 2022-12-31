@@ -83,6 +83,10 @@ extern uint64_t verifyMagicNumRook(int index);
 extern void initRookAttack();
 
 
+extern uint64_t maskQueenAttack(int index, uint64_t occupancy);
+
+
+
 
 /*
 =====================

@@ -662,6 +662,23 @@ uint64_t verifyMagicNumRook(int index) {
 
 /*
 ==================
+queen 
+==================
+*/
+//rely on rook and bishop magic numbers/functions 
+
+uint64_t maskQueenAttack(int index, uint64_t occupancy) {
+	uint64_t attack = 0x0; 
+	attack |= maskRookAttack(index, occupancy); 
+	attack |= maskBishopAttack(index, occupancy); 
+
+	return attack; 
+}
+
+
+
+/*
+==================
 magic numbers 
 ==================
 */

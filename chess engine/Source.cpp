@@ -23,16 +23,12 @@ int main() {
 	
 	initSliderPieces(); 
 	initLeaperPiece(); 
-	
-	initBishopAttack(); 
-	initRookAttack(); 
 
 	for (int i = 0; i < 64; ++i) {
 		cout << "PRINTING I: " << i << endl; 
-		uint64_t occ = generateRandomUint64();
-		printBoard(occ); 
+		uint64_t occ = 0x0; 
 		
-		printBoard(maskRookAttack(i, occ));
+		printBoard(maskQueenAttack(i, occ));
 
 	}
 }
