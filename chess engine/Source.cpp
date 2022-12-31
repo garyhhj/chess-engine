@@ -25,13 +25,14 @@ int main() {
 	initLeaperPiece(); 
 	
 	initBishopAttack(); 
+	initRookAttack(); 
 
 	for (int i = 0; i < 64; ++i) {
 		cout << "PRINTING I: " << i << endl; 
 		uint64_t occ = generateRandomUint64();
 		printBoard(occ); 
 		
-		printBoard(maskBishopAttack(i, occ));
+		printBoard(maskRookAttack(i, occ));
 
 	}
 }

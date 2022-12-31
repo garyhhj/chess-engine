@@ -74,7 +74,8 @@ extern const int rookOccupancyCount[64];
 //rook magic number table [position index] 
 extern uint64_t rookMagicNum[64];
 
-extern void maskRookAttack(int index);
+extern uint64_t maskRookAttack(int index, uint64_t occupancy);
+extern void initRookAttackIndex(int index);
 extern uint64_t maskRookOccupancy(uint64_t square);
 extern void initRookOccupancy();
 extern uint64_t maskRookAttackRT(uint64_t square, uint64_t block);

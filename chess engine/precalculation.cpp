@@ -503,8 +503,14 @@ const int rookOccupancyCount[64] = {
 	12, 11, 11, 11, 11, 11, 11, 12,
 };
 
+uint64_t maskRookAttack(int index, uint64_t occupancy) {
+	uint64_t relOccupancy = maskRookOccupancy(position[index]) & occupancy;
+	int magicIndex = (relOccupancy * rookMagicNum[index]) >> (64 - rookOccupancyCount[index]);
+	return rookAttack[index][magicIndex];
+}
+
 //generate maskRookAttack for rookAttack table with magic index 
-void maskRookAttack(int index) {
+void initRookAttackIndex(int index) {
 	//initilaize bitboard 
 	uint64_t bitboard = position[index];
 
@@ -531,7 +537,7 @@ void maskRookAttack(int index) {
 
 void initRookAttack() {
 	for (int i = 0; i < 64; ++i) {
-		maskRookAttack(i);
+		initRookAttackIndex(i);
 	}
 }
 
