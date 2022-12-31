@@ -30,7 +30,7 @@ int main() {
 	board.castle |= bqc;
 	board.castle |= bkc;
 
-	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
+	string fen = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
 
 	board.parseFen(fen); 
 

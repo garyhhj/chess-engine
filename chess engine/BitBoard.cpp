@@ -104,7 +104,7 @@ BitBoard::BitBoard() :
 
 	enpassant(64), 
 
-	castle(0)
+	castle(15)
 {	}
 
 
@@ -155,7 +155,12 @@ void BitBoard::printBoard() {
 	cout << '\n' << endl;
 }
 
-//reset board state to all zeros 
+/*
+reset board state to all zeros when possible 
+side: white
+enpassant: none 
+castle: none
+*/
 void BitBoard::reset() {
 	//reset pieces
 	std::fill_n(this->pieces, 12, 0);
@@ -296,7 +301,8 @@ void BitBoard::parseFen(std::string& fen) {
 	if (enpassantSquare.size() == 2) {
 		int rank = (enpassantSquare[1] - '0');
 		int file = enpassantSquare[0] - 'a'; 
-		this->enpassant = 8 * (rank - 8) + file;
+
+		this->enpassant = 8 * (8 - rank) + file;
 	}
 
 }
