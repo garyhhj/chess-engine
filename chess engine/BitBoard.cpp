@@ -1,5 +1,6 @@
 #include "BitBoard.h"
 #include "macro.h"
+#include "precalculation.h"
 #include <iostream>
 
 
@@ -311,6 +312,43 @@ void BitBoard::parseFen(std::string& fen) {
 
 
 
+//attacked at position index by while on side to move 
+bool BitBoard::isAttacked(int index, int side) {
+	
+	//attacked by pawn (black then white) 
+	if (side == white && (pawnAttack[white][index] & pieces[bPawn])) return true; 
+	if (side == black && (pawnAttack[black][index] & pieces[wPawn])) return true; 
+	
+	//knight attack 
+	if (side == white && (knightAttack[index] & pieces[bKnight])) return true; 
+	if (side == black && (knightAttack[index] & pieces[wKnight])) return true; 
+
+	//bishop attack 
+	if (side == white && (maskBishopAttack(index, occupancy[both]) & pieces[bBishop])) return true;
+	if (side == black && (maskBishopAttack(index, occupancy[both]) & pieces[wBishop])) return true; 
+
+	//rook attack 
+	if (side == white && (maskRookAttack(index, occupancy[both]) & pieces[bRook])) return true; 
+	if (side == black && (maskRookAttack(index, occupancy[both]) & pieces[wRook])) return true; 
+
+	//queen attack 
+	if (side == white && (maskQueenAttack(index, occupancy[both]) & pieces[bQueen])) return true; 
+	if (side == black && (maskQueenAttack(index, occupancy[both]) & pieces[wQueen])) return true; 
 
 
+	return false; 
+}
+
+
+uint64_t BitBoard::allAttacked(int side) {
+	uint64_t attacked = 0x0; 
+
+	for (int i = 0; i < 64; ++i) {
+		if (isAttacked(i, side)) {
+			setBit(attacked, position[i]); 
+		}
+	}
+
+	return attacked; 
+}
 

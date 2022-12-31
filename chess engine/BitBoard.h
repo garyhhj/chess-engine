@@ -103,4 +103,9 @@ public:
 
     //reset board state; 
     void reset(); 
+
+    //is attacked
+    bool isAttacked(int index, int side);
+    uint64_t allAttacked(int side); 
+
 };

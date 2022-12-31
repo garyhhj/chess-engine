@@ -24,13 +24,15 @@ int main() {
 	initSliderPieces(); 
 	initLeaperPiece(); 
 
-	for (int i = 0; i < 64; ++i) {
-		cout << "PRINTING I: " << i << endl; 
-		uint64_t occ = 0x0; 
-		
-		printBoard(maskQueenAttack(i, occ));
+	//set some attacking pieces 
+	string fen = "8/8/4qQ2/8/8/8/8/8 w - - ";
+	board.parseFen(fen); 
+	board.printBoard(); 
 
-	}
+	uint64_t bb = 0x0; 
+	
+
+	printBoard(board.allAttacked(white)); 
 }
 
 /*
