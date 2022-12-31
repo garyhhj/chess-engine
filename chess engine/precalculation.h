@@ -53,7 +53,8 @@ extern const int bishopOccupancyCount[64];
 //rook magic number table [position index] 
 extern uint64_t bishopMagicNum[64];
 
-extern void maskBishopAttack(int index);
+extern uint64_t maskBishopAttack(int index, uint64_t occupancy);
+extern void initBishopAttackIndex(int index); 
 extern uint64_t maskBishopOccupancy(uint64_t square);
 extern void initBishopOccupancy();
 extern uint64_t maskBishopAttackRT(uint64_t square, uint64_t block);

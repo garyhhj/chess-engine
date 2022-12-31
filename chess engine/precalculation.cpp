@@ -252,8 +252,14 @@ const int bishopOccupancyCount[64] = {
 	6, 5, 5, 5, 5, 5, 5, 6,
 };
 
-//generate maskBishopAttack for rookAttack table with magic index 
-void maskBishopAttack(int index) {
+uint64_t maskBishopAttack(int index, uint64_t occupancy) {
+	uint64_t relOccupancy = maskBishopOccupancy(position[index]) & occupancy;
+	int magicIndex = (relOccupancy * bishopMagicNum[index]) >> (64 - bishopOccupancyCount[index]);
+	return bishopAttack[index][magicIndex]; 
+}
+
+//generate maskBishopAttack for bishopAttack table with magic index 
+void initBishopAttackIndex(int index) {
 	//initilaize bitboard 
 	uint64_t bitboard = position[index];
 
@@ -279,7 +285,7 @@ void maskBishopAttack(int index) {
 
 void initBishopAttack() {
 	for (int i = 0; i < 64; ++i) {
-		maskBishopAttack(i); 
+		initBishopAttackIndex(i); 
 	}
 }
 

@@ -23,19 +23,17 @@ int main() {
 	
 	initSliderPieces(); 
 	initLeaperPiece(); 
+	
+	initBishopAttack(); 
 
-	board.castle |= wqc; 
+	for (int i = 0; i < 64; ++i) {
+		cout << "PRINTING I: " << i << endl; 
+		uint64_t occ = generateRandomUint64();
+		printBoard(occ); 
+		
+		printBoard(maskBishopAttack(i, occ));
 
-	board.castle |= wkc;
-	board.castle |= bqc;
-	board.castle |= bkc;
-
-	string fen = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
-
-	board.parseFen(fen); 
-
-	board.printBoard(); 
-
+	}
 }
 
 /*
