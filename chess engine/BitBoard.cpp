@@ -102,7 +102,7 @@ BitBoard::BitBoard() :
 
 	side(white),
 
-	enpassant(-1), 
+	enpassant(64), 
 
 	castle(0)
 {	}
@@ -147,12 +147,162 @@ void BitBoard::printBoard() {
 
 	//printing castling rights
 	cout << "   castling: "; 
-	if (this->castle & wkc) cout << "wkc, "; 
-	if (this->castle & wqc) cout << "wqc, "; 
-	if (this->castle & bkc) cout << "bkc, "; 
-	if (this->castle & bqc) cout << "bqc, "; 
-	cout << endl; 
+	
+	cout << (this->castle & wkc ? 'K' : '-'); 
+	cout << (this->castle & wqc ? 'Q' : '-'); 
+	cout << (this->castle & bkc ? 'k' : '-'); 
+	cout << (this->castle & bqc ? 'q' : '-'); 
+	cout << '\n' << endl;
 }
+
+//reset board state to all zeros 
+void BitBoard::reset() {
+	//reset pieces
+	std::fill_n(this->pieces, 12, 0);
+
+	//reset occupancies 
+	std::fill_n(this->occupancy, 3, 0); 
+
+	//reset side to white 
+	this->side = white; 
+
+	//reset enpassant 
+	this->enpassant = 64; 
+
+	//reset castling 
+	this->castle = 0; 
+}
+
+
+
+
+void BitBoard::parseFen(std::string& fen) {
+	//reset the current board state
+	this->reset(); 
+
+	//parse table 
+	int index = 0; 
+	int positionIndex = 0; 
+	while (fen[index] != ' ') {
+
+		uint64_t square = position[positionIndex]; 
+		
+		//black pieces 
+		if ('a' <= fen[index] && fen[index] <= 'z') {
+			//check which piece and initialize 
+			switch (fen[index]) {
+			case 'p': 
+				this->pieces[bPawn] |= square; 
+				break; 
+			case 'n': 
+				this->pieces[bKnight] |= square;
+				break; 
+			case 'b': 
+				this->pieces[bBishop] |= square;
+				break; 
+			case 'r': 
+				this->pieces[bRook] |= square; 
+				break; 
+			case 'q': 
+				this->pieces[bQueen] |= square;
+				break; 
+			case 'k': 
+				this->pieces[bKing] |= square;
+				break; 
+			}
+
+			//increment index 
+			++positionIndex; 
+
+			//then set occupancy 
+			this->occupancy[black] |= square; 
+			this->occupancy[both] |= square; 
+		}
+
+		//white pieces 
+		else if ('A' <= fen[index] && fen[index] <= 'Z') {
+			//check which pieces and initialize
+			switch (fen[index]) {
+			case 'P':
+				this->pieces[wPawn] |= square;
+				break; 
+			case 'N':
+				this->pieces[wKnight] |= square;
+				break; 
+			case 'B':
+				this->pieces[wBishop] |= square;
+				break; 
+			case 'R':
+				this->pieces[wRook] |= square;
+				break; 
+			case 'Q':
+				this->pieces[wQueen] |= square;
+				break; 
+			case 'K':
+				this->pieces[wKing] |= square;
+				break;
+			}
+
+			//increment index 
+			++positionIndex;
+
+			//then set occupancy 
+			this->occupancy[white] |= square;
+			this->occupancy[both] |= square;
+		}
+
+		//numbers 
+		else if ('0' <= fen[index] && fen[index] <= '9') {
+			int count = fen[index] - '0'; 
+			positionIndex += count; 
+		}
+		++index; 
+	}
+	++index; 
+
+	//initialize side to move 
+	if (fen[index] == 'b') side = black;
+	else side = white; 
+	++index; 
+	++index; 
+
+	//castling rights 
+	while (fen[index] != ' ') {
+		switch (fen[index]) {
+		case 'K': 
+			this->castle |= wkc; 
+			break; 
+		case 'Q': 
+			this->castle |= wqc;
+			break; 
+		case 'k': 
+			this->castle |= bkc;
+			break;
+		case 'q': 
+			this->castle |= bqc;
+			break; 
+		}
+		++index; 
+	}
+	++index; 
+
+
+	//enpassant square
+	std::string enpassantSquare = ""; 
+	while (fen[index] != ' ') {
+		enpassantSquare += fen[index]; 
+		++index; 
+	}
+	if (enpassantSquare.size() == 2) {
+		int rank = (enpassantSquare[1] - '0');
+		int file = enpassantSquare[0] - 'a'; 
+		this->enpassant = 8 * (rank - 8) + file;
+	}
+
+}
+
+
+
 
 
 

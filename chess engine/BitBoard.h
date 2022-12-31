@@ -97,4 +97,10 @@ public:
 	//constructor 
 	BitBoard();
 	void printBoard();
+
+    //fen string 
+    void parseFen(std::string& fen); 
+
+    //reset board state; 
+    void reset(); 
 };

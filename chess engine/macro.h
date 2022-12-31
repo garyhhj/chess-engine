@@ -95,8 +95,11 @@ const extern uint64_t f1;// = a1 >> 5;
 const extern uint64_t g1;// = a1 >> 6;
 const extern uint64_t h1;// = a1 >> 7;
 
+const extern uint64_t z0;// = 0; (invalid square) 
+
+
 //chess coordinates (positions) indexed into array 
-const extern uint64_t position[64];/*= {
+const extern uint64_t position[65];/*= {
 	a8, b8, c8, d8, e8, f8, g8, h8,
 	a7, b7, c7, d7, e7, f7, g7, h7,
 	a6, b6, c6, d6, e6, f6, g6, h6,
@@ -105,6 +108,7 @@ const extern uint64_t position[64];/*= {
 	a3, b3, c3, d3, e3, f3, g3, h3,
 	a2, b2, c2, d2, e2, f2, g2, h2,
 	a1, b1, c1, d1, e1, f1, g1, h1,
+	z0,
 };
 */
 
@@ -216,7 +220,7 @@ enum : int {
 enum : int {
 	//white 
 	wPawn, 
-	wKnight,//(n)  
+	wKnight,//(N)  
 	wBishop, 
 	wRook, 
 	wQueen, 
@@ -224,7 +228,7 @@ enum : int {
 
 	//black 
 	bPawn, 
-	bKnight,//(N) 
+	bKnight,//(n) 
 	bBishop, 
 	bRook, 
 	bQueen, 
@@ -244,15 +248,6 @@ enum : uint32_t {
 	bkc = 0b0010, 
 	bqc = 0b0001, 
 };
-
-/*
-=====================
-misc
-=====================
-*/
-
-//pieces from enum to letter repesentation 
-extern const char piecesLetter[12];
 
 /*
 =====================
@@ -312,3 +307,11 @@ const extern uint64_t NOTRANK_8;// = 0x00ffffffffffffff;
 
 const extern uint64_t NOTFILE_AH_NOTRANK_12;// = 0x007e7e7e7e7e7e00;
 
+/*
+=====================
+misc
+=====================
+*/
+
+//pieces from enum to letter repesentation 
+extern const char piecesLetter[12];

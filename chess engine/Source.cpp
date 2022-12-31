@@ -24,6 +24,16 @@ int main() {
 	initSliderPieces(); 
 	initLeaperPiece(); 
 
+	board.castle |= wqc; 
+
+	board.castle |= wkc;
+	board.castle |= bqc;
+	board.castle |= bkc;
+
+	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
+
+	board.parseFen(fen); 
+
 	board.printBoard(); 
 
 }
