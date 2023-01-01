@@ -119,7 +119,8 @@ public:
     //pawn 
     uint64_t wPawnPush(); 
     uint64_t wPawnDoublePush();
+    uint64_t wPawnCapture(); 
 
-
-
+    uint64_t bPawnPush(); 
+    uint64_t bPawnDoublePush(); 
 };

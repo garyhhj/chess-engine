@@ -369,6 +369,7 @@ void BitBoard::generateMove() {
 		
 		//white pawn moves 
 		wPawnPush(); 
+		wPawnDoublePush(); 
 		
 		
 		//not sure can we generate moves 
@@ -381,23 +382,10 @@ void BitBoard::generateMove() {
 
 	//black side 
 	else {
-
+		bPawnPush();
+		bPawnDoublePush(); 
 	}
 
-
-	for (int i = wPawn; i <= bKing; ++i) {
-
-		//white side 
-		if (side == white) {
-			
-
-		}
-
-		//black side 
-		else {
-
-		}
-	}
 
 	return; 
 }
@@ -425,30 +413,63 @@ enum : int {
 
 
 uint64_t BitBoard::wPawnPush() {
-	uint64_t wPawnPosition = (pieces[wPawn] << 8) & ~occupancy[both];
+	uint64_t pawnPosition = (pieces[wPawn] << 8) & ~occupancy[both];
 
 	//iterate through the position and print 
 	using namespace std; 
 	for (int i = 0; i < 48; ++i) {
-		if (wPawnPosition & position[i]) {
+		if (pawnPosition & position[i]) {
 			cout << "pawn push: " << positionStr[i + 8] << positionStr[i] << '\n'; 
 		}
 	}
 	cout << flush; 
-	return wPawnPosition; 
+	return pawnPosition; 
 }
 
 uint64_t BitBoard::wPawnDoublePush() {
-	//need to also check for one block hmmm 
-	uint64_t wPawnPosition = ((pieces[wPawn] & ~NOTRANK_2) << 16) & ~occupancy[both] & ~(occupancy[both] << 8);
+	uint64_t pawnPosition = ((pieces[wPawn] & ~NOTRANK_2) << 16) & ~occupancy[both] & ~(occupancy[both] << 8);
 
 	//iterate through the position and print
 	using namespace std; 
 	for (int i = 0; i < 40; ++i) {
-		if (wPawnPosition & position[i]) {
+		if (pawnPosition & position[i]) {
 			cout << "pawn doublepush: " << positionStr[i + 16] << positionStr[i] << '\n'; 
 		}
 	}
 	cout << flush; 
-	return wPawnPosition; 
+	return pawnPosition; 
+}
+
+uint64_t BitBoard::wPawnCapture() {
+	//do not over complicate this... just use the defined macro even tho there is a loop there 
+	
+}
+
+
+uint64_t BitBoard::bPawnPush() {
+	uint64_t pawnPosition = (pieces[bPawn] << 8) & ~occupancy[both];
+
+	//iterate through the position and print 
+	using namespace std;
+	for (int i = 0; i < 48; ++i) {
+		if (pawnPosition & position[i]) {
+			cout << "pawn push: " << positionStr[i + 8] << positionStr[i] << '\n';
+		}
+	}
+	cout << flush;
+	return pawnPosition;
+}
+
+uint64_t BitBoard::bPawnDoublePush() {
+	uint64_t pawnPosition = ((pieces[bPawn] & ~NOTRANK_2) << 16) & ~occupancy[both] & ~(occupancy[both] << 8);
+
+	//iterate through the position and print
+	using namespace std;
+	for (int i = 0; i < 40; ++i) {
+		if (pawnPosition & position[i]) {
+			cout << "pawn doublepush: " << positionStr[i + 16] << positionStr[i] << '\n';
+		}
+	}
+	cout << flush;
+	return pawnPosition;
 }
