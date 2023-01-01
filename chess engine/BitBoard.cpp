@@ -308,9 +308,11 @@ void BitBoard::parseFen(std::string& fen) {
 
 }
 
-
-
-
+/*
+ ====================
+ is attacked 
+ ====================
+ */
 
 //attacked at position index by while on side to move 
 bool BitBoard::isAttacked(int index, int side) {
@@ -441,7 +443,20 @@ uint64_t BitBoard::wPawnDoublePush() {
 }
 
 uint64_t BitBoard::wPawnCapture() {
-	//do not over complicate this... just use the defined macro even tho there is a loop there 
+	//white pawn capture 
+
+	uint64_t captures = 0x0; 
+	
+	
+	//iterate over all the captures 
+	int numberOfPawns = numBit(pieces[wPawn]); 
+	for (int i = 0; i < 64; ++i) {
+		
+		//pawn at position[i]
+		if (pieces[wPawn] & position[i]) {
+			//todo: bitwise or to get captured position 
+		}
+	}
 	
 }
 
@@ -473,3 +488,41 @@ uint64_t BitBoard::bPawnDoublePush() {
 	cout << flush;
 	return pawnPosition;
 }
+
+
+/*
+ =======================
+ encode and decode move
+ =======================
+ */
+
+
+ /*
+		  binary move bits                               hexidecimal constants
+
+	0000 0000 0000 0000 0011 1111    source square       0x3f
+	0000 0000 0000 1111 1100 0000    target square       0xfc0
+	0000 0000 1111 0000 0000 0000    piece               0xf000
+	0000 1111 0000 0000 0000 0000    promoted piece      0xf0000
+	0001 0000 0000 0000 0000 0000    capture flag        0x100000
+	0010 0000 0000 0000 0000 0000    double push flag    0x200000
+	0100 0000 0000 0000 0000 0000    enpassant flag      0x400000
+	1000 0000 0000 0000 0000 0000    castling flag       0x800000
+ */
+
+
+constexpr uint32_t BitBoard::encodeMove(int sourceIndex, int targetIndex, int pieces, int promotePieces, int capture, int doublePush, int enpassant, int castle) {
+	uint32_t encodedMove = 0x0; 
+	encodedMove |= sourceIndex; 
+	encodedMove |= (targetIndex << 6); 
+	encodedMove |= (pieces << 12); 
+	encodedMove |= (promotePieces << 16); 
+	encodedMove |= (doublePush << 17); 
+	encodedMove |= (enpassant << 18); 
+	encodedMove |= (castle << 19); 
+
+	return encodedMove; 
+}
+
+
+

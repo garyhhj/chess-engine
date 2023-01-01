@@ -123,4 +123,19 @@ public:
 
     uint64_t bPawnPush(); 
     uint64_t bPawnDoublePush(); 
+
+
+    /*
+     =======================
+     encode and decode move
+     =======================
+     */
+
+
+    constexpr uint32_t encodeMove(int sourceIndex, int targetIndex, int pieces, int promotePieces, int capture, int doublePush, int enpassant, int castle);
+
+    
+
+   
+
 };
