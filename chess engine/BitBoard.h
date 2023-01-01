@@ -108,4 +108,18 @@ public:
     bool isAttacked(int index, int side);
     uint64_t allAttacked(int side); 
 
+
+    /*
+     ====================
+     move generation
+     ====================
+     */
+    void generateMove();
+
+    //pawn 
+    uint64_t wPawnPush(); 
+    uint64_t wPawnDoublePush();
+
+
+
 };
