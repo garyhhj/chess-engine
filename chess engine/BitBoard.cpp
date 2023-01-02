@@ -93,7 +93,7 @@ BitBoard::BitBoard() :
 		0x0 | a8 | h8, //bRook
 		0x0 | d8, //bQueen 
 		0x0 | e8, //bKing 
-},
+	},
 
 	occupancy{
 		0x0 | ~NOTRANK_1 | ~NOTRANK_2, //white 
@@ -103,9 +103,13 @@ BitBoard::BitBoard() :
 
 	side(white),
 
-	enpassant(64), 
+	enpassant(64),
 
-	castle(15)
+	castle(15),
+
+	moveListIndex(0),
+	moveListBegin(0), 
+	moveListEnd(1)
 {	}
 
 
@@ -523,6 +527,25 @@ constexpr uint32_t BitBoard::encodeMove(int sourceIndex, int targetIndex, int pi
 
 	return encodedMove; 
 }
+
+void BitBoard::addMove(uint32_t move) {
+	moveList[moveListIndex] = move;
+	++moveListIndex; 
+	++moveListEnd; 
+}
+
+void BitBoard::removeMove() {
+	--moveListIndex; 
+	--moveListEnd; 
+}
+
+void BitBoard::removeMoveAll() {
+	moveListIndex = 0; 
+	moveListEnd = 1; 
+}
+
+
+
 
 
 

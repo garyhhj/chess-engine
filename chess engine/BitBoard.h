@@ -86,13 +86,13 @@ public:
     int enpassant; 
 
     //castling right (bit encoded) 
-    /*
-    1000 => white king side castle 
-    0100 => white queen side castle 
-    0010 => black king side castle 
-    0001 => black queen side castle 
-    */
     uint32_t castle; 
+
+    //move list 
+    uint32_t moveList[100000]; 
+    int moveListIndex; 
+    int moveListBegin; 
+    int moveListEnd; 
 
 	//constructor 
 	BitBoard();
@@ -131,11 +131,10 @@ public:
      =======================
      */
 
-
     constexpr uint32_t encodeMove(int sourceIndex, int targetIndex, int pieces, int promotePieces, int capture, int doublePush, int enpassant, int castle);
 
-    
-
-   
+    void addMove(uint32_t move); 
+    void removeMove(); 
+    void removeMoveAll(); 
 
 };
