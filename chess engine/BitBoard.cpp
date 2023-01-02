@@ -1,6 +1,7 @@
 #include "BitBoard.h"
 #include "macro.h"
 #include "precalculation.h"
+#include "debug.h"
 #include <iostream>
 
 
@@ -419,13 +420,31 @@ enum : int {
 
 
 uint64_t BitBoard::wPawnPush() {
+	//pawn position after pawn push 
 	uint64_t pawnPosition = (pieces[wPawn] << 8) & ~occupancy[both];
 
 	//iterate through the position and print 
 	using namespace std; 
-	for (int i = 0; i < 48; ++i) {
+
+	//pawn push with promotion
+	for (int i = 0; i < 8; ++i) {
+		if (pawnPosition & position[i]) {
+			cout << "pawn push promotion: " << positionStr[i + 8] << positionStr[i] << '\n'; 
+
+			//todo: function to determine what promotion if necessary 
+			
+			//encode move and push to movelist 
+			addMove(encodeMove(i + 8, i, wPawn, wQueen, 0, 0, 0, 0)); 
+		}
+	}
+
+	//pawn push without promotion
+	for (int i = 8; i < 48; ++i) {
 		if (pawnPosition & position[i]) {
 			cout << "pawn push: " << positionStr[i + 8] << positionStr[i] << '\n'; 
+			
+			//encode move and push to move list 
+			addMove(encodeMove(i + 8, i, wPawn, 0, 0, 0, 0, 0)); 
 		}
 	}
 	cout << flush; 
@@ -433,13 +452,18 @@ uint64_t BitBoard::wPawnPush() {
 }
 
 uint64_t BitBoard::wPawnDoublePush() {
+	//pawn position after double pawn push 
 	uint64_t pawnPosition = ((pieces[wPawn] & ~NOTRANK_2) << 16) & ~occupancy[both] & ~(occupancy[both] << 8);
+ 
 
 	//iterate through the position and print
 	using namespace std; 
-	for (int i = 0; i < 40; ++i) {
+	for (int i = 32; i < 40; ++i) {
 		if (pawnPosition & position[i]) {
 			cout << "pawn doublepush: " << positionStr[i + 16] << positionStr[i] << '\n'; 
+
+			//encode move and push to move list 
+			addMove(encodeMove(i + 16, i, wPawn, 0, 0, 0, 0, 0)); 
 		}
 	}
 	cout << flush; 
@@ -451,16 +475,52 @@ uint64_t BitBoard::wPawnCapture() {
 
 	uint64_t captures = 0x0; 
 	
-	
 	//iterate over all the captures 
 	int numberOfPawns = numBit(pieces[wPawn]); 
 	for (int i = 0; i < 64; ++i) {
 		
 		//pawn at position[i]
 		if (pieces[wPawn] & position[i]) {
-			//todo: bitwise or to get captured position 
+			captures |= pawnAttack[white][i]; 
 		}
 	}
+
+	using namespace std; 
+	//captures with promotion 
+	for (int i = 0; i < 8; ++i) {
+		if (captures & position[i]) {
+
+			//we use black pawns 
+			uint64_t sourceBoard = pawnAttack[black][i];
+
+			while (sourceBoard) {
+				int sourceIndex = lsbBitIndex(sourceBoard);
+				
+				cout << "pawn capture with promotion: " << positionStr[sourceIndex] << positionStr[i] << endl; 
+				auto move = encodeMove(sourceIndex, i, wPawn, 1, 1, 0, 0, 0);
+
+				sourceBoard &= sourceBoard - 1; 
+			}
+		}
+	}
+
+	//captures without promotion 
+	for (int i = 8; i < 56; ++i) {
+		if (captures & position[i]) {
+			
+			uint64_t sourceBoard = pawnAttack[black][i]; 
+
+			while (sourceBoard) {
+				int sourceIndex = lsbBitIndex(sourceBoard); 
+
+				cout << "pawn capture: " << positionStr[sourceIndex] << positionStr[i] << endl; 
+				auto move = encodeMove(sourceIndex, i, wPawn, 0, 1, 0, 0, 0); 
+
+				sourceBoard &= sourceBoard - 1; 
+			}
+		}
+	}
+	return captures; 
 	
 }
 
@@ -515,12 +575,12 @@ uint64_t BitBoard::bPawnDoublePush() {
  */
 
 
-constexpr uint32_t BitBoard::encodeMove(int sourceIndex, int targetIndex, int pieces, int promotePieces, int capture, int doublePush, int enpassant, int castle) {
+constexpr uint32_t BitBoard::encodeMove(int sourceIndex, int targetIndex, int piece, int promotePiece, int capture, int doublePush, int enpassant, int castle) {
 	uint32_t encodedMove = 0x0; 
 	encodedMove |= sourceIndex; 
 	encodedMove |= (targetIndex << 6); 
-	encodedMove |= (pieces << 12); 
-	encodedMove |= (promotePieces << 16); 
+	encodedMove |= (piece << 12); 
+	encodedMove |= (promotePiece << 16); 
 	encodedMove |= (doublePush << 17); 
 	encodedMove |= (enpassant << 18); 
 	encodedMove |= (castle << 19); 

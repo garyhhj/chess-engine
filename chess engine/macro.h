@@ -219,20 +219,23 @@ enum : int {
 //pieces 
 enum : int {
 	//white 
-	wPawn, 
+	wPawn,
 	wKnight,//(N)  
-	wBishop, 
-	wRook, 
-	wQueen, 
-	wKing, 
+	wBishop,
+	wRook,
+	wQueen,
+	wKing,
 
 	//black 
-	bPawn, 
+	bPawn,
 	bKnight,//(n) 
-	bBishop, 
-	bRook, 
-	bQueen, 
-	bKing, 
+	bBishop,
+	bRook,
+	bQueen,
+	bKing,
+
+	//no piece 
+	noPiece = 0xf, 
 };
 
 //castling right (bit encoded) 

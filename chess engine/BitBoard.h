@@ -131,7 +131,7 @@ public:
      =======================
      */
 
-    constexpr uint32_t encodeMove(int sourceIndex, int targetIndex, int pieces, int promotePieces, int capture, int doublePush, int enpassant, int castle);
+    constexpr uint32_t encodeMove(int sourceIndex, int targetIndex, int piece, int promotePiece, int capture, int doublePush, int enpassant, int castle);
 
     void addMove(uint32_t move); 
     void removeMove(); 
