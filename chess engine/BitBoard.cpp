@@ -501,7 +501,7 @@ uint64_t BitBoard::wPawnCapture() {
 			while (numBits--) {
 				int index = lsbBitIndex(captures); 
 
-				cout << "pawn capture" << positionStr[i] << positionStr[index] << '\n'; 
+				cout << "pawn capture: " << positionStr[i] << positionStr[index] << '\n'; 
 				addMove(encodeMove(i, index, wPawn, 0, 1, 0, 0, 0)); 
 
 				captures &= captures - 1; 
@@ -572,16 +572,16 @@ uint64_t BitBoard::bPawnCapture() {
 
 	//captures with promotion 
 	using namespace std;
-	for (int i = 8; i < 16; ++i) {
-		uint64_t captures = pawnAttack[white][i] & occupancy[black];
-		if ((position[i] & pieces[wPawn]) && captures) {
+	for (int i = 48; i < 56; ++i) {
+		uint64_t captures = pawnAttack[black][i] & occupancy[white];
+		if ((position[i] & pieces[bPawn]) && captures) {
 
 			int numBits = numBit(captures);
 			while (numBits--) {
 				int index = lsbBitIndex(captures);
 
 				cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n';
-				addMove(encodeMove(i, index, wPawn, wQueen, 1, 0, 0, 0));
+				addMove(encodeMove(i, index, bPawn, bQueen, 1, 0, 0, 0));
 
 				captures &= captures - 1;
 			}
@@ -589,16 +589,16 @@ uint64_t BitBoard::bPawnCapture() {
 	}
 
 	//captures without promotion 
-	for (int i = 16; i < 56; ++i) {
-		uint64_t captures = pawnAttack[white][i] & occupancy[black];
-		if ((position[i] & pieces[wPawn]) && captures) {
+	for (int i = 8; i < 48; ++i) {
+		uint64_t captures = pawnAttack[black][i] & occupancy[white];
+		if ((position[i] & pieces[bPawn]) && captures) {
 
 			int numBits = numBit(captures);
 			while (numBits--) {
 				int index = lsbBitIndex(captures);
 
-				cout << "pawn capture" << positionStr[i] << positionStr[index] << '\n';
-				addMove(encodeMove(i, index, wPawn, 0, 1, 0, 0, 0));
+				cout << "pawn capture: " << positionStr[i] << positionStr[index] << '\n';
+				addMove(encodeMove(i, index, bPawn, 0, 1, 0, 0, 0));
 
 				captures &= captures - 1;
 			}
