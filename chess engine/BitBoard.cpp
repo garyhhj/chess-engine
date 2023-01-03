@@ -713,6 +713,17 @@ uint64_t BitBoard::wKingMove() {
 
 		kingMoveCapture &= kingMoveCapture - 1; 
 	}
+
+	//non captures 
+	uint64_t kingMoveNoCapture = kingAttack[sourceIndex] & ~occupancy[both]; 
+	while (kingMoveNoCapture) {
+		int targetIndex = lsbBitIndex(kingMoveNoCapture); 
+
+		cout << "king move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
+		addMove(encodeMove(sourceIndex, targetIndex, wKing, 0, 0, 0, 0, 0)); 
+
+		kingMoveNoCapture &= kingMoveNoCapture - 1; 
+	}
 	return moves; 
 }
 
