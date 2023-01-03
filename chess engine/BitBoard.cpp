@@ -639,7 +639,7 @@ uint64_t BitBoard::wKnightMove() {
 		}
 
 		//iterate through knight moves without captures 
-		uint64_t knightMoveNoCapture = knightAttack[sourceIndex] & ~occupancy[black]; 
+		uint64_t knightMoveNoCapture = knightAttack[sourceIndex] & ~occupancy[both]; 
 		while (knightMoveNoCapture) {
 			int targetIndex = lsbBitIndex(knightMoveNoCapture); 
 
@@ -680,7 +680,7 @@ uint64_t BitBoard::bKnightMove() {
 		}
 
 		//iterate through knight moves without captures 
-		uint64_t knightMoveNoCapture = knightAttack[sourceIndex] & ~occupancy[white];
+		uint64_t knightMoveNoCapture = knightAttack[sourceIndex] & ~occupancy[both];
 		while (knightMoveNoCapture) {
 			int targetIndex = lsbBitIndex(knightMoveNoCapture);
 
@@ -696,6 +696,27 @@ uint64_t BitBoard::bKnightMove() {
 
 	return moves;
 }
+
+uint64_t BitBoard::wKingMove() {
+	uint64_t moves = 0x0; 
+
+	int sourceIndex = lsbBitIndex(pieces[wKing]); 
+
+	//captures 
+	using namespace std; 
+	uint64_t kingMoveCapture = kingAttack[sourceIndex] & occupancy[black]; 
+	while (kingMoveCapture) {
+		int targetIndex = lsbBitIndex(kingMoveCapture); 
+
+		cout << "king capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
+		addMove(encodeMove(sourceIndex, targetIndex, wKing, 0, 1, 0, 0, 0)); 
+
+		kingMoveCapture &= kingMoveCapture - 1; 
+	}
+	return moves; 
+}
+
+
 
 
 

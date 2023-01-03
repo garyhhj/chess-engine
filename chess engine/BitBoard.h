@@ -136,7 +136,8 @@ public:
     uint64_t bKnightMove(); 
     
     //king 
-    
+    uint64_t wKingMove(); 
+    uint64_t bKingMove(); 
 
     //bishop 
     
