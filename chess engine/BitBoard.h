@@ -117,12 +117,14 @@ public:
     void generateMove();
 
     //pawn 
+    //change from uint64_t to void? 
     uint64_t wPawnPush(); 
     uint64_t wPawnDoublePush();
     uint64_t wPawnCapture(); 
 
     uint64_t bPawnPush(); 
     uint64_t bPawnDoublePush(); 
+    uint64_t bPawnCapture(); 
 
 
     /*
