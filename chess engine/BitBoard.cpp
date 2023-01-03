@@ -419,6 +419,12 @@ enum : int {
 */
 
 
+/*
+ ==========
+ pawn
+ ==========
+ */
+
 uint64_t BitBoard::wPawnPush() {
 	//pawn position after pawn push 
 	uint64_t pawnPosition = (pieces[wPawn] << 8) & ~occupancy[both];
@@ -607,6 +613,55 @@ uint64_t BitBoard::bPawnCapture() {
 
 	return captures;
 }
+
+
+/*	
+ ==========
+ knight 
+ ==========
+ */
+
+
+uint64_t BitBoard::wKnightMove() {
+	uint64_t moves = 0x0; 
+	
+	uint64_t knightOccupancy = pieces[wKnight]; 
+
+	using namespace std; 
+	//iterate through knights 
+	while (knightOccupancy) {
+		
+		int sourceIndex = lsbBitIndex(knightOccupancy); 
+
+		//iterate through knight moves with captures 
+		uint64_t knightMoveCapture = knightAttack[sourceIndex] & occupancy[black]; 
+		while (knightMoveCapture) {
+			int targetIndex = lsbBitIndex(knightMoveCapture); 
+
+			cout << "knight capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(sourceIndex, targetIndex, wKnight, 0, 1, 0, 0, 0)); 
+
+			knightMoveCapture &= knightMoveCapture - 1; 
+		}
+
+		//iterate through knight moves without captures 
+		uint64_t knightMoveNoCapture = knightAttack[sourceIndex] & ~occupancy[black]; 
+		while (knightMoveNoCapture) {
+			int targetIndex = lsbBitIndex(knightMoveNoCapture); 
+
+			cout << "knight move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
+			addMove(encodeMove(sourceIndex, targetIndex, wKnight, 0, 0, 0, 0, 0)); 
+
+			knightMoveNoCapture &= knightMoveNoCapture - 1; 
+		}
+
+
+		knightOccupancy &= knightOccupancy - 1; 
+	}
+
+	return moves; 
+}
+
 
 
 /*

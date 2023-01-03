@@ -126,6 +126,22 @@ public:
     uint64_t bPawnDoublePush(); 
     uint64_t bPawnCapture(); 
 
+    //todo: enpassant capture 
+
+    //knight
+    uint64_t wKnightMove(); 
+    
+
+    //king 
+    
+    //bishop 
+    
+    //rook 
+    
+    //todo: castle 
+
+    //queen 
+
 
     /*
      =======================
@@ -140,3 +156,27 @@ public:
     void removeMoveAll(); 
 
 };
+
+/*
+//pieces 
+enum : int {
+    //white 
+    wPawn,
+    wKnight,//(N)  
+    wBishop,
+    wRook,
+    wQueen,
+    wKing,
+
+    //black 
+    bPawn,
+    bKnight,//(n) 
+    bBishop,
+    bRook,
+    bQueen,
+    bKing,
+
+    //no piece 
+    noPiece = 0xf,
+};
+*/
