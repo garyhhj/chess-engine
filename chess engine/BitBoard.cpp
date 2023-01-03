@@ -315,7 +315,7 @@ void BitBoard::parseFen(std::string& fen) {
 
 /*
  ====================
- is attacked 
+ move generation
  ====================
  */
 
@@ -359,12 +359,6 @@ uint64_t BitBoard::allAttacked(int side) {
 	return attacked; 
 }
 
-
-/*
- ====================
- move generation
- ====================
- */
 
 void BitBoard::generateMove() {
 	//source and target index
@@ -661,6 +655,48 @@ uint64_t BitBoard::wKnightMove() {
 
 	return moves; 
 }
+
+
+uint64_t BitBoard::bKnightMove() {
+	uint64_t moves = 0x0;
+
+	uint64_t knightOccupancy = pieces[bKnight];
+
+	using namespace std;
+	//iterate through knights 
+	while (knightOccupancy) {
+
+		int sourceIndex = lsbBitIndex(knightOccupancy);
+
+		//iterate through knight moves with captures 
+		uint64_t knightMoveCapture = knightAttack[sourceIndex] & occupancy[white];
+		while (knightMoveCapture) {
+			int targetIndex = lsbBitIndex(knightMoveCapture);
+
+			cout << "knight capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(sourceIndex, targetIndex, bKnight, 0, 1, 0, 0, 0));
+
+			knightMoveCapture &= knightMoveCapture - 1;
+		}
+
+		//iterate through knight moves without captures 
+		uint64_t knightMoveNoCapture = knightAttack[sourceIndex] & ~occupancy[white];
+		while (knightMoveNoCapture) {
+			int targetIndex = lsbBitIndex(knightMoveNoCapture);
+
+			cout << "knight move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(sourceIndex, targetIndex, bKnight, 0, 0, 0, 0, 0));
+
+			knightMoveNoCapture &= knightMoveNoCapture - 1;
+		}
+
+
+		knightOccupancy &= knightOccupancy - 1;
+	}
+
+	return moves;
+}
+
 
 
 

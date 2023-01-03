@@ -104,9 +104,7 @@ public:
     //reset board state; 
     void reset(); 
 
-    //is attacked
-    bool isAttacked(int index, int side);
-    uint64_t allAttacked(int side); 
+
 
 
     /*
@@ -114,6 +112,11 @@ public:
      move generation
      ====================
      */
+
+     //is attacked
+    bool isAttacked(int index, int side);
+    uint64_t allAttacked(int side);
+
     void generateMove();
 
     //pawn 
@@ -130,10 +133,11 @@ public:
 
     //knight
     uint64_t wKnightMove(); 
+    uint64_t bKnightMove(); 
     
-
     //king 
     
+
     //bishop 
     
     //rook 
