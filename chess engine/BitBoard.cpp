@@ -472,56 +472,44 @@ uint64_t BitBoard::wPawnDoublePush() {
 
 uint64_t BitBoard::wPawnCapture() {
 	//white pawn capture 
-
 	uint64_t captures = 0x0; 
-	
-	//iterate over all the captures 
-	int numberOfPawns = numBit(pieces[wPawn]); 
-	for (int i = 0; i < 64; ++i) {
-		
-		//pawn at position[i]
-		if (pieces[wPawn] & position[i]) {
-			captures |= pawnAttack[white][i]; 
-		}
-	}
 
-	using namespace std; 
 	//captures with promotion 
-	for (int i = 0; i < 8; ++i) {
-		if (captures & position[i]) {
+	using namespace std; 
+	for (int i = 8; i < 16; ++i) {
+		uint64_t captures = pawnAttack[white][i] & occupancy[black]; 
+		if ((position[i] & pieces[wPawn]) && captures) {
 
-			//we use black pawns 
-			uint64_t sourceBoard = pawnAttack[black][i];
+			int numBits = numBit(captures); 
+			while (numBits--) {
+				int index = lsbBitIndex(captures); 
 
-			while (sourceBoard) {
-				int sourceIndex = lsbBitIndex(sourceBoard);
-				
-				cout << "pawn capture with promotion: " << positionStr[sourceIndex] << positionStr[i] << endl; 
-				auto move = encodeMove(sourceIndex, i, wPawn, 1, 1, 0, 0, 0);
+				cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n'; 
+				addMove(encodeMove(i, index, wPawn, wQueen, 1, 0, 0, 0)); 
 
-				sourceBoard &= sourceBoard - 1; 
+				captures &= captures - 1; 
 			}
 		}
 	}
 
 	//captures without promotion 
-	for (int i = 8; i < 56; ++i) {
-		if (captures & position[i]) {
-			
-			uint64_t sourceBoard = pawnAttack[black][i]; 
+	for (int i = 16; i < 56; ++i) {
+		uint64_t captures = pawnAttack[white][i] & occupancy[black]; 
+		if ((position[i] & pieces[wPawn]) && captures) {
 
-			while (sourceBoard) {
-				int sourceIndex = lsbBitIndex(sourceBoard); 
+			int numBits = numBit(captures); 
+			while (numBits--) {
+				int index = lsbBitIndex(captures); 
 
-				cout << "pawn capture: " << positionStr[sourceIndex] << positionStr[i] << endl; 
-				auto move = encodeMove(sourceIndex, i, wPawn, 0, 1, 0, 0, 0); 
+				cout << "pawn capture" << positionStr[i] << positionStr[index] << '\n'; 
+				addMove(encodeMove(i, index, wPawn, 0, 1, 0, 0, 0)); 
 
-				sourceBoard &= sourceBoard - 1; 
+				captures &= captures - 1; 
 			}
 		}
 	}
-	return captures; 
 	
+	return captures; 
 }
 
 
