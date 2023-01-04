@@ -1032,6 +1032,12 @@ uint64_t BitBoard::bQueenMove() {
 	return move;
 }
 
+/*
+ ==========
+ enpassant
+ ==========
+ */
+
 uint64_t BitBoard::wEnpassantMove() {
 	uint64_t move = 0x0; 
 
@@ -1078,6 +1084,93 @@ uint64_t BitBoard::bEnpassantMove() {
 
 	return move;
 }
+
+/*
+ ==========
+ castle
+ ==========
+ */
+
+//cannot castle while you are in check 
+//can not castle through a check or land in a check 
+
+//can not have pieces between the king or rook 
+
+//rook and king can not move already - must be first move for both pieces 
+
+uint64_t BitBoard::wCastleMove() {
+	uint64_t move = 0x0; 
+
+	using namespace std; 
+	//king side castle 
+	if ((castle & wkc) &&						
+		//e1 f1 and g1 not attacked 
+		(!isAttacked(60, white) && !isAttacked(61, white) && !isAttacked(62, white)) &&
+		//f1 and g1 not occupied 
+		(f1 & ~occupancy[both]) && (g1 & ~occupancy[both])) {
+
+		cout << "castle: " << positionStr[60] << positionStr[62] << '\n'; 
+		addMove(encodeMove(60, 62, wKing, 0, 0, 0, 0, 1)); 
+		
+	}
+
+	//queen side castle 
+	if ((castle & wqc) &&
+		//e1 d1 and c1 not attacked 
+		(!isAttacked(60, white) && !isAttacked(59, white) && !isAttacked(58, white)) && 
+		//d1 c1 and b1 are empty 
+		(d1 & ~occupancy[both]) && (c1 & ~occupancy[both]) && (b1 & ~occupancy[both])
+		){
+
+		cout << "castle: " << positionStr[60] << positionStr[58] << '\n';
+		addMove(encodeMove(60, 58, wKing, 0, 0, 0, 0, 1)); 
+
+	}
+
+	return move; 
+}
+
+uint64_t BitBoard::bCastleMove() {
+	uint64_t move = 0x0;
+
+	using namespace std;
+	//king side castle 
+	if ((castle & bkc) &&
+		//e8 f8 and g8 not attacked 
+		(!isAttacked(4, white) && !isAttacked(5, white) && !isAttacked(6, white)) &&
+		//f8 and g8 not occupied 
+		(f8 & ~occupancy[both]) && (g8 & ~occupancy[both])) {
+
+		cout << "castle: " << positionStr[4] << positionStr[6] << '\n';
+		addMove(encodeMove(4, 6, wKing, 0, 0, 0, 0, 1));
+
+	}
+
+	//queen side castle 
+	if ((castle & bqc) &&
+		//e8 d8 and c8 not attacked 
+		(!isAttacked(4, white) && !isAttacked(3, white) && !isAttacked(2, white)) &&
+		//d8 c8 and b8 are empty 
+		(d8 & ~occupancy[both]) && (c8 & ~occupancy[both]) && (b8 & ~occupancy[both])
+		) {
+
+		cout << "castle: " << positionStr[4] << positionStr[2] << '\n';
+		addMove(encodeMove(4, 2, wKing, 0, 0, 0, 0, 1));
+
+	}
+
+	return move;
+}
+
+//enum : uint32_t {
+	//wkc = 0b1000,
+	//wqc = 0b0100,
+	//bkc = 0b0010,
+	//bqc = 0b0001,
+//};
+
+
+
 /*
  =======================
  encode and decode move

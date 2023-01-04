@@ -145,8 +145,6 @@ public:
     uint64_t wRookMove(); 
     uint64_t bRookMove();
 
-    //todo: castle 
-
     //queen 
     uint64_t wQueenMove(); 
     uint64_t bQueenMove(); 
@@ -154,7 +152,10 @@ public:
     //enpassant 
     uint64_t wEnpassantMove(); 
     uint64_t bEnpassantMove(); 
-
+    
+    //castle 
+    uint64_t wCastleMove(); 
+    uint64_t bCastleMove(); 
 
     /*
      =======================
