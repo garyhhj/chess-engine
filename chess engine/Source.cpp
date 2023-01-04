@@ -25,11 +25,18 @@ int main() {
 	initLeaperPiece(); 
 
 	//set some attacking pieces 
-	string fen = "8/8/8/8/nnnnnQnn/nnR6/8/nKnNNNNN w - - ";
+	string fen = "8/8/8/8/nnnnnKnn/nnR6/8/nKnNNNNN w - - ";
 	board.parseFen(fen); 
 	board.printBoard(); 
 
-	board.wQueenMove(); 
+	//board.wKingMove(); 
+	for (int i = 0; i < 64; ++i) {
+		cout << "PRINTING I: " << i << endl; 
+
+		printBoard(kingAttack[i]); 
+	}
+	
+	
 	//board.wPawnPush(); 
 	//auto meow  = board.wPawnDoublePush();
 

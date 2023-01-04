@@ -151,6 +151,14 @@ uint64_t maskKingAttack(uint64_t square) {
 	if (bitboard & NOTFILE_A) attack |= (bitboard << 1); 
 	if (bitboard & NOTFILE_H) attack |= (bitboard >> 1); 
 
+	//upper corners 
+	if (bitboard & NOTFILE_A) attack |= (bitboard << 9);
+	if (bitboard & NOTFILE_H) attack |= (bitboard << 7); 
+
+	//lower corners 
+	if (bitboard & NOTFILE_A) attack |= (bitboard >> 7);
+	if (bitboard & NOTFILE_H) attack |= (bitboard >> 9); 
+
 	return attack;
 }
 
