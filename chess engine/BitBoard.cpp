@@ -727,7 +727,75 @@ uint64_t BitBoard::wKingMove() {
 	return moves; 
 }
 
+uint64_t BitBoard::bKingMove() {
+	uint64_t moves = 0x0;
 
+	int sourceIndex = lsbBitIndex(pieces[bKing]);
+
+	//captures 
+	using namespace std;
+	uint64_t kingMoveCapture = kingAttack[sourceIndex] & occupancy[white];
+	while (kingMoveCapture) {
+		int targetIndex = lsbBitIndex(kingMoveCapture);
+
+		cout << "king capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+		addMove(encodeMove(sourceIndex, targetIndex, bKing, 0, 1, 0, 0, 0));
+
+		kingMoveCapture &= kingMoveCapture - 1;
+	}
+
+	//non captures 
+	uint64_t kingMoveNoCapture = kingAttack[sourceIndex] & ~occupancy[both];
+	while (kingMoveNoCapture) {
+		int targetIndex = lsbBitIndex(kingMoveNoCapture);
+
+		cout << "king move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+		addMove(encodeMove(sourceIndex, targetIndex, bKing, 0, 0, 0, 0, 0));
+
+		kingMoveNoCapture &= kingMoveNoCapture - 1;
+	}
+	return moves;
+}
+
+uint64_t BitBoard::wBishopMove() {
+	uint64_t move = 0x0; 
+	
+	uint64_t bishopPositions = pieces[wBishop]; 
+
+	using namespace std; 
+	while (bishopPositions) {
+		int index = lsbBitIndex(bishopPositions); 
+
+		int magicIndex = ((occupancy[both] & bishopOccupancy[index]) * bishopMagicNum[index]) >> (64 - bishopOccupancyCount[index]);
+		uint64_t bishopMoves = bishopAttack[index][magicIndex]; 
+
+		//captures 
+		uint64_t bishopMovesCaptures = bishopMoves & occupancy[black]; 
+		while (bishopMovesCaptures) {
+			int targetIndex = lsbBitIndex(bishopMovesCaptures); 
+
+			cout << "bishop capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			addMove(encodeMove(index, targetIndex, wBishop, 0, 1, 0, 0, 0)); 
+
+			bishopMovesCaptures &= bishopMovesCaptures - 1; 
+		}
+
+		//non captures 
+		uint64_t bishopMovesNoCapture = bishopMoves & ~occupancy[both]; 
+		while (bishopMovesNoCapture) {
+			int targetIndex = lsbBitIndex(bishopMovesNoCapture); 
+
+			cout << "bishop move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			addMove(encodeMove(index, targetIndex, wBishop, 0, 0, 0, 0, 0)); 
+
+			bishopMovesNoCapture &= bishopMovesNoCapture - 1; 
+		}
+
+		bishopPositions &= bishopPositions - 1; 
+	}
+
+	return move; 
+}
 
 
 

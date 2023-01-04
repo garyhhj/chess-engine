@@ -140,6 +140,8 @@ public:
     uint64_t bKingMove(); 
 
     //bishop 
+    uint64_t wBishopMove(); 
+    uint64_t bBishopMove(); 
     
     //rook 
     
