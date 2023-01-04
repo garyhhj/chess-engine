@@ -697,6 +697,13 @@ uint64_t BitBoard::bKnightMove() {
 	return moves;
 }
 
+
+/*
+ ==========
+ king
+ ==========
+ */
+
 uint64_t BitBoard::wKingMove() {
 	uint64_t moves = 0x0; 
 
@@ -757,6 +764,13 @@ uint64_t BitBoard::bKingMove() {
 	return moves;
 }
 
+
+/*
+ ==========
+ bishop
+ ==========
+ */
+
 uint64_t BitBoard::wBishopMove() {
 	uint64_t move = 0x0; 
 	
@@ -795,6 +809,46 @@ uint64_t BitBoard::wBishopMove() {
 	}
 
 	return move; 
+}
+
+uint64_t BitBoard::bBishopMove() {
+	uint64_t move = 0x0;
+
+	uint64_t bishopPositions = pieces[bBishop];
+
+	using namespace std;
+	while (bishopPositions) {
+		int index = lsbBitIndex(bishopPositions);
+
+		int magicIndex = ((occupancy[both] & bishopOccupancy[index]) * bishopMagicNum[index]) >> (64 - bishopOccupancyCount[index]);
+		uint64_t bishopMoves = bishopAttack[index][magicIndex];
+
+		//captures 
+		uint64_t bishopMovesCaptures = bishopMoves & occupancy[white];
+		while (bishopMovesCaptures) {
+			int targetIndex = lsbBitIndex(bishopMovesCaptures);
+
+			cout << "bishop capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(index, targetIndex, bBishop, 0, 1, 0, 0, 0));
+
+			bishopMovesCaptures &= bishopMovesCaptures - 1;
+		}
+
+		//non captures 
+		uint64_t bishopMovesNoCapture = bishopMoves & ~occupancy[both];
+		while (bishopMovesNoCapture) {
+			int targetIndex = lsbBitIndex(bishopMovesNoCapture);
+
+			cout << "bishop move: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(index, targetIndex, bBishop, 0, 0, 0, 0, 0));
+
+			bishopMovesNoCapture &= bishopMovesNoCapture - 1;
+		}
+
+		bishopPositions &= bishopPositions - 1;
+	}
+
+	return move;
 }
 
 
