@@ -129,8 +129,6 @@ public:
     uint64_t bPawnDoublePush(); 
     uint64_t bPawnCapture(); 
 
-    //todo: enpassant capture 
-
     //knight
     uint64_t wKnightMove(); 
     uint64_t bKnightMove(); 
@@ -152,6 +150,10 @@ public:
     //queen 
     uint64_t wQueenMove(); 
     uint64_t bQueenMove(); 
+
+    //enpassant 
+    uint64_t wEnpassantMove(); 
+    uint64_t bEnpassantMove(); 
 
 
     /*
