@@ -144,7 +144,9 @@ public:
     uint64_t bBishopMove(); 
     
     //rook 
-    
+    uint64_t wRookMove(); 
+    uint64_t bRookMove();
+
     //todo: castle 
 
     //queen 

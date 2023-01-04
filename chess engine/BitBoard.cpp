@@ -852,6 +852,57 @@ uint64_t BitBoard::bBishopMove() {
 }
 
 
+/*
+ ==========
+ rook
+ ==========
+ */
+
+uint64_t BitBoard::wRookMove() {
+	uint64_t move = 0x0; 
+
+	uint64_t rookPosition = pieces[wRook]; 
+
+	using namespace std; 
+	while (rookPosition) {
+		int index = lsbBitIndex(rookPosition); 
+
+		int magicIndex = ((occupancy[both] & rookOccupancy[index]) * rookMagicNum[index]) >> (64 - rookOccupancyCount[index]); 
+
+		uint64_t rookMoves = rookAttack[index][magicIndex]; 
+		
+		//captures
+		uint64_t rookMovesCapture = rookMoves & occupancy[black]; 
+		while (rookMovesCapture) {
+			int targetIndex = lsbBitIndex(rookMovesCapture); 
+
+			cout << "rook capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			addMove(encodeMove(index, targetIndex, wRook, 0, 1, 0, 0, 0)); 
+
+			rookMovesCapture &= rookMovesCapture - 1; 
+		}
+
+		//no captures 
+		uint64_t rookMovesNoCapture = rookMoves & ~occupancy[both]; 
+		while (rookMovesNoCapture) {
+			int targetIndex = lsbBitIndex(rookMovesNoCapture); 
+
+			cout << "rook move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			addMove(encodeMove(index, targetIndex, wRook, 0, 0, 0, 0, 0)); 
+
+			rookMovesNoCapture &= rookMovesNoCapture - 1; 
+		}
+
+		rookPosition &= rookPosition - 1; 
+	}
+
+
+
+	return move; 
+}
+
+
+
 
 
 /*

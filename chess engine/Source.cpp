@@ -25,11 +25,11 @@ int main() {
 	initLeaperPiece(); 
 
 	//set some attacking pieces 
-	string fen = "8/8/8/8/nnnnnnnn/nnB6/8/nKnNNNNN w - - ";
+	string fen = "8/8/8/8/nnnnnnnn/nnR6/8/nKnNNNNN w - - ";
 	board.parseFen(fen); 
 	board.printBoard(); 
 
-	board.wBishopMove(); 
+	board.wRookMove(); 
 	//board.wPawnPush(); 
 	//auto meow  = board.wPawnDoublePush();
 
