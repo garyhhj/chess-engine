@@ -150,6 +150,8 @@ public:
     //todo: castle 
 
     //queen 
+    uint64_t wQueenMove(); 
+    uint64_t bQueenMove(); 
 
 
     /*
