@@ -1055,6 +1055,29 @@ uint64_t BitBoard::wEnpassantMove() {
 	return move; 
 }
 
+
+uint64_t BitBoard::bEnpassantMove() {
+	uint64_t move = 0x0;
+
+	using namespace std;
+	//enpassant square exists 
+	if (enpassant != 64) {
+		//targetIndex = enpassant; 
+
+		uint64_t pawnSourcePositions = pawnAttack[white][enpassant] & pieces[bPawn];
+		while (pawnSourcePositions) {
+			int sourceIndex = lsbBitIndex(pawnSourcePositions);
+
+			cout << "enpassant capture: " << positionStr[sourceIndex] << positionStr[enpassant] << '\n';
+			addMove(encodeMove(sourceIndex, enpassant, bPawn, 0, 1, 0, 1, 0));
+
+			pawnSourcePositions &= pawnSourcePositions - 1;
+		}
+
+	}
+
+	return move;
+}
 /*
  =======================
  encode and decode move
