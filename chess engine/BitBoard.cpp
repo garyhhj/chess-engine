@@ -992,6 +992,45 @@ uint64_t BitBoard::wQueenMove() {
 	return move; 
 }
 
+uint64_t BitBoard::bQueenMove() {
+	uint64_t move = 0x0;
+
+	uint64_t queenPosition = pieces[bQueen];
+	using namespace std;
+	while (queenPosition) {
+
+		int index = lsbBitIndex(queenPosition);
+
+		uint64_t queenMoves = maskQueenAttack(index, occupancy[both]);
+
+		//captures 
+		uint64_t queenMovesCapture = queenMoves & occupancy[white];
+		while (queenMovesCapture) {
+			int targetIndex = lsbBitIndex(queenMovesCapture);
+
+			cout << "queen capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(index, targetIndex, bQueen, 0, 1, 0, 0, 0));
+
+			queenMovesCapture &= queenMovesCapture - 1;
+		}
+
+		//no captures 
+		uint64_t queenMovesNoCaptures = queenMoves & ~occupancy[both];
+		while (queenMovesNoCaptures) {
+			int targetIndex = lsbBitIndex(queenMovesNoCaptures);
+
+			cout << "queen move: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			addMove(encodeMove(index, targetIndex, bQueen, 0, 0, 0, 0, 0));
+
+			queenMovesNoCaptures &= queenMovesNoCaptures - 1;
+		}
+
+
+		queenPosition &= queenPosition - 1;
+	}
+
+	return move;
+}
 
 
 /*
