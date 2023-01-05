@@ -179,6 +179,8 @@ public:
     void removeMove(); 
     void removeMoveAll(); 
 
+    void printMove(uint32_t move);
+
 };
 
 /*
