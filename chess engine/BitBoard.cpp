@@ -1162,12 +1162,6 @@ uint64_t BitBoard::bCastleMove() {
 	return move;
 }
 
-//enum : uint32_t {
-	//wkc = 0b1000,
-	//wqc = 0b0100,
-	//bkc = 0b0010,
-	//bqc = 0b0001,
-//};
 
 
 
@@ -1252,6 +1246,8 @@ void BitBoard::removeMoveAll() {
 }
 
 void BitBoard::printMove(uint32_t move) {
+	//use sstream to format before outputting 
+
 	using namespace std; 
 	cout << "move: "; 
 
@@ -1262,7 +1258,49 @@ void BitBoard::printMove(uint32_t move) {
 	cout << "(TI)" << positionStr[decodeMoveTargetIndex(move)] << " "; 
 
 	//piece 
-	cout << decodeMovePiece(move) << " "; 
+	cout << pieceStr[decodeMovePiece(move)] << " ";
+
+	//padding 
+	int padding = 8 - pieceStr[decodeMovePiece(move)].size(); 
+	while (padding--) cout << " "; 
+	
+	//promote piece 
+	cout << pieceStr[decodeMovePromotePiece(move)] << " "; 
+
+	//padding 
+	padding = 10 - pieceStr[decodeMovePiece(move)].size(); 
+	while (padding--) cout << " "; 
+	cout << "| "; 
+
+	//capture 
+	if (decodeMoveCapture(move)) cout << "c ";
+	else cout << "- "; 
+
+	//double push 
+	if (decodeMoveDoublePush(move)) cout << "dp ";
+	else cout << "-- ";
+
+	//enpassant 
+	if (decodeMoveEnpassant(move)) cout << "e ";
+	else cout << "- "; 
+
+	//castle 
+	{
+		uint32_t castle = decodeMoveCastle(move); 
+		
+		if (castle & wkc) cout << "K";
+		else cout << "-"; 
+
+		if (castle & wqc) cout << "Q";
+		else cout << "-"; 
+
+		if (castle & bkc) cout << "k";
+		else cout << "-"; 
+
+		if (castle & bqc) cout << "q";
+		else cout << "-"; 
+	}
+
 }
 
 /*
