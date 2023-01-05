@@ -253,6 +253,37 @@ enum : int{
 };
 */
 
+/*
+//pieces 
+enum : int {
+	//white 
+	wPawn,
+	wKnight,//(N)  
+	wBishop,
+	wRook,
+	wQueen,
+	wKing,
+
+	//black 
+	bPawn,
+	bKnight,//(n) 
+	bBishop,
+	bRook,
+	bQueen,
+	bKing,
+
+	//no piece 
+	noPiece = 0xf,
+};
+*/
+
+const std::string pieceStr[13] = {
+	"wPawn", "wKnight", "wBishop", "wRook", "wQueen", "wKing",
+	"bPawn", "bKnight", "bBishop", "bRook", "bQueen", "bKing",
+	"noPiece",
+}
+
+
 //file constants 
 /*
 		NOT A FILE

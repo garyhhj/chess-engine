@@ -238,6 +238,13 @@ enum : int {
 	noPiece = 0xf, 
 };
 
+extern const std::string pieceStr[13];/* = {
+	"wPawn", "wKnight", "wBishop", "wRook", "wQueen", "wKing", 
+	"bPawn", "bKnight", "bBishop", "bRook", "bQueen", "bKing",
+	"noPiece",
+}
+*/
+
 //castling right (bit encoded) 
 /*
 1000 => white king side castle

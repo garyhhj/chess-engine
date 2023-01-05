@@ -1251,16 +1251,31 @@ void BitBoard::removeMoveAll() {
 	moveListEnd = 1; 
 }
 
-void printMove(uint32_t move) {
+void BitBoard::printMove(uint32_t move) {
 	using namespace std; 
 	cout << "move: "; 
 
-	//targetIndex 
+	//sourceIndex
+	cout << "(SI)" << positionStr[decodeMoveSourceIndex(move)] << " ";
 
+	//targetIndex 
+	cout << "(TI)" << positionStr[decodeMoveTargetIndex(move)] << " "; 
+
+	//piece 
+	cout << decodeMovePiece(move) << " "; 
 }
 
+/*
+constexpr int BitBoard::decodeMoveSourceIndex(uint32_t move) { return (move & 0x3f); }
+constexpr int BitBoard::decodeMoveTargetIndex(uint32_t move) { return (move & 0xfc0) >> 6; }
+constexpr int BitBoard::decodeMovePiece(uint32_t move) { return (move & 0xf000) >> 12; }
+constexpr int BitBoard::decodeMovePromotePiece(uint32_t move) { return (move & 0xf0000) >> 16; }
 
-
+constexpr int BitBoard::decodeMoveCapture(uint32_t move) { return (move & 0x100000) >> 20; }
+constexpr int BitBoard::decodeMoveDoublePush(uint32_t move) { return (move & 0x200000) >> 21; }
+constexpr int BitBoard::decodeMoveEnpassant(uint32_t move) { return (move & 0x400000) >> 22; }
+constexpr int BitBoard::decodeMoveCastle(uint32_t move) { return (move & 0x800000) >> 23; }
+*/
 
 
 
