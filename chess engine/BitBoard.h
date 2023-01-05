@@ -164,6 +164,16 @@ public:
      */
 
     constexpr uint32_t encodeMove(int sourceIndex, int targetIndex, int piece, int promotePiece, int capture, int doublePush, int enpassant, int castle);
+    constexpr int decodeMoveSourceIndex(uint32_t move);
+    constexpr int decodeMoveTargetIndex(uint32_t move);
+    constexpr int decodeMovePiece(uint32_t move);
+    constexpr int decodeMovePromotePiece(uint32_t move);
+    constexpr int decodeMoveCapture(uint32_t move); 
+    constexpr int decodeMoveDoublePush(uint32_t move);
+    constexpr int decodeMoveEnpassant(uint32_t move);
+    constexpr int decodeMoveCastle(uint32_t move);
+
+
 
     void addMove(uint32_t move); 
     void removeMove(); 

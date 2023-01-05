@@ -1191,6 +1191,11 @@ uint64_t BitBoard::bCastleMove() {
 	1000 0000 0000 0000 0000 0000    castling flag       0x800000
  */
 
+ /*
+  =========
+  encode 
+  =========
+  */
 
 constexpr uint32_t BitBoard::encodeMove(int sourceIndex, int targetIndex, int piece, int promotePiece, int capture, int doublePush, int enpassant, int castle) {
 	uint32_t encodedMove = 0x0; 
@@ -1198,12 +1203,38 @@ constexpr uint32_t BitBoard::encodeMove(int sourceIndex, int targetIndex, int pi
 	encodedMove |= (targetIndex << 6); 
 	encodedMove |= (piece << 12); 
 	encodedMove |= (promotePiece << 16); 
-	encodedMove |= (doublePush << 17); 
-	encodedMove |= (enpassant << 18); 
-	encodedMove |= (castle << 19); 
+	encodedMove |= (capture << 20); 
+	encodedMove |= (doublePush << 21); 
+	encodedMove |= (enpassant << 22); 
+	encodedMove |= (castle << 23); 
 
 	return encodedMove; 
 }
+
+  /*
+  =========
+  decode
+  =========
+  */
+
+constexpr int BitBoard::decodeMoveSourceIndex(uint32_t move) { return (move & 0x3f); }
+
+constexpr int decodeMoveTargetIndex(uint32_t move) { return (move & 0xfc0) >> 6; }
+constexpr int decodeMovePiece(uint32_t move) { return (move & 0xf000) >> 12; }
+constexpr int decodeMovePromotePiece(uint32_t move) { return (move & 0xf0000) >> 16; }
+constexpr int decodeMoveCapture(uint32_t move) { return (move & 0x100000) >> 20; }
+
+constexpr int decodeMoveDoublePush(uint32_t move) { return (move & 0x200000) >> 21;  }
+constexpr int decodeMoveEnpassant(uint32_t move) { return (move & 0x400000) >> 22; }
+constexpr int decodeMoveCastle(uint32_t move) { return (move & 0x800000) >> 23;  }
+
+
+  /*
+  =========
+  other 
+  =========
+  */
+
 
 void BitBoard::addMove(uint32_t move) {
 	moveList[moveListIndex] = move;
@@ -1220,6 +1251,8 @@ void BitBoard::removeMoveAll() {
 	moveListIndex = 0; 
 	moveListEnd = 1; 
 }
+
+
 
 
 
