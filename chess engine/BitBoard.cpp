@@ -371,46 +371,39 @@ void BitBoard::generateMove() {
 		//white pawn moves 
 		wPawnPush(); 
 		wPawnDoublePush(); 
-		
-		
-		//not sure can we generate moves 
+		wPawnCapture();
 
-		//if we and with the blockers 
-		//we have the source squares for each piece 
+		wKnightMove();
+		wKingMove();
 
+		wBishopMove(); 	
+		wRookMove(); 
+		wQueenMove();
 
+		wEnpassantMove(); 
+		wCastleMove(); 
 	}
 
 	//black side 
 	else {
 		bPawnPush();
-		bPawnDoublePush(); 
-	}
+		bPawnDoublePush();
+		bPawnCapture(); 
 
+		bKnightMove();
+		bKingMove();
+
+		bBishopMove();
+		bRookMove();
+		bQueenMove();
+
+		bEnpassantMove();
+		bCastleMove();
+	}
 
 	return; 
 }
 
-/*
-//pieces 
-enum : int {
-	//white 
-	wPawn,
-	wKnight,//(N)  
-	wBishop,
-	wRook,
-	wQueen,
-	wKing,
-
-	//black 
-	bPawn,
-	bKnight,//(n) 
-	bBishop,
-	bRook,
-	bQueen,
-	bKing,
-};
-*/
 
 
 /*
@@ -1300,20 +1293,5 @@ void BitBoard::printMoveList() {
 	}
 	std::cout << std::flush; 
 }
-
-
-/*
-constexpr int BitBoard::decodeMoveSourceIndex(uint32_t move) { return (move & 0x3f); }
-constexpr int BitBoard::decodeMoveTargetIndex(uint32_t move) { return (move & 0xfc0) >> 6; }
-constexpr int BitBoard::decodeMovePiece(uint32_t move) { return (move & 0xf000) >> 12; }
-constexpr int BitBoard::decodeMovePromotePiece(uint32_t move) { return (move & 0xf0000) >> 16; }
-
-constexpr int BitBoard::decodeMoveCapture(uint32_t move) { return (move & 0x100000) >> 20; }
-constexpr int BitBoard::decodeMoveDoublePush(uint32_t move) { return (move & 0x200000) >> 21; }
-constexpr int BitBoard::decodeMoveEnpassant(uint32_t move) { return (move & 0x400000) >> 22; }
-constexpr int BitBoard::decodeMoveCastle(uint32_t move) { return (move & 0x800000) >> 23; }
-*/
-
-
 
 
