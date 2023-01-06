@@ -1291,6 +1291,8 @@ void BitBoard::printMoveList() {
 		printMove(moveList[it]); 
 		++it; 
 	}
+
+	std::cout << "number of moves: " <<  moveListEnd << '\n';
 	std::cout << std::flush; 
 }
 
