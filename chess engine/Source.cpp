@@ -25,21 +25,11 @@ int main() {
 	initLeaperPiece(); 
 
 	//set some attacking pieces 
-	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R w KQkq - 0 1 ";
+	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 	board.parseFen(fen); 
 	board.printBoard(); 
 
-	board.wCastleMove(); 
-	board.wPawnPush(); 
-	
-	//board.wPawnPush(); 
-	//auto meow  = board.wPawnDoublePush();
-
-	//uint32_t moveList[100000];
-	//int moveListIndex;
-	//int moveListBegin;
-	//int moveListEnd;
-
+	board.generateMove(); 
 
 	board.printMoveList(); 
 

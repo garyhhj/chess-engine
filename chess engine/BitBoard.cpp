@@ -422,7 +422,7 @@ uint64_t BitBoard::wPawnPush() {
 	//pawn push with promotion
 	for (int i = 0; i < 8; ++i) {
 		if (pawnPosition & position[i]) {
-			cout << "pawn push promotion: " << positionStr[i + 8] << positionStr[i] << '\n'; 
+			//cout << "pawn push promotion: " << positionStr[i + 8] << positionStr[i] << '\n'; 
 
 			//todo: function to determine what promotion if necessary 
 			
@@ -434,13 +434,12 @@ uint64_t BitBoard::wPawnPush() {
 	//pawn push without promotion
 	for (int i = 8; i < 48; ++i) {
 		if (pawnPosition & position[i]) {
-			cout << "pawn push: " << positionStr[i + 8] << positionStr[i] << '\n'; 
+			//cout << "pawn push: " << positionStr[i + 8] << positionStr[i] << '\n'; 
 			
 			//encode move and push to move list 
 			addMove(encodeMove(i + 8, i, wPawn, noPiece, 0, 0, 0, 0)); 
 		}
 	}
-	cout << flush; 
 	return pawnPosition; 
 }
 
@@ -453,13 +452,12 @@ uint64_t BitBoard::wPawnDoublePush() {
 	using namespace std; 
 	for (int i = 32; i < 40; ++i) {
 		if (pawnPosition & position[i]) {
-			cout << "pawn doublepush: " << positionStr[i + 16] << positionStr[i] << '\n'; 
+			//cout << "pawn doublepush: " << positionStr[i + 16] << positionStr[i] << '\n'; 
 
 			//encode move and push to move list 
 			addMove(encodeMove(i + 16, i, wPawn, noPiece, 0, 0, 0, 0)); 
 		}
 	}
-	cout << flush; 
 	return pawnPosition; 
 }
 
@@ -477,7 +475,7 @@ uint64_t BitBoard::wPawnCapture() {
 			while (numBits--) {
 				int index = lsbBitIndex(captures); 
 
-				cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n'; 
+				//cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n'; 
 				addMove(encodeMove(i, index, wPawn, wQueen, 1, 0, 0, 0)); 
 
 				captures &= captures - 1; 
@@ -494,7 +492,7 @@ uint64_t BitBoard::wPawnCapture() {
 			while (numBits--) {
 				int index = lsbBitIndex(captures); 
 
-				cout << "pawn capture: " << positionStr[i] << positionStr[index] << '\n'; 
+				//cout << "pawn capture: " << positionStr[i] << positionStr[index] << '\n'; 
 				addMove(encodeMove(i, index, wPawn, noPiece, 1, 0, 0, 0)); 
 
 				captures &= captures - 1; 
@@ -517,7 +515,7 @@ uint64_t BitBoard::bPawnPush() {
 	//pawn push with promotion
 	for (int i = 56; i < 64; ++i) {
 		if (pawnPosition & position[i]) {
-			cout << "pawn push promotion: " << positionStr[i - 8] << positionStr[i] << '\n';
+			//cout << "pawn push promotion: " << positionStr[i - 8] << positionStr[i] << '\n';
 
 			//todo: function to determine what promotion if necessary 
 
@@ -529,13 +527,12 @@ uint64_t BitBoard::bPawnPush() {
 	//pawn push without promotion
 	for (int i = 16; i < 56; ++i) {
 		if (pawnPosition & position[i]) {
-			cout << "pawn push: " << positionStr[i - 8] << positionStr[i] << '\n';
+			//cout << "pawn push: " << positionStr[i - 8] << positionStr[i] << '\n';
 
 			//encode move and push to move list 
 			addMove(encodeMove(i - 8, i, bPawn, noPiece, 0, 0, 0, 0));
 		}
 	}
-	cout << flush;
 	return pawnPosition;
 }
 
@@ -549,13 +546,12 @@ uint64_t BitBoard::bPawnDoublePush() {
 	using namespace std;
 	for (int i = 24; i < 32; ++i) {
 		if (pawnPosition & position[i]) {
-			cout << "pawn doublepush: " << positionStr[i - 16] << positionStr[i] << '\n';
+			//cout << "pawn doublepush: " << positionStr[i - 16] << positionStr[i] << '\n';
 
 			//encode move and push to move list 
 			addMove(encodeMove(i - 16, i, bPawn, noPiece, 0, 0, 0, 0));
 		}
 	}
-	cout << flush;
 	return pawnPosition;
 }
 
@@ -573,7 +569,7 @@ uint64_t BitBoard::bPawnCapture() {
 			while (numBits--) {
 				int index = lsbBitIndex(captures);
 
-				cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n';
+				//cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n';
 				addMove(encodeMove(i, index, bPawn, bQueen, 1, 0, 0, 0));
 
 				captures &= captures - 1;
@@ -590,7 +586,7 @@ uint64_t BitBoard::bPawnCapture() {
 			while (numBits--) {
 				int index = lsbBitIndex(captures);
 
-				cout << "pawn capture: " << positionStr[i] << positionStr[index] << '\n';
+				//cout << "pawn capture: " << positionStr[i] << positionStr[index] << '\n';
 				addMove(encodeMove(i, index, bPawn, noPiece, 1, 0, 0, 0));
 
 				captures &= captures - 1;
@@ -625,7 +621,7 @@ uint64_t BitBoard::wKnightMove() {
 		while (knightMoveCapture) {
 			int targetIndex = lsbBitIndex(knightMoveCapture); 
 
-			cout << "knight capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+			//cout << "knight capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(sourceIndex, targetIndex, wKnight, noPiece, 1, 0, 0, 0)); 
 
 			knightMoveCapture &= knightMoveCapture - 1; 
@@ -636,7 +632,7 @@ uint64_t BitBoard::wKnightMove() {
 		while (knightMoveNoCapture) {
 			int targetIndex = lsbBitIndex(knightMoveNoCapture); 
 
-			cout << "knight move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
+			//cout << "knight move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(sourceIndex, targetIndex, wKnight, noPiece, 0, 0, 0, 0)); 
 
 			knightMoveNoCapture &= knightMoveNoCapture - 1; 
@@ -666,7 +662,7 @@ uint64_t BitBoard::bKnightMove() {
 		while (knightMoveCapture) {
 			int targetIndex = lsbBitIndex(knightMoveCapture);
 
-			cout << "knight capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+			//cout << "knight capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(sourceIndex, targetIndex, bKnight, noPiece, 1, 0, 0, 0));
 
 			knightMoveCapture &= knightMoveCapture - 1;
@@ -677,7 +673,7 @@ uint64_t BitBoard::bKnightMove() {
 		while (knightMoveNoCapture) {
 			int targetIndex = lsbBitIndex(knightMoveNoCapture);
 
-			cout << "knight move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+			//cout << "knight move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(sourceIndex, targetIndex, bKnight, noPiece, 0, 0, 0, 0));
 
 			knightMoveNoCapture &= knightMoveNoCapture - 1;
@@ -708,7 +704,7 @@ uint64_t BitBoard::wKingMove() {
 	while (kingMoveCapture) {
 		int targetIndex = lsbBitIndex(kingMoveCapture); 
 
-		cout << "king capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
+		//cout << "king capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
 		addMove(encodeMove(sourceIndex, targetIndex, wKing, noPiece, 1, 0, 0, 0)); 
 
 		kingMoveCapture &= kingMoveCapture - 1; 
@@ -719,7 +715,7 @@ uint64_t BitBoard::wKingMove() {
 	while (kingMoveNoCapture) {
 		int targetIndex = lsbBitIndex(kingMoveNoCapture); 
 
-		cout << "king move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
+		//cout << "king move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n'; 
 		addMove(encodeMove(sourceIndex, targetIndex, wKing, noPiece, 0, 0, 0, 0)); 
 
 		kingMoveNoCapture &= kingMoveNoCapture - 1; 
@@ -738,7 +734,7 @@ uint64_t BitBoard::bKingMove() {
 	while (kingMoveCapture) {
 		int targetIndex = lsbBitIndex(kingMoveCapture);
 
-		cout << "king capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+		//cout << "king capture: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
 		addMove(encodeMove(sourceIndex, targetIndex, bKing, noPiece, 1, 0, 0, 0));
 
 		kingMoveCapture &= kingMoveCapture - 1;
@@ -749,7 +745,7 @@ uint64_t BitBoard::bKingMove() {
 	while (kingMoveNoCapture) {
 		int targetIndex = lsbBitIndex(kingMoveNoCapture);
 
-		cout << "king move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
+		//cout << "king move: " << positionStr[sourceIndex] << positionStr[targetIndex] << '\n';
 		addMove(encodeMove(sourceIndex, targetIndex, bKing, noPiece, 0, 0, 0, 0));
 
 		kingMoveNoCapture &= kingMoveNoCapture - 1;
@@ -781,7 +777,7 @@ uint64_t BitBoard::wBishopMove() {
 		while (bishopMovesCaptures) {
 			int targetIndex = lsbBitIndex(bishopMovesCaptures); 
 
-			cout << "bishop capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			//cout << "bishop capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(index, targetIndex, wBishop, noPiece, 1, 0, 0, 0)); 
 
 			bishopMovesCaptures &= bishopMovesCaptures - 1; 
@@ -792,7 +788,7 @@ uint64_t BitBoard::wBishopMove() {
 		while (bishopMovesNoCapture) {
 			int targetIndex = lsbBitIndex(bishopMovesNoCapture); 
 
-			cout << "bishop move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			//cout << "bishop move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(index, targetIndex, wBishop, noPiece, 0, 0, 0, 0)); 
 
 			bishopMovesNoCapture &= bishopMovesNoCapture - 1; 
@@ -821,7 +817,7 @@ uint64_t BitBoard::bBishopMove() {
 		while (bishopMovesCaptures) {
 			int targetIndex = lsbBitIndex(bishopMovesCaptures);
 
-			cout << "bishop capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			//cout << "bishop capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(index, targetIndex, bBishop, noPiece, 1, 0, 0, 0));
 
 			bishopMovesCaptures &= bishopMovesCaptures - 1;
@@ -832,7 +828,7 @@ uint64_t BitBoard::bBishopMove() {
 		while (bishopMovesNoCapture) {
 			int targetIndex = lsbBitIndex(bishopMovesNoCapture);
 
-			cout << "bishop move: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			//cout << "bishop move: " << positionStr[index] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(index, targetIndex, bBishop, noPiece, 0, 0, 0, 0));
 
 			bishopMovesNoCapture &= bishopMovesNoCapture - 1;
@@ -869,7 +865,7 @@ uint64_t BitBoard::wRookMove() {
 		while (rookMovesCapture) {
 			int targetIndex = lsbBitIndex(rookMovesCapture); 
 
-			cout << "rook capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			//cout << "rook capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(index, targetIndex, wRook, noPiece, 1, 0, 0, 0)); 
 
 			rookMovesCapture &= rookMovesCapture - 1; 
@@ -880,7 +876,7 @@ uint64_t BitBoard::wRookMove() {
 		while (rookMovesNoCapture) {
 			int targetIndex = lsbBitIndex(rookMovesNoCapture); 
 
-			cout << "rook move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			//cout << "rook move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(index, targetIndex, wRook, noPiece, 0, 0, 0, 0)); 
 
 			rookMovesNoCapture &= rookMovesNoCapture - 1; 
@@ -913,7 +909,7 @@ uint64_t BitBoard::bRookMove() {
 		while (rookMovesCapture) {
 			int targetIndex = lsbBitIndex(rookMovesCapture);
 
-			cout << "rook capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			//cout << "rook capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(index, targetIndex, bRook, noPiece, 1, 0, 0, 0));
 
 			rookMovesCapture &= rookMovesCapture - 1;
@@ -924,7 +920,7 @@ uint64_t BitBoard::bRookMove() {
 		while (rookMovesNoCapture) {
 			int targetIndex = lsbBitIndex(rookMovesNoCapture);
 
-			cout << "rook move: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			//cout << "rook move: " << positionStr[index] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(index, targetIndex, bRook, noPiece, 0, 0, 0, 0));
 
 			rookMovesNoCapture &= rookMovesNoCapture - 1;
@@ -961,7 +957,7 @@ uint64_t BitBoard::wQueenMove() {
 		while (queenMovesCapture) {
 			int targetIndex = lsbBitIndex(queenMovesCapture); 
 
-			cout << "queen capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			//cout << "queen capture: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(index, targetIndex, wQueen, noPiece, 1, 0, 0, 0)); 
 
 			queenMovesCapture &= queenMovesCapture - 1; 
@@ -972,7 +968,7 @@ uint64_t BitBoard::wQueenMove() {
 		while (queenMovesNoCaptures) {
 			int targetIndex = lsbBitIndex(queenMovesNoCaptures); 
 
-			cout << "queen move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
+			//cout << "queen move: " << positionStr[index] << positionStr[targetIndex] << '\n'; 
 			addMove(encodeMove(index, targetIndex, wQueen, noPiece, 0, 0, 0, 0)); 
 
 			queenMovesNoCaptures &= queenMovesNoCaptures - 1; 
@@ -1001,7 +997,7 @@ uint64_t BitBoard::bQueenMove() {
 		while (queenMovesCapture) {
 			int targetIndex = lsbBitIndex(queenMovesCapture);
 
-			cout << "queen capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			//cout << "queen capture: " << positionStr[index] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(index, targetIndex, bQueen, noPiece, 1, 0, 0, 0));
 
 			queenMovesCapture &= queenMovesCapture - 1;
@@ -1012,7 +1008,7 @@ uint64_t BitBoard::bQueenMove() {
 		while (queenMovesNoCaptures) {
 			int targetIndex = lsbBitIndex(queenMovesNoCaptures);
 
-			cout << "queen move: " << positionStr[index] << positionStr[targetIndex] << '\n';
+			//cout << "queen move: " << positionStr[index] << positionStr[targetIndex] << '\n';
 			addMove(encodeMove(index, targetIndex, bQueen, noPiece, 0, 0, 0, 0));
 
 			queenMovesNoCaptures &= queenMovesNoCaptures - 1;
@@ -1043,7 +1039,7 @@ uint64_t BitBoard::wEnpassantMove() {
 		while (pawnSourcePositions) {
 			int sourceIndex = lsbBitIndex(pawnSourcePositions); 
 
-			cout << "enpassant capture: " << positionStr[sourceIndex] << positionStr[enpassant] << '\n';
+			//cout << "enpassant capture: " << positionStr[sourceIndex] << positionStr[enpassant] << '\n';
 			addMove(encodeMove(sourceIndex, enpassant, wPawn, noPiece, 1, 0, 1, 0)); 
 
 			pawnSourcePositions &= pawnSourcePositions - 1; 
@@ -1067,7 +1063,7 @@ uint64_t BitBoard::bEnpassantMove() {
 		while (pawnSourcePositions) {
 			int sourceIndex = lsbBitIndex(pawnSourcePositions);
 
-			cout << "enpassant capture: " << positionStr[sourceIndex] << positionStr[enpassant] << '\n';
+			//cout << "enpassant capture: " << positionStr[sourceIndex] << positionStr[enpassant] << '\n';
 			addMove(encodeMove(sourceIndex, enpassant, bPawn, noPiece, 1, 0, 1, 0));
 			
 			pawnSourcePositions &= pawnSourcePositions - 1;
@@ -1102,7 +1098,7 @@ uint64_t BitBoard::wCastleMove() {
 		//f1 and g1 not occupied 
 		(f1 & ~occupancy[both]) && (g1 & ~occupancy[both])) {
 
-		cout << "castle: " << positionStr[60] << positionStr[62] << '\n'; 
+		//cout << "castle: " << positionStr[60] << positionStr[62] << '\n'; 
 		addMove(encodeMove(60, 62, wKing, noPiece, 0, 0, 0, 1)); 
 
 	}
@@ -1115,7 +1111,7 @@ uint64_t BitBoard::wCastleMove() {
 		(d1 & ~occupancy[both]) && (c1 & ~occupancy[both]) && (b1 & ~occupancy[both])
 		){
 
-		cout << "castle: " << positionStr[60] << positionStr[58] << '\n';
+		//cout << "castle: " << positionStr[60] << positionStr[58] << '\n';
 		addMove(encodeMove(60, 58, wKing, noPiece, 0, 0, 0, 1)); 
 
 	}
@@ -1134,7 +1130,7 @@ uint64_t BitBoard::bCastleMove() {
 		//f8 and g8 not occupied 
 		(f8 & ~occupancy[both]) && (g8 & ~occupancy[both])) {
 
-		cout << "castle: " << positionStr[4] << positionStr[6] << '\n';
+		//cout << "castle: " << positionStr[4] << positionStr[6] << '\n';
 		addMove(encodeMove(4, 6, wKing, noPiece, 0, 0, 0, 1));
 
 	}
@@ -1147,7 +1143,7 @@ uint64_t BitBoard::bCastleMove() {
 		(d8 & ~occupancy[both]) && (c8 & ~occupancy[both]) && (b8 & ~occupancy[both])
 		) {
 
-		cout << "castle: " << positionStr[4] << positionStr[2] << '\n';
+		//cout << "castle: " << positionStr[4] << positionStr[2] << '\n';
 		addMove(encodeMove(4, 2, wKing, noPiece, 0, 0, 0, 1));
 
 	}
