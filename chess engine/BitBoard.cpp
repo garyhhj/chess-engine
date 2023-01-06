@@ -1303,6 +1303,15 @@ void BitBoard::printMove(uint32_t move) {
 
 }
 
+void BitBoard::printMoveList() {
+	int it = 0; 
+	while (it != moveListEnd) {
+		printMove(moveList[it]); 
+		++it; 
+	}
+}
+
+
 /*
 constexpr int BitBoard::decodeMoveSourceIndex(uint32_t move) { return (move & 0x3f); }
 constexpr int BitBoard::decodeMoveTargetIndex(uint32_t move) { return (move & 0xfc0) >> 6; }

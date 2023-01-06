@@ -180,6 +180,7 @@ public:
     void removeMoveAll(); 
 
     void printMove(uint32_t move);
+    void printMoveList(); 
 
 };
 
