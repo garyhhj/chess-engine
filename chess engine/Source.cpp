@@ -30,13 +30,20 @@ int main() {
 	board.printBoard(); 
 
 	board.wCastleMove(); 
+	board.wPawnPush(); 
 	
 	//board.wPawnPush(); 
 	//auto meow  = board.wPawnDoublePush();
 
-	
+	//uint32_t moveList[100000];
+	//int moveListIndex;
+	//int moveListBegin;
+	//int moveListEnd;
 
-	
+
+	board.printMoveList(); 
+
+	cout << board.moveListEnd;
 
 
 }

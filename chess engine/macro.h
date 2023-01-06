@@ -235,7 +235,7 @@ enum : int {
 	bKing,
 
 	//no piece 
-	noPiece = 0xf, 
+	noPiece, 
 };
 
 extern const std::string pieceStr[13];/* = {

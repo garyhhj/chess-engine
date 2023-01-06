@@ -281,7 +281,7 @@ const std::string pieceStr[13] = {
 	"wPawn", "wKnight", "wBishop", "wRook", "wQueen", "wKing",
 	"bPawn", "bKnight", "bBishop", "bRook", "bQueen", "bKing",
 	"noPiece",
-}
+};
 
 
 //file constants 
