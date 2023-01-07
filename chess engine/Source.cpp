@@ -38,11 +38,13 @@ int main() {
 	board.storeState(); 
 	
 	board.generateMove(); 
-	board.printMoveList(); 
+	//board.printMoveList(); 
 
 	cout << endl << endl; 
 
-	board.printBoard(); 
+	cout << "initial board state: " << endl; 
+	board.printBoard();
+
 	board.makeMove(board.moveList[13]); 
 
 	//board.printBoard(); 

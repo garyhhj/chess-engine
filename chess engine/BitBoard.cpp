@@ -1355,7 +1355,8 @@ void BitBoard::makeMove(uint32_t move) {
 	else cout << "black " << endl; 
 
 
-	if (enpassant) {
+	if (denpassant) {
+		cout << "enpassant" << endl; 
 		//move pawn to correct 
 		pieces[dpiece] &= ~position[dsourceIndex];
 		pieces[dpiece] |= position[dtargetIndex];
@@ -1385,6 +1386,7 @@ void BitBoard::makeMove(uint32_t move) {
 		this->enpassant = 64; 
 	}
 	else if (dcapture) {
+		cout << "calling dcapture: " << endl; 
 		//move piece to correct square 
 		pieces[dpiece] &= ~position[dsourceIndex];
 		pieces[dpiece] |= position[dtargetIndex];
@@ -1414,7 +1416,10 @@ void BitBoard::makeMove(uint32_t move) {
 			}
 		}
 
-		
+		cout << "printing occupancies: " << endl; 
+		printBoards(occupancy[white]);
+		printBoards(occupancy[black]);
+		printBoards(occupancy[both]);
 	}
 	else if (ddoublePush) {
 
