@@ -1,3 +1,3 @@
 #pragma once
 
-void printBoard(uint64_t bitBoard);
+void printBoards(uint64_t bitBoard);

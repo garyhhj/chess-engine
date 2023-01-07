@@ -35,10 +35,18 @@ int main() {
 
 	board.parseFen(fenK); 
 	board.printBoard(); 
-
+	board.storeState(); 
+	
 	board.generateMove(); 
-
 	board.printMoveList(); 
+
+	cout << endl << endl; 
+
+	board.printBoard(); 
+	board.makeMove(board.moveList[13]); 
+
+	//board.printBoard(); 
+
 
 
 }

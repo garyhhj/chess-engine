@@ -1284,6 +1284,7 @@ void BitBoard::printMove(uint32_t move) {
 void BitBoard::printMoveList() {
 	int it = 0; 
 	while (it != moveListEnd) {
+		std::cout << it << ": ";
 		printMove(moveList[it]); 
 		++it; 
 	}
@@ -1319,4 +1320,110 @@ void BitBoard::restoreState() {
 	this->side = prevState.side; 
 	this->enpassant = prevState.enpassant; 
 	this->castle = prevState.castle; 
+}
+
+
+/*
+ =====================
+ make move
+ =====================
+ */
+
+bool isQuietMove() {
+	return true; 
+}
+
+void BitBoard::makeMove(uint32_t move) {
+	//something about quiet move idk 
+	//quiet move(no capture, no promotion, no checks) 
+
+	int dsourceIndex = decodeMoveSourceIndex(move);
+	int dtargetIndex = decodeMoveTargetIndex(move);
+	int dpiece = decodeMovePiece(move);
+	int dpromotePiece = decodeMovePromotePiece(move);
+	int dcapture = decodeMoveCapture(move);
+	int ddoublePush = decodeMoveDoublePush(move);
+	int denpassant = decodeMoveEnpassant(move);
+	int dcastle = decodeMoveCastle(move);
+
+	//cout the information 
+	using namespace std;
+	cout << "Make move: " << move << " meowww move info: " << endl; 
+	printMove(move); 
+
+	if (side == white) cout << "white" << endl;
+	else cout << "black " << endl; 
+
+
+	if (enpassant) {
+		//move pawn to correct 
+		pieces[dpiece] &= ~position[dsourceIndex];
+		pieces[dpiece] |= position[dtargetIndex];
+
+		//change occupancy 
+		occupancy[side] &= ~position[dsourceIndex];
+		occupancy[side] |= position[dtargetIndex];
+
+		occupancy[both] &= ~position[dsourceIndex];
+		occupancy[both] |= position[dtargetIndex];
+
+		//remove piece captured 
+		if (side == white) {
+			pieces[bPawn] &= ~position[dtargetIndex + 8]; 
+
+			occupancy[black] &= ~position[dtargetIndex + 8];
+			occupancy[both] &= ~position[dtargetIndex + 8]; 
+		}
+		else {
+			pieces[wPawn] &= ~position[dtargetIndex + 8]; 
+
+			occupancy[white] &= ~position[dtargetIndex - 8]; 
+			occupancy[both] &= ~position[dtargetIndex - 8]; 
+		}
+
+		//reset enpassan square 
+		this->enpassant = 64; 
+	}
+	else if (dcapture) {
+		//move piece to correct square 
+		pieces[dpiece] &= ~position[dsourceIndex];
+		pieces[dpiece] |= position[dtargetIndex];
+
+		//change occupancy 
+		occupancy[side] &= ~position[dsourceIndex];
+		occupancy[side] |= position[dtargetIndex];
+
+		occupancy[both] &= ~position[dsourceIndex];
+		occupancy[both] |= position[dtargetIndex];
+		
+		//remove capture piece 
+		if (side == white) {
+			//remove black captured piece 
+			occupancy[black] &= ~position[dtargetIndex];
+
+			for (int i = bPawn; i <= bKing; ++i) {
+				pieces[i] &= ~position[dtargetIndex]; 
+			}
+		}
+		else {
+			//remove white cpature piece 
+			occupancy[white] &= ~position[dtargetIndex];
+
+			for (int i = wPawn; i <= wKing; ++i) {
+				pieces[i] &= ~position[dtargetIndex]; 
+			}
+		}
+
+		
+	}
+	else if (ddoublePush) {
+
+	}
+	else {
+		//move 
+	
+	}
+	
+	printBoard(); 
+
 }

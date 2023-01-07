@@ -195,7 +195,6 @@ public:
     void printMoveList(); 
 
 
-
     /*
      =====================
      preserve board state
@@ -205,6 +204,14 @@ public:
     void storeState(); 
     void restoreState();
 
+
+    /*
+     =====================
+     make move 
+     =====================
+     */
+
+    void makeMove(uint32_t move);
 };
 
 /*
