@@ -1293,3 +1293,30 @@ void BitBoard::printMoveList() {
 }
 
 
+
+/*
+ =====================
+ preserve board state
+ =====================
+ */
+
+
+void BitBoard::storeState() {
+	//populate prevState member variable 
+	std::copy_n(pieces, 12, prevState.pieces); 
+	std::copy_n(occupancy, 3, prevState.occupancy); 
+
+	prevState.side = this->side; 
+	prevState.enpassant = this->enpassant; 
+	prevState.castle = this->castle; 
+}
+
+void BitBoard::restoreState() {
+	//populate class with info from prevState 
+	std::copy_n(prevState.pieces, 12, pieces);
+	std::copy_n(prevState.occupancy, 3, occupancy);
+
+	this->side = prevState.side; 
+	this->enpassant = prevState.enpassant; 
+	this->castle = prevState.castle; 
+}

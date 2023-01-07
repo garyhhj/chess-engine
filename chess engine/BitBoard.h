@@ -71,6 +71,15 @@
   1  1 1 1 1 1 1 1 1    1  0 0 0 0 0 0 0 0    1  1 1 1 1 1 1 1 1
 */
 
+struct boardState {
+    uint64_t pieces[12]; 
+    uint64_t occupancy[3]; 
+    
+    int side; 
+    int enpassant; 
+    uint32_t castle; 
+};
+
 class BitBoard {
 public:
 	//pieces on bitboard 
@@ -87,6 +96,9 @@ public:
 
     //castling right (bit encoded) 
     uint32_t castle; 
+
+    //previous state 
+    boardState prevState; 
 
     //move list 
     uint32_t moveList[100000]; 
@@ -181,6 +193,17 @@ public:
 
     void printMove(uint32_t move);
     void printMoveList(); 
+
+
+
+    /*
+     =====================
+     preserve board state
+     =====================
+     */
+    
+    void storeState(); 
+    void restoreState();
 
 };
 
