@@ -1496,31 +1496,44 @@ void BitBoard::makeMove(uint32_t move) {
 	
 	}
 	else {
+		pieces[dpiece] &= ~position[dsourceIndex];
+		pieces[dpiece] |= position[dtargetIndex];
 
+		//change occupancy 
+		occupancy[side] &= ~position[dsourceIndex];
+		occupancy[side] |= position[dtargetIndex];
+
+		occupancy[both] &= ~position[dsourceIndex];
+		occupancy[both] |= position[dtargetIndex];
 	}
 
-	//setting flags 
-	//if something then something 
+	//flags for different branches 
 	if (denpassant) {
-		//enpassant flags 
-		//removing enpassant 
 		this->enpassant = 64; 
 	}
 	else if (dcapture) {
 		this->enpassant = 64; 
 	}
 	else if (ddoublePush) {
-		//set enpassant flags 
 		this->enpassant = dtargetIndex + (side == white ? 8 : -8);
 	}
 	else if(dcastle) {
+		this->enpassant = 64; 
 		if (side == white) castle &= 0b0011;
 		else castle &= 0b1100; 
-	
 	}
 	else {
-
+		this->enpassant = 64; 
 	}
+
+	//castle flags 
+	if (dpiece == wRook && dsourceIndex == A1) castle &= 0b1011; 
+	else if (dpiece == wRook && dsourceIndex == H1) castle &= 0b0111; 
+	else if (dpiece == bRook && dsourceIndex == A8) castle &= 0b1110; 
+	else if (dpiece == bRook && dsourceIndex == H8) castle &= 0b1101;
+	else if (dpiece == wKing) castle &= 0b0011; 
+	else if (dpiece == bKing) castle &= 0b1100; 
+
 	printBoard(); 
 
 }
