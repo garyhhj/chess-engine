@@ -1415,20 +1415,112 @@ void BitBoard::makeMove(uint32_t move) {
 				pieces[i] &= ~position[dtargetIndex]; 
 			}
 		}
-
-		cout << "printing occupancies: " << endl; 
-		printBoards(occupancy[white]);
-		printBoards(occupancy[black]);
-		printBoards(occupancy[both]);
 	}
 	else if (ddoublePush) {
+		cout << "calling ddoublePush: " << endl;
+		//move piece to correct square 
+		pieces[dpiece] &= ~position[dsourceIndex];
+		pieces[dpiece] |= position[dtargetIndex];
 
+		//change occupancy 
+		occupancy[side] &= ~position[dsourceIndex];
+		occupancy[side] |= position[dtargetIndex];
+
+		occupancy[both] &= ~position[dsourceIndex];
+		occupancy[both] |= position[dtargetIndex];
+	}
+	else if(dcastle) {
+
+		int castleFlag; 
+		//queen side 
+		if (dtargetIndex < dsourceIndex) {
+			castleFlag = (side == white ? wqc : bqc); 
+		}
+		//king side castle 
+		else {
+			castleFlag = (side == white ? wkc : bkc); 
+		}
+		
+		//move the kings
+		pieces[dpiece] &= ~position[dsourceIndex];
+		pieces[dpiece] |= position[dtargetIndex];
+
+		//change occupancy 
+		occupancy[side] &= ~position[dsourceIndex];
+		occupancy[side] |= position[dtargetIndex];
+
+		occupancy[both] &= ~position[dsourceIndex];
+		occupancy[both] |= position[dtargetIndex];
+
+		//move the rooks 
+		if (castleFlag == wqc) {
+			pieces[wRook] &= ~position[a1]; 
+			pieces[wRook] |= position[d1]; 
+
+			occupancy[white] &= ~position[a1]; 
+			occupancy[white] |= position[d1]; 
+
+			occupancy[both] &= ~position[a1]; 
+			occupancy[both] |= position[d1];
+		}
+		else if (castleFlag == bqc) {
+			pieces[bRook] &= ~position[a8]; 
+			pieces[bRook] |= position[d8]; 
+
+			occupancy[black] &= ~position[a8]; 
+			occupancy[white] |= position[d8]; 
+
+			occupancy[both] &= ~position[a8]; 
+			occupancy[both] |= position[d8]; 
+		}
+		else if (castleFlag == wkc) {
+			pieces[wRook] &= ~position[h1]; 
+			pieces[wRook] |= position[f1]; 
+
+			occupancy[white] &= ~position[h1]; 
+			occupancy[white] |= position[f1]; 
+
+			occupancy[both] &= ~position[h1]; 
+			occupancy[both] |= position[f1]; 
+		}
+		else {
+			pieces[bRook] &= ~position[h8];
+			pieces[bRook] |= position[f8]; 
+
+			occupancy[black] &= ~position[h8]; 
+			occupancy[black] |= position[f8]; 
+
+			occupancy[both] &= ~position[h8]; 
+			occupancy[both] |= position[f8]; 
+		}
+	
 	}
 	else {
-		//move 
+
+	}
+
+	//setting flags 
+	//if something then something 
+	if (denpassant) {
+		//enpassant flags 
+		//removing enpassant 
+		this->enpassant = 64; 
+	}
+	else if (dcapture) {
+		this->enpassant = 64; 
+	}
+	else if (ddoublePush) {
+		//set enpassant flags 
+		this->enpassant = dtargetIndex + (side == white ? 8 : -8);
+	}
+	else if(dcastle) {
+		if (side == white) castle &= 0b0011;
+		else castle &= 0b1100; 
 	
 	}
-	
+	else {
+
+	}
 	printBoard(); 
 
 }
