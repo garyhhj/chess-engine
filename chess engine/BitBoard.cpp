@@ -1527,9 +1527,12 @@ void BitBoard::makeMove(uint32_t move) {
 	}
 
 	//castle flags 
-	//target and source square oof 
 	castle &= castleRights[dsourceIndex]; 
 	castle &= castleRights[dtargetIndex]; 
+
+	//sides 
+	side ^= 1;
+
 
 	printBoard(); 
 
