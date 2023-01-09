@@ -1334,8 +1334,9 @@ bool isQuietMove() {
 }
 
 void BitBoard::makeMove(uint32_t move) {
-	//something about quiet move idk 
-	//quiet move(no capture, no promotion, no checks) 
+
+	//preserve board state
+	storeState(); 
 
 	int dsourceIndex = decodeMoveSourceIndex(move);
 	int dtargetIndex = decodeMoveTargetIndex(move);
@@ -1507,7 +1508,7 @@ void BitBoard::makeMove(uint32_t move) {
 		occupancy[both] |= position[dtargetIndex];
 	}
 
-	//flags for different branches 
+	//flags for some of the different branches 
 	if (denpassant) {
 		this->enpassant = 64; 
 	}
@@ -1516,11 +1517,6 @@ void BitBoard::makeMove(uint32_t move) {
 	}
 	else if (ddoublePush) {
 		this->enpassant = dtargetIndex + (side == white ? 8 : -8);
-	}
-	else if(dcastle) {
-		this->enpassant = 64; 
-		if (side == white) castle &= 0b0011;
-		else castle &= 0b1100; 
 	}
 	else {
 		this->enpassant = 64; 
@@ -1533,7 +1529,11 @@ void BitBoard::makeMove(uint32_t move) {
 	//sides 
 	side ^= 1;
 
+	//restore boardState if move is pseudo legal
+	if ((side == white && isAttacked(lsbBitIndex(pieces[wKing]), white)) ||
+		(side == black && isAttacked(lsbBitIndex(pieces[bKing]), black))){
+		restoreState(); 
+	}
 
 	printBoard(); 
-
 }
