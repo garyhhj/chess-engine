@@ -1527,12 +1527,9 @@ void BitBoard::makeMove(uint32_t move) {
 	}
 
 	//castle flags 
-	if (dpiece == wRook && dsourceIndex == A1) castle &= 0b1011; 
-	else if (dpiece == wRook && dsourceIndex == H1) castle &= 0b0111; 
-	else if (dpiece == bRook && dsourceIndex == A8) castle &= 0b1110; 
-	else if (dpiece == bRook && dsourceIndex == H8) castle &= 0b1101;
-	else if (dpiece == wKing) castle &= 0b0011; 
-	else if (dpiece == bKing) castle &= 0b1100; 
+	//target and source square oof 
+	castle &= castleRights[dsourceIndex]; 
+	castle &= castleRights[dtargetIndex]; 
 
 	printBoard(); 
 

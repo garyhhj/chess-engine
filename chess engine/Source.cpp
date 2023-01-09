@@ -38,7 +38,7 @@ int main() {
 	board.storeState(); 
 	
 	board.generateMove(); 
-	//board.printMoveList(); 
+	board.printMoveList(); 
 
 	cout << endl << endl; 
 
