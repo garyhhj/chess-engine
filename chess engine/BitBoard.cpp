@@ -361,15 +361,9 @@ uint64_t BitBoard::allAttacked(int side) {
 
 
 void BitBoard::generateMove() {
-	//source and target index
-	int source, target; 
-
 	//white side 
 	if (side == white) {
-		
-		
-		//white pawn moves 
-		wPawnPush(); 
+		wPawnPush();
 		wPawnDoublePush(); 
 		wPawnCapture();
 
@@ -455,7 +449,7 @@ uint64_t BitBoard::wPawnDoublePush() {
 			//cout << "pawn doublepush: " << positionStr[i + 16] << positionStr[i] << '\n'; 
 
 			//encode move and push to move list 
-			addMove(encodeMove(i + 16, i, wPawn, noPiece, 0, 0, 0, 0)); 
+			addMove(encodeMove(i + 16, i, wPawn, noPiece, 0, 1, 0, 0)); 
 		}
 	}
 	return pawnPosition; 
@@ -538,7 +532,6 @@ uint64_t BitBoard::bPawnPush() {
 
 uint64_t BitBoard::bPawnDoublePush() {
 	//pawn position after double pawn push 
-	//there is a bug here 
 	uint64_t pawnPosition = ((pieces[bPawn] & ~NOTRANK_7) >> 16) & ~occupancy[both] & ~(occupancy[both] >> 8);
 
 
@@ -549,7 +542,7 @@ uint64_t BitBoard::bPawnDoublePush() {
 			//cout << "pawn doublepush: " << positionStr[i - 16] << positionStr[i] << '\n';
 
 			//encode move and push to move list 
-			addMove(encodeMove(i - 16, i, bPawn, noPiece, 0, 0, 0, 0));
+			addMove(encodeMove(i - 16, i, bPawn, noPiece, 0, 1, 0, 0));
 		}
 	}
 	return pawnPosition;
@@ -694,6 +687,8 @@ uint64_t BitBoard::bKnightMove() {
  */
 
 uint64_t BitBoard::wKingMove() {
+	//return if there is no king 
+	if (!pieces[wKing]) return 0x0; 
 	uint64_t moves = 0x0; 
 
 	int sourceIndex = lsbBitIndex(pieces[wKing]); 
@@ -724,6 +719,9 @@ uint64_t BitBoard::wKingMove() {
 }
 
 uint64_t BitBoard::bKingMove() {
+	//return if there is no king 
+	if (!pieces[bKing]) return 0x0; 
+
 	uint64_t moves = 0x0;
 
 	int sourceIndex = lsbBitIndex(pieces[bKing]);
@@ -1266,7 +1264,9 @@ void BitBoard::printMove(uint32_t move) {
 	else cout << "- "; 
 
 	//double push 
-	if (decodeMoveDoublePush(move)) cout << "dp ";
+	if (decodeMoveDoublePush(move)) {
+		cout << "dp ";
+	}
 	else cout << "-- ";
 
 	//enpassant 
@@ -1535,5 +1535,4 @@ void BitBoard::makeMove(uint32_t move) {
 		restoreState(); 
 	}
 
-	printBoard(); 
 }

@@ -3,10 +3,13 @@
 #include "precalculation.h"
 #include "macro.h"
 #include "debug.h"
+#include "time.h"
 
 #include <iostream>
 #include <vector>
 #include <string>
+
+#include <chrono>
 
 
 /*
@@ -25,7 +28,7 @@ int main() {
 	initLeaperPiece(); 
 
 	//set some attacking pieces 
-	string fen1 = "8/8/8/8/8/8/8/8 b - - ";
+	string fen1 = "8/p7/8/8/8/8/8/8 b - - ";
 	string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
 	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ";
 	string fenK = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
@@ -33,24 +36,38 @@ int main() {
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 
 
-	board.parseFen(fenK); 
+	auto startTimer = std::chrono::high_resolution_clock::now(); 
+	
+	//load board states 
+	board.parseFen(fen1); 
 	board.printBoard(); 
-	board.storeState(); 
 	
 	board.generateMove(); 
 	board.printMoveList(); 
 
+
+	cout << endl << endl; 
+	cout << "before the while loop" << endl; 
 	cout << endl << endl; 
 
-	cout << "initial board state: " << endl; 
-	board.printBoard();
+	int i = 0; 
+	while (i != board.moveListEnd) {
+		board.storeState(); 
+		board.printBoard(); 
 
-	board.makeMove(board.moveList[13]); 
+		board.makeMove(board.moveList[i]); 
+		board.printBoard(); 
+		
+		std::string s; 
+		std::getline(cin, s); 
+		++i; 
 
-	//board.printBoard(); 
+		board.restoreState(); 
+	}
 
 
-
+	auto endTimer = std::chrono::high_resolution_clock::now(); 
+	std::cout << "Milliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTimer - startTimer).count() << std::endl;
 }
 
 
