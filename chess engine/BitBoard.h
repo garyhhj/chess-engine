@@ -176,11 +176,11 @@ public:
      =======================
      */
 
-    void addMove(moveList ml, uint32_t* moveList);
+    void addMove(moveList ml, uint32_t* moveList, uint32_t move);
     void removeMove(moveList ml);
-    void removeMoveAll(moveList ml); 
-    void printMove(moveList ml, uint32_t* moveList);
-    void printMoveList();
+    void removeMoveAll(moveList ml);
+    void printMove(uint32_t move);
+    void printMoveList(moveList ml, uint32_t* moveList);
 
     /*
      =======================

@@ -1215,55 +1215,49 @@ constexpr int BitBoard::decodeMoveCastle(uint32_t move) { return (move & 0x80000
   ============
   */
 
-void addMove(moveList ml, uint32_t* moveList, uint32_t move) {
+void BitBoard::addMove(moveList ml, uint32_t* moveList, uint32_t move) {
 	moveList[ml.index] = move; 
 	ml.index++; 
 }
 
-void removeMove(moveList ml) {
+void BitBoard::removeMove(moveList ml) {
 	ml.index--; 
 }
 
-void removeMoveAll(moveList ml) {
+void BitBoard::removeMoveAll(moveList ml) {
 	ml.index = 0; 
 }
 
-void printMove(uint32_t move);
-void printMoveList();
-
-
-
-/*
 void BitBoard::printMove(uint32_t move) {
-	//use sstream to format before outputting 
+	using namespace std;
+	cout << "move: ";
 
-	using namespace std; 
-	cout << "move: "; 
+	
 
 	//sourceIndex
 	cout << "(SI)" << positionStr[decodeMoveSourceIndex(move)] << " ";
 
 	//targetIndex 
-	cout << "(TI)" << positionStr[decodeMoveTargetIndex(move)] << " "; 
+	cout << "(TI)" << positionStr[decodeMoveTargetIndex(move)] << " ";
 
 	//piece 
 	cout << pieceStr[decodeMovePiece(move)] << " ";
 
 	//padding 
-	int padding = 8 - pieceStr[decodeMovePiece(move)].size(); 
-	while (padding--) cout << " "; 
-	
+	int padding = 8 - pieceStr[decodeMovePiece(move)].size();
+	while (padding--) cout << " ";
+
 	//promote piece 
-	cout << pieceStr[decodeMovePromotePiece(move)] << " "; 
+	cout << pieceStr[decodeMovePromotePiece(move)] << " ";
 
 	//padding 
-	padding = 10 - pieceStr[decodeMovePromotePiece(move)].size(); 
-	while (padding--) cout << " "; 
-	cout << "| "; 
+	padding = 10 - pieceStr[decodeMovePromotePiece(move)].size();
+	while (padding--) cout << " ";
+	cout << "| ";
 
 	//capture 
 	if (decodeMoveCapture(move)) cout << "c ";
-	else cout << "- "; 
+	else cout << "- ";
 
 	//double push 
 	if (decodeMoveDoublePush(move)) {
@@ -1273,28 +1267,26 @@ void BitBoard::printMove(uint32_t move) {
 
 	//enpassant 
 	if (decodeMoveEnpassant(move)) cout << "e ";
-	else cout << "- "; 
+	else cout << "- ";
 
 	//castle 
 	if (decodeMoveCastle(move)) cout << "c";
-	else cout << "-"; 
+	else cout << "-";
 
 	cout << '\n';
-
 }
-
-void BitBoard::printMoveList() {
-	int it = 0; 
-	while (it != moveListEnd) {
+void BitBoard::printMoveList(moveList ml, uint32_t* moveList) {
+	int it = 0;
+	while (it != ml.end) {
 		std::cout << it << ": ";
-		printMove(moveList[it]); 
-		++it; 
+		printMove(moveList[it]);
+		++it;
 	}
 
-	std::cout << "number of moves: " <<  moveListEnd << '\n';
-	std::cout << std::flush; 
+	std::cout << "number of moves: " << ml.end << '\n';
+	std::cout << std::flush;
 }
-*/
+
 
 
 
