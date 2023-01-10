@@ -1218,12 +1218,17 @@ constexpr int BitBoard::decodeMoveCastle(uint32_t move) { return (move & 0x80000
 void addMove(moveList ml, uint32_t* moveList, uint32_t move) {
 	moveList[ml.index] = move; 
 	ml.index++; 
-	ml.end++; 
 }
 
-void removeMove(moveList ml);
-void removeMoveAll(moveList ml);
-void printMove(moveList ml, uint32_t* moveList);
+void removeMove(moveList ml) {
+	ml.index--; 
+}
+
+void removeMoveAll(moveList ml) {
+	ml.index = 0; 
+}
+
+void printMove(uint32_t move);
 void printMoveList();
 
 
