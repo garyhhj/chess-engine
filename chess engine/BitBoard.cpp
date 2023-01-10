@@ -1210,28 +1210,25 @@ constexpr int BitBoard::decodeMoveCastle(uint32_t move) { return (move & 0x80000
 
 
   /*
-  =========
-  other 
-  =========
+  =============
+   move list 
+  ============
   */
 
-
-void BitBoard::addMove(uint32_t move) {
-	moveList[moveListIndex] = move;
-	++moveListIndex; 
-	++moveListEnd; 
+void addMove(moveList ml, uint32_t* moveList, uint32_t move) {
+	moveList[ml.index] = move; 
+	ml.index++; 
+	ml.end++; 
 }
 
-void BitBoard::removeMove() {
-	--moveListIndex; 
-	--moveListEnd; 
-}
+void removeMove(moveList ml);
+void removeMoveAll(moveList ml);
+void printMove(moveList ml, uint32_t* moveList);
+void printMoveList();
 
-void BitBoard::removeMoveAll() {
-	moveListIndex = 0; 
-	moveListEnd = 1; 
-}
 
+
+/*
 void BitBoard::printMove(uint32_t move) {
 	//use sstream to format before outputting 
 
@@ -1292,6 +1289,7 @@ void BitBoard::printMoveList() {
 	std::cout << "number of moves: " <<  moveListEnd << '\n';
 	std::cout << std::flush; 
 }
+*/
 
 
 

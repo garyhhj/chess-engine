@@ -80,6 +80,13 @@ struct boardState {
     uint32_t castle; 
 };
 
+struct moveList {
+    int begin = 0; 
+    int index = 0; 
+    int end = 0;
+
+};
+
 class BitBoard {
 public:
 	//pieces on bitboard 
@@ -99,12 +106,6 @@ public:
 
     //previous state 
     boardState prevState; 
-
-    //move list 
-    uint32_t moveList[100000]; 
-    int moveListIndex; 
-    int moveListBegin; 
-    int moveListEnd; 
 
 	//constructor 
 	BitBoard();
@@ -171,6 +172,18 @@ public:
 
     /*
      =======================
+     move list 
+     =======================
+     */
+
+    void addMove(moveList ml, uint32_t* moveList);
+    void removeMove(moveList ml);
+    void removeMoveAll(moveList ml); 
+    void printMove(moveList ml, uint32_t* moveList);
+    void printMoveList();
+
+    /*
+     =======================
      encode and decode move
      =======================
      */
@@ -184,15 +197,6 @@ public:
     constexpr int decodeMoveDoublePush(uint32_t move);
     constexpr int decodeMoveEnpassant(uint32_t move);
     constexpr int decodeMoveCastle(uint32_t move);
-
-
-
-    void addMove(uint32_t move); 
-    void removeMove(); 
-    void removeMoveAll(); 
-
-    void printMove(uint32_t move);
-    void printMoveList(); 
 
 
     /*
