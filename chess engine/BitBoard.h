@@ -130,7 +130,7 @@ public:
     bool isAttacked(int index, int side);
     uint64_t allAttacked(int side);
 
-    void generateMove();
+    void generateMove(moveList ml, uint32_t* moveList);
 
     //pawn 
     //change from uint64_t to void? 

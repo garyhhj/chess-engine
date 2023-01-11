@@ -360,7 +360,7 @@ uint64_t BitBoard::allAttacked(int side) {
 }
 
 
-void BitBoard::generateMove() {
+void BitBoard::generateMove(moveList ml, uint32_t* moveList) {
 	//white side 
 	if (side == white) {
 		wPawnPush();
