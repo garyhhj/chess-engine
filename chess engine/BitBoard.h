@@ -130,45 +130,45 @@ public:
     bool isAttacked(int index, int side);
     uint64_t allAttacked(int side);
 
-    void generateMove(moveList ml, uint32_t* moveList);
+    void generateMove(moveList& ml, uint32_t* moveList);
 
     //pawn 
     //change from uint64_t to void? 
-    uint64_t wPawnPush(); 
-    uint64_t wPawnDoublePush();
-    uint64_t wPawnCapture(); 
+    uint64_t wPawnPush(moveList& ml, uint32_t* moveList);
+    uint64_t wPawnDoublePush(moveList& ml, uint32_t* moveList);
+    uint64_t wPawnCapture(moveList& ml, uint32_t* moveList); 
 
-    uint64_t bPawnPush(); 
-    uint64_t bPawnDoublePush(); 
-    uint64_t bPawnCapture(); 
+    uint64_t bPawnPush(moveList& ml, uint32_t* moveList);
+    uint64_t bPawnDoublePush(moveList& ml, uint32_t* moveList);
+    uint64_t bPawnCapture(moveList& ml, uint32_t* moveList);
 
     //knight
-    uint64_t wKnightMove(); 
-    uint64_t bKnightMove(); 
+    uint64_t wKnightMove(moveList& ml, uint32_t* moveList);
+    uint64_t bKnightMove(moveList& ml, uint32_t* moveList);
     
     //king 
-    uint64_t wKingMove(); 
-    uint64_t bKingMove(); 
+    uint64_t wKingMove(moveList& ml, uint32_t* moveList);
+    uint64_t bKingMove(moveList& ml, uint32_t* moveList);
 
     //bishop 
-    uint64_t wBishopMove(); 
-    uint64_t bBishopMove(); 
+    uint64_t wBishopMove(moveList& ml, uint32_t* moveList);
+    uint64_t bBishopMove(moveList& ml, uint32_t* moveList);
     
     //rook 
-    uint64_t wRookMove(); 
-    uint64_t bRookMove();
+    uint64_t wRookMove(moveList& ml, uint32_t* moveList);
+    uint64_t bRookMove(moveList& ml, uint32_t* moveList);
 
     //queen 
-    uint64_t wQueenMove(); 
-    uint64_t bQueenMove(); 
+    uint64_t wQueenMove(moveList& ml, uint32_t* moveList);
+    uint64_t bQueenMove(moveList& ml, uint32_t* moveList);
 
     //enpassant 
-    uint64_t wEnpassantMove(); 
-    uint64_t bEnpassantMove(); 
+    uint64_t wEnpassantMove(moveList& ml, uint32_t* moveList);
+    uint64_t bEnpassantMove(moveList& ml, uint32_t* moveList);
     
     //castle 
-    uint64_t wCastleMove(); 
-    uint64_t bCastleMove(); 
+    uint64_t wCastleMove(moveList& ml, uint32_t* moveList);
+    uint64_t bCastleMove(moveList& ml, uint32_t* moveList);
 
     /*
      =======================
@@ -176,11 +176,11 @@ public:
      =======================
      */
 
-    void addMove(moveList ml, uint32_t* moveList, uint32_t move);
-    void removeMove(moveList ml);
-    void removeMoveAll(moveList ml);
+    void addMove(moveList& ml, uint32_t* moveList, uint32_t move);
+    void removeMove(moveList& ml);
+    void removeMoveAll(moveList& ml);
     void printMove(uint32_t move);
-    void printMoveList(moveList ml, uint32_t* moveList);
+    void printMoveList(const moveList ml, const uint32_t* moveList);
 
     /*
      =======================
