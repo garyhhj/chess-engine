@@ -1220,14 +1220,8 @@ constexpr int BitBoard::decodeMoveCastle(uint32_t move) { return (move & 0x80000
   */
 
 void BitBoard::addMove(moveList& ml, uint32_t* moveList, uint32_t move) {
-	using namespace std; 
-	cout << "addMove called" << endl; 
-	printMove(move); 
-
 	moveList[ml.index] = move; 
 	ml.index++;
-
-	cout << "ml.index: " << ml.index << endl; 
 }
 
 void BitBoard::removeMove(moveList& ml) {
@@ -1307,7 +1301,7 @@ void BitBoard::printMoveList(const moveList ml, const uint32_t* moveList) {
  */
 
 
-void BitBoard::storeState() {
+void BitBoard::storeState(boardState& prevState) {
 	//populate prevState member variable 
 	std::copy_n(pieces, 12, prevState.pieces); 
 	std::copy_n(occupancy, 3, prevState.occupancy); 
@@ -1317,7 +1311,7 @@ void BitBoard::storeState() {
 	prevState.castle = this->castle; 
 }
 
-void BitBoard::restoreState() {
+void BitBoard::restoreState(boardState& prevState) {
 	//populate class with info from prevState 
 	std::copy_n(prevState.pieces, 12, pieces);
 	std::copy_n(prevState.occupancy, 3, occupancy);
@@ -1338,10 +1332,15 @@ bool isQuietMove() {
 	return true; 
 }
 
-void BitBoard::makeMove(uint32_t move) {
+/*
+false-> pseudo legal move
+true -> legal move 
+*/
+bool BitBoard::makeMove(uint32_t move) {
 
 	//preserve board state
-	storeState(); 
+	boardState state; 
+	storeState(state); 
 
 	int dsourceIndex = decodeMoveSourceIndex(move);
 	int dtargetIndex = decodeMoveTargetIndex(move);
@@ -1531,13 +1530,18 @@ void BitBoard::makeMove(uint32_t move) {
 	castle &= castleRights[dsourceIndex]; 
 	castle &= castleRights[dtargetIndex]; 
 
+	//promotions 
+
 	//sides 
 	side ^= 1;
 
 	//restore boardState if move is pseudo legal
 	if ((side == white && isAttacked(lsbBitIndex(pieces[wKing]), white)) ||
 		(side == black && isAttacked(lsbBitIndex(pieces[bKing]), black))){
-		restoreState(); 
+		restoreState(state); 
+
+		return false; 
 	}
 
+	return true; 
 }

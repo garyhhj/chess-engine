@@ -2,6 +2,9 @@
 #include <vector>
 #include <iostream>
 
+//initialize chess board 
+BitBoard board;
+
 
 /*
  ==================================
@@ -102,10 +105,7 @@ public:
     int enpassant; 
 
     //castling right (bit encoded) 
-    uint32_t castle; 
-
-    //previous state 
-    boardState prevState; 
+    uint32_t castle;  
 
 	//constructor 
 	BitBoard();
@@ -205,8 +205,8 @@ public:
      =====================
      */
     
-    void storeState(); 
-    void restoreState();
+    void storeState(boardState& state); 
+    void restoreState(boardState& state);
 
 
     /*
@@ -215,7 +215,7 @@ public:
      =====================
      */
 
-    void makeMove(uint32_t move);
+    bool makeMove(uint32_t move);
 };
 
 /*

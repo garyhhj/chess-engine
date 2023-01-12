@@ -716,10 +716,10 @@ uint64_t occupancyCombination(int index, int numBits, uint64_t occupancy) {
 }
 
 //xor shift random number generator for uint32
-uint32_t state = 1804289383; 
+uint32_t magicNumberState = 1804289383; 
 uint32_t generateRandomUint32() {
 	//defining next state 
-	uint32_t nxtState = state; 
+	uint32_t nxtState = magicNumberState; 
 
 	//xor shifts 
 	nxtState ^= nxtState << 13; 
@@ -727,7 +727,7 @@ uint32_t generateRandomUint32() {
 	nxtState ^= nxtState << 5;
 
 	//storing next state 
-	state = nxtState; 
+	magicNumberState = nxtState; 
 
 	return nxtState; 
 }

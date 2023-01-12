@@ -20,8 +20,9 @@ main driver
 
 using namespace std; 
 
+
 int main() {
-	BitBoard board; 
+	
 	
 	
 	initSliderPieces(); 
@@ -29,7 +30,7 @@ int main() {
 
 	//set some attacking pieces 
 	string fen1 = "8/p7/8/8/8/8/8/8 b - - ";
-	string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1 ";
+	string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
 	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ";
 	string fenK = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
 	string fenCmk = "r2q1rk1/ppp2ppp/2n1bn2/2b1p3/3pP3/3P1NPP/PPP1NPB1/R1BQ1RK1 b - - 0 9 ";
@@ -50,17 +51,17 @@ int main() {
 	board.generateMove(ml, movelist); 
 	board.printMoveList(ml, movelist); 
 
-	/*
+	
 	cout << endl << endl; 
 	cout << "before the while loop" << endl; 
 	cout << endl << endl; 
 
 	int i = 0; 
-	while (i != board.moveListEnd) {
+	while (i != ml.index) {
 		board.storeState(); 
 		board.printBoard(); 
 
-		board.makeMove(board.moveList[i]); 
+		board.makeMove(movelist[i]); 
 		board.printBoard(); 
 		
 		std::string s; 
@@ -69,7 +70,7 @@ int main() {
 
 		board.restoreState(); 
 	}
-	*/
+	
 
 
 	auto endTimer = std::chrono::high_resolution_clock::now(); 
