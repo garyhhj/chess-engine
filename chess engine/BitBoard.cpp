@@ -412,10 +412,12 @@ uint64_t BitBoard::wPawnPush(moveList& ml, uint32_t* moveList) {
 		if (pawnPosition & position[i]) {
 			//cout << "pawn push promotion: " << positionStr[i + 8] << positionStr[i] << '\n'; 
 
-			//todo: function to determine what promotion if necessary 
-			
 			//encode move and push to movelist 
 			addMove(ml, moveList, encodeMove(i + 8, i, wPawn, wQueen, 0, 0, 0, 0)); 
+			addMove(ml, moveList, encodeMove(i + 8, i, wPawn, wRook, 0, 0, 0, 0));
+			addMove(ml, moveList, encodeMove(i + 8, i, wPawn, wBishop, 0, 0, 0, 0));
+			addMove(ml, moveList, encodeMove(i + 8, i, wPawn, wKnight, 0, 0, 0, 0));
+
 		}
 	}
 
@@ -465,6 +467,9 @@ uint64_t BitBoard::wPawnCapture(moveList& ml, uint32_t* moveList) {
 
 				//cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n'; 
 				addMove(ml, moveList, encodeMove(i, index, wPawn, wQueen, 1, 0, 0, 0)); 
+				addMove(ml, moveList, encodeMove(i, index, wPawn, wRook, 1, 0, 0, 0));
+				addMove(ml, moveList, encodeMove(i, index, wPawn, wBishop, 1, 0, 0, 0));
+				addMove(ml, moveList, encodeMove(i, index, wPawn, wKnight, 1, 0, 0, 0));
 
 				captures &= captures - 1; 
 			}
@@ -506,10 +511,11 @@ uint64_t BitBoard::bPawnPush(moveList& ml, uint32_t* moveList) {
 		if (pawnPosition & position[i]) {
 			//cout << "pawn push promotion: " << positionStr[i - 8] << positionStr[i] << '\n';
 
-			//todo: function to determine what promotion if necessary 
-
 			//encode move and push to movelist 
 			addMove(ml, moveList, encodeMove(i - 8, i, bPawn, bQueen, 0, 0, 0, 0));
+			addMove(ml, moveList, encodeMove(i - 8, i, bPawn, bRook, 0, 0, 0, 0));
+			addMove(ml, moveList, encodeMove(i - 8, i, bPawn, bBishop, 0, 0, 0, 0));
+			addMove(ml, moveList, encodeMove(i - 8, i, bPawn, bKnight, 0, 0, 0, 0));
 		}
 	}
 
@@ -559,6 +565,9 @@ uint64_t BitBoard::bPawnCapture(moveList& ml, uint32_t* moveList) {
 
 				//cout << "pawn capture promotion: " << positionStr[i] << positionStr[index] << '\n';
 				addMove(ml, moveList, encodeMove(i, index, bPawn, bQueen, 1, 0, 0, 0));
+				addMove(ml, moveList, encodeMove(i, index, bPawn, bRook, 1, 0, 0, 0));
+				addMove(ml, moveList, encodeMove(i, index, bPawn, bBishop, 1, 0, 0, 0));
+				addMove(ml, moveList, encodeMove(i, index, bPawn, bKnight, 1, 0, 0, 0));
 
 				captures &= captures - 1;
 			}
