@@ -38,20 +38,15 @@ int main() {
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 
 
-	auto startTimer = std::chrono::high_resolution_clock::now(); 
-
-	//create move list
 	
 	//load board states 
 	board.parseFen(fenTricky); 
 	board.printBoard(); 
 
 
-	cout << perft(2) << '\n'; 
+	cout << perftTest(2) << '\n'; 
 
 
-	auto endTimer = std::chrono::high_resolution_clock::now(); 
-	std::cout << "Milliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTimer - startTimer).count() << std::endl;
 }
 
 
