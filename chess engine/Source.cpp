@@ -1,9 +1,9 @@
 #include "BitBoard.h"
-
 #include "precalculation.h"
 #include "macro.h"
 #include "debug.h"
 #include "time.h"
+#include "test.h"
 
 #include <iostream>
 #include <vector>
@@ -20,6 +20,7 @@ main driver
 
 using namespace std; 
 
+BitBoard board;
 
 int main() {
 	
@@ -31,7 +32,7 @@ int main() {
 	//set some attacking pieces 
 	string fen1 = "8/p7/8/8/8/8/8/8 b - - ";
 	string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
-	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ";
+	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - ";
 	string fenK = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
 	string fenCmk = "r2q1rk1/ppp2ppp/2n1bn2/2b1p3/3pP3/3P1NPP/PPP1NPB1/R1BQ1RK1 b - - 0 9 ";
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
@@ -39,38 +40,14 @@ int main() {
 
 	auto startTimer = std::chrono::high_resolution_clock::now(); 
 
-	//create move list 
-	moveList ml; 
-	uint32_t movelist[512]; 
+	//create move list
 	
 	//load board states 
-	board.parseFen(fenStart); 
+	board.parseFen(fenTricky); 
 	board.printBoard(); 
 
-	
-	board.generateMove(ml, movelist); 
-	board.printMoveList(ml, movelist); 
 
-	
-	cout << endl << endl; 
-	cout << "before the while loop" << endl; 
-	cout << endl << endl; 
-
-	int i = 0; 
-	while (i != ml.index) {
-		board.storeState(); 
-		board.printBoard(); 
-
-		board.makeMove(movelist[i]); 
-		board.printBoard(); 
-		
-		std::string s; 
-		std::getline(cin, s); 
-		++i; 
-
-		board.restoreState(); 
-	}
-	
+	cout << perft(2) << '\n'; 
 
 
 	auto endTimer = std::chrono::high_resolution_clock::now(); 

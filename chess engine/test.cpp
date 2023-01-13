@@ -4,11 +4,16 @@
 
 //something to generate different nodes 
 
-unsigned long long peft(int depth) {
+
+//initialize chess board 
+extern BitBoard board;
+
+unsigned long long perft(int depth) {
 	moveList ml; 
 	uint32_t movelist[512]; 
+	boardState state; 
 
-	int numMoves = 0; 
+	int numNodes = 0; 
 
 
 	if (depth == 0) {
@@ -23,18 +28,13 @@ unsigned long long peft(int depth) {
 
 		//move is legal 
 		if (board.makeMove(movelist[i])) {
-			
-			//need to be a local copy pffft 
-
+			board.storeState(state); 
+			numNodes += perft(depth - 1); 
+			board.restoreState(state); 
 		}
-
-		//if move is legal: make that make, and then call peft with one less depth 
-		//restore board after that move 
-		//shoot restore board might not work LMAO 
-
 	}
 	
 
 	//returns number of leaf nodes 
-	return numMoves; 
+	return numNodes; 
 }

@@ -2,10 +2,6 @@
 #include <vector>
 #include <iostream>
 
-//initialize chess board 
-BitBoard board;
-
-
 /*
  ==================================
             Chess board
@@ -217,6 +213,9 @@ public:
 
     bool makeMove(uint32_t move);
 };
+
+
+//initialize chess
 
 /*
 //pieces 

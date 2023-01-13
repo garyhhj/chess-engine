@@ -1352,16 +1352,10 @@ bool BitBoard::makeMove(uint32_t move) {
 	int dcastle = decodeMoveCastle(move);
 
 	//cout the information 
-	using namespace std;
-	cout << "Make move: " << move << " meowww move info: " << endl; 
-	printMove(move); 
-
-	if (side == white) cout << "white" << endl;
-	else cout << "black " << endl; 
 
 
 	if (denpassant) {
-		cout << "enpassant" << endl; 
+
 		//move pawn to correct 
 		pieces[dpiece] &= ~position[dsourceIndex];
 		pieces[dpiece] |= position[dtargetIndex];
@@ -1391,7 +1385,6 @@ bool BitBoard::makeMove(uint32_t move) {
 		this->enpassant = 64; 
 	}
 	else if (dcapture) {
-		cout << "calling dcapture: " << endl; 
 		//move piece to correct square 
 		pieces[dpiece] &= ~position[dsourceIndex];
 		pieces[dpiece] |= position[dtargetIndex];
@@ -1422,7 +1415,6 @@ bool BitBoard::makeMove(uint32_t move) {
 		}
 	}
 	else if (ddoublePush) {
-		cout << "calling ddoublePush: " << endl;
 		//move piece to correct square 
 		pieces[dpiece] &= ~position[dsourceIndex];
 		pieces[dpiece] |= position[dtargetIndex];
@@ -1436,14 +1428,14 @@ bool BitBoard::makeMove(uint32_t move) {
 	}
 	else if(dcastle) {
 
-		int castleFlag; 
+		int dcastleFlag; 
 		//queen side 
 		if (dtargetIndex < dsourceIndex) {
-			castleFlag = (side == white ? wqc : bqc); 
+			dcastleFlag = (side == white ? wqc : bqc); 
 		}
 		//king side castle 
 		else {
-			castleFlag = (side == white ? wkc : bkc); 
+			dcastleFlag = (side == white ? wkc : bkc); 
 		}
 		
 		//move the kings
@@ -1458,45 +1450,45 @@ bool BitBoard::makeMove(uint32_t move) {
 		occupancy[both] |= position[dtargetIndex];
 
 		//move the rooks 
-		if (castleFlag == wqc) {
-			pieces[wRook] &= ~position[a1]; 
-			pieces[wRook] |= position[d1]; 
+		if (dcastleFlag == wqc) {
+			pieces[wRook] &= ~position[A1]; 
+			pieces[wRook] |= position[D1]; 
 
-			occupancy[white] &= ~position[a1]; 
-			occupancy[white] |= position[d1]; 
+			occupancy[white] &= ~position[A1]; 
+			occupancy[white] |= position[D1]; 
 
-			occupancy[both] &= ~position[a1]; 
-			occupancy[both] |= position[d1];
+			occupancy[both] &= ~position[A1]; 
+			occupancy[both] |= position[D1];
 		}
-		else if (castleFlag == bqc) {
-			pieces[bRook] &= ~position[a8]; 
-			pieces[bRook] |= position[d8]; 
+		else if (dcastleFlag == bqc) {
+			pieces[bRook] &= ~position[A8]; 
+			pieces[bRook] |= position[D8]; 
 
-			occupancy[black] &= ~position[a8]; 
-			occupancy[white] |= position[d8]; 
+			occupancy[black] &= ~position[A8]; 
+			occupancy[white] |= position[D8]; 
 
-			occupancy[both] &= ~position[a8]; 
-			occupancy[both] |= position[d8]; 
+			occupancy[both] &= ~position[A8]; 
+			occupancy[both] |= position[D8]; 
 		}
-		else if (castleFlag == wkc) {
-			pieces[wRook] &= ~position[h1]; 
-			pieces[wRook] |= position[f1]; 
+		else if (dcastleFlag == wkc) {
+			pieces[wRook] &= ~position[H1]; 
+			pieces[wRook] |= position[F1]; 
 
-			occupancy[white] &= ~position[h1]; 
-			occupancy[white] |= position[f1]; 
+			occupancy[white] &= ~position[H1]; 
+			occupancy[white] |= position[F1]; 
 
-			occupancy[both] &= ~position[h1]; 
-			occupancy[both] |= position[f1]; 
+			occupancy[both] &= ~position[H1]; 
+			occupancy[both] |= position[F1]; 
 		}
 		else {
-			pieces[bRook] &= ~position[h8];
-			pieces[bRook] |= position[f8]; 
+			pieces[bRook] &= ~position[H8];
+			pieces[bRook] |= position[F8]; 
 
-			occupancy[black] &= ~position[h8]; 
-			occupancy[black] |= position[f8]; 
+			occupancy[black] &= ~position[H8]; 
+			occupancy[black] |= position[F8]; 
 
-			occupancy[both] &= ~position[h8]; 
-			occupancy[both] |= position[f8]; 
+			occupancy[both] &= ~position[H8]; 
+			occupancy[both] |= position[F8]; 
 		}
 	
 	}
