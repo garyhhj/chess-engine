@@ -43,8 +43,26 @@ int main() {
 	board.parseFen(fenTricky); 
 	board.printBoard(); 
 
+	//move list 
+	moveList ml; 
+	uint32_t movelist[512]; 
+	board.generateMove(ml, movelist); 
+	board.printMoveList(ml, movelist); 
 
-	cout << perftTest(2) << '\n'; 
+	//make move 
+	cout << "making move: "; 
+	int index = 0; 
+	board.printMove(movelist[index]); 
+	board.makeMove(movelist[index]);
+	board.printBoard(); 
+
+	//new move list 
+	moveList ml1; 
+	uint32_t movelist1[512]; 
+	board.generateMove(ml1, movelist1); 
+	board.printMoveList(ml1, movelist1); 
+
+	//cout << perftTest(2) << '\n'; 
 
 
 }

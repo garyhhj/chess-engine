@@ -1128,25 +1128,25 @@ uint64_t BitBoard::bCastleMove(moveList& ml, uint32_t* moveList) {
 	//king side castle 
 	if ((castle & bkc) &&
 		//e8 f8 and g8 not attacked 
-		(!isAttacked(4, white) && !isAttacked(5, white) && !isAttacked(6, white)) &&
+		(!isAttacked(4, black) && !isAttacked(5, black) && !isAttacked(6, black)) &&
 		//f8 and g8 not occupied 
 		(f8 & ~occupancy[both]) && (g8 & ~occupancy[both])) {
 
 		//cout << "castle: " << positionStr[4] << positionStr[6] << '\n';
-		addMove(ml, moveList, encodeMove(4, 6, wKing, noPiece, 0, 0, 0, 1));
+		addMove(ml, moveList, encodeMove(4, 6, bKing, noPiece, 0, 0, 0, 1));
 
 	}
 
 	//queen side castle 
 	if ((castle & bqc) &&
 		//e8 d8 and c8 not attacked 
-		(!isAttacked(4, white) && !isAttacked(3, white) && !isAttacked(2, white)) &&
+		(!isAttacked(4, black) && !isAttacked(3, black) && !isAttacked(2, black)) &&
 		//d8 c8 and b8 are empty 
 		(d8 & ~occupancy[both]) && (c8 & ~occupancy[both]) && (b8 & ~occupancy[both])
 		) {
 
 		//cout << "castle: " << positionStr[4] << positionStr[2] << '\n';
-		addMove(ml, moveList, encodeMove(4, 2, wKing, noPiece, 0, 0, 0, 1));
+		addMove(ml, moveList, encodeMove(4, 2, bKing, noPiece, 0, 0, 0, 1));
 
 	}
 
