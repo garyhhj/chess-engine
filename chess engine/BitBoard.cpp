@@ -1513,6 +1513,12 @@ bool BitBoard::makeMove(uint32_t move) {
 		this->enpassant = 64; 
 	}
 
+	//return false if move is pseudo legal
+	if ((side == white && isAttacked(lsbBitIndex(pieces[wKing]), white)) ||
+		(side == black && isAttacked(lsbBitIndex(pieces[bKing]), black))) {
+		return false;
+	}
+
 	//castle flags 
 	castle &= castleRights[dsourceIndex]; 
 	castle &= castleRights[dtargetIndex]; 
@@ -1523,11 +1529,7 @@ bool BitBoard::makeMove(uint32_t move) {
 	if (this->side == white) this->side = black;
 	else this->side = white; 
 
-	//restore boardState if move is pseudo legal
-	if ((side == white && isAttacked(lsbBitIndex(pieces[wKing]), white)) ||
-		(side == black && isAttacked(lsbBitIndex(pieces[bKing]), black))){
-		return false; 
-	}
+
 
 	return true; 
 }

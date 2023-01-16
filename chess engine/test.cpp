@@ -46,9 +46,6 @@ unsigned long long perftTest(int depth) {
 		std::cout << " | " << currNodes << '\n';
 
 		board.restoreState(state); 
-
-		//std::string s; 
-		//std::getline(std::cin, s); 
 	}
 
 	auto endTime = std::chrono::high_resolution_clock::now(); 
@@ -78,15 +75,14 @@ unsigned long long perft(int depth) {
 		
 		//illegal state 
 		if (!board.makeMove(movelist[i])) {
-			board.storeState(state); 
+			board.restoreState(state); 
 			continue; 
 		}
-		board.storeState(state); 
+		board.restoreState(state); 
 
-		board.storeState(state); 
+		board.makeMove(movelist[i]); 
 		numNodes += perft(depth - 1); 
 		board.restoreState(state); 
-		
 	}
 	
 
