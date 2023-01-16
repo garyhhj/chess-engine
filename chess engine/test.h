@@ -1,4 +1,7 @@
 #pragma once
+#include "test.h"
+#include "BitBoard.h"
+#include "macro.h"
 #include <iostream>
 #include <chrono>
 

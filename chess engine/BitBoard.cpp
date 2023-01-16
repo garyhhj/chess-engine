@@ -1337,11 +1337,6 @@ false-> pseudo legal move
 true -> legal move 
 */
 bool BitBoard::makeMove(uint32_t move) {
-
-	//preserve board state
-	boardState state; 
-	storeState(state); 
-
 	int dsourceIndex = decodeMoveSourceIndex(move);
 	int dtargetIndex = decodeMoveTargetIndex(move);
 	int dpiece = decodeMovePiece(move);
@@ -1525,13 +1520,12 @@ bool BitBoard::makeMove(uint32_t move) {
 	//promotions 
 
 	//sides 
-	side ^= 1;
+	if (this->side == white) this->side = black;
+	else this->side = white; 
 
 	//restore boardState if move is pseudo legal
 	if ((side == white && isAttacked(lsbBitIndex(pieces[wKing]), white)) ||
 		(side == black && isAttacked(lsbBitIndex(pieces[bKing]), black))){
-		restoreState(state); 
-
 		return false; 
 	}
 
