@@ -1346,7 +1346,10 @@ bool BitBoard::makeMove(uint32_t move) {
 	int denpassant = decodeMoveEnpassant(move);
 	int dcastle = decodeMoveCastle(move);
 
-	//cout the information 
+	//cout move
+	//using namespace std; 
+	//cout << "printing move: "; 
+	//printMove(move); 
 
 
 	if (denpassant) {

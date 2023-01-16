@@ -20,16 +20,13 @@ unsigned long long perftTest(int depth) {
 
 	unsigned long long numNodes = 0; 
 
-
 	board.generateMove(ml, movelist); 
-	board.printMoveList(ml, movelist);
 
 	for (int i = 0; i < ml.index; ++i) {
 
 		//if move is illegal 
 		if (!board.makeMove(movelist[i])) {
 			board.restoreState(state); 
-			std::cout << "illegal moves" << std::endl; 
 			continue; 
 		}
 		board.restoreState(state); 

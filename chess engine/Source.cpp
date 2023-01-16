@@ -32,15 +32,18 @@ int main() {
 	//set some attacking pieces 
 	string fen1 = "8/p7/8/8/8/8/8/8 b - - ";
 	string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
-	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - ";
+	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ";
 	string fenK = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
 	string fenCmk = "r2q1rk1/ppp2ppp/2n1bn2/2b1p3/3pP3/3P1NPP/PPP1NPB1/R1BQ1RK1 b - - 0 9 ";
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 
 
+	string fenEnpassant = "8/8/8/5p2/8/8/8/8 b w - f6 ";
+
+
 	
 	//load board states 
-	board.parseFen(fenStart); 
+	board.parseFen(fenTricky); 
 	board.printBoard(); 
 
 	
@@ -67,27 +70,21 @@ int main() {
 	board.printMoveList(ml1, movelist1); 
 	*/
 
-	
+	/*
 	moveList ml; 
 	uint32_t movelist[512]; 
 
 	board.generateMove(ml, movelist); 
+	board.printMoveList(ml, movelist); 
 
-	board.makeMove(movelist[2]); //a2 a3 
+	board.makeMove(movelist[36]); 
 	board.printBoard(); 
 
 	cout << endl << endl; 
-	
-
-	moveList ml1; 
-	uint32_t movelist1[512]; 
-	board.generateMove(ml1, movelist1);
-
-	board.makeMove(movelist1[3]); //d7 d6
-	board.printBoard(); 
+	*/
 
 
-	cout << perftTest(1) << '\n'; 
+	cout << perftTest(2) << '\n'; 
 }
 
 
