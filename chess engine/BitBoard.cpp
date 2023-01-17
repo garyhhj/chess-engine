@@ -1463,7 +1463,7 @@ bool BitBoard::makeMove(uint32_t move) {
 			pieces[bRook] |= position[D8]; 
 
 			occupancy[black] &= ~position[A8]; 
-			occupancy[white] |= position[D8]; 
+			occupancy[black] |= position[D8]; 
 
 			occupancy[both] &= ~position[A8]; 
 			occupancy[both] |= position[D8]; 
