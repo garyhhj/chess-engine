@@ -336,6 +336,9 @@ bool BitBoard::isAttacked(int index, int side) {
 	if (side == white && (maskQueenAttack(index, occupancy[both]) & pieces[bQueen])) return true; 
 	if (side == black && (maskQueenAttack(index, occupancy[both]) & pieces[wQueen])) return true; 
 
+	//king attack 
+	if (side == white && (kingAttack[index] & pieces[bKing])) return true;
+	if (side == black && (kingAttack[index] & pieces[wKing])) return true;
 
 	return false; 
 }

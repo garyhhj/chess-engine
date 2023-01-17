@@ -41,18 +41,20 @@ int main() {
 	string fenEnpassant = "8/8/8/5p2/8/8/8/8 b w - f6 ";
 
 
+	string fentemp = "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - "; 
+
 	
 	//load board states 
-	board.parseFen(fenTricky); 
+	board.parseFen(fentemp); 
 	board.printBoard(); 
 
 
-	   
+	/*
 	moveList ml; 
 	uint32_t movelist[512]; 
 	board.generateMove(ml, movelist); 
 	//board.printMoveList(ml, movelist); 
-	board.makeMove(movelist[36]); 
+	board.makeMove(movelist[5]); 
 	board.printBoard(); 
 	
 	
@@ -61,15 +63,16 @@ int main() {
 	uint32_t movelist1[512]; 
 	board.generateMove(ml1, movelist1); 
 	//board.printMoveList(ml1, movelist1); 
-	board.makeMove(movelist1[7]); 
+	board.makeMove(movelist1[5]); 
 	board.printBoard(); 
+	
 
 	
 	moveList ml2;
 	uint32_t movelist2[512]; 
 	board.generateMove(ml2, movelist2); 
 	//board.printMoveList(ml2, movelist2); 
-	board.makeMove(movelist2[4]); 
+	board.makeMove(movelist2[3]); 
 	board.printBoard(); 
 	
 
@@ -78,14 +81,33 @@ int main() {
 	uint32_t movelist3[512];
 	board.generateMove(ml3, movelist3);
 	//board.printMoveList(ml3, movelist3);
-	board.makeMove(movelist3[2]);
+	board.makeMove(movelist3[6]);
 	board.printBoard();
 	
 
 
+	moveList ml4;
+	uint32_t movelist4[512];
+	board.generateMove(ml4, movelist4);
+	//board.printMoveList(ml4, movelist4);
+	board.makeMove(movelist4[8]);
+	board.printBoard();
 
 
-	cout << perftTest(1) << '\n'; 
+
+	moveList ml5;
+	uint32_t movelist5[512];
+	board.generateMove(ml5, movelist5);
+	//board.printMoveList(ml5, movelist5);
+	board.makeMove(movelist5[8]);
+	board.printBoard();
+	*/
+
+
+
+
+
+	cout << perftTest(8) << '\n'; 
 }
 
 
