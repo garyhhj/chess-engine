@@ -1373,7 +1373,7 @@ bool BitBoard::makeMove(uint32_t move) {
 			occupancy[both] &= ~position[dtargetIndex + 8]; 
 		}
 		else {
-			pieces[wPawn] &= ~position[dtargetIndex + 8]; 
+			pieces[wPawn] &= ~position[dtargetIndex - 8]; 
 
 			occupancy[white] &= ~position[dtargetIndex - 8]; 
 			occupancy[both] &= ~position[dtargetIndex - 8]; 
