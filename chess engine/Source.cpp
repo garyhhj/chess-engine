@@ -69,22 +69,23 @@ int main() {
 	uint32_t movelist2[512]; 
 	board.generateMove(ml2, movelist2); 
 	//board.printMoveList(ml2, movelist2); 
-	board.makeMove(movelist2[1]); 
+	board.makeMove(movelist2[4]); 
 	board.printBoard(); 
+	
 
-	/*
+	
 	moveList ml3;
 	uint32_t movelist3[512];
 	board.generateMove(ml3, movelist3);
-	board.printMoveList(ml3, movelist3);
-	board.makeMove(movelist3[9]);
+	//board.printMoveList(ml3, movelist3);
+	board.makeMove(movelist3[2]);
 	board.printBoard();
-	*/
+	
 
 
 
 
-	cout << perftTest(2) << '\n'; 
+	cout << perftTest(1) << '\n'; 
 }
 
 

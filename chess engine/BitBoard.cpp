@@ -1510,6 +1510,8 @@ bool BitBoard::makeMove(uint32_t move) {
 	else if (dpromotePiece != noPiece) {
 		pieces[dpiece] &= ~position[dtargetIndex];
 		pieces[dpromotePiece] |= position[dtargetIndex];
+
+		this->enpassant = 64; 
 	}
 	else {
 		this->enpassant = 64; 
