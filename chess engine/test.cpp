@@ -26,20 +26,28 @@ unsigned long long perftTest(int depth) {
 
 		//if move is illegal 
 		if (!board.makeMove(movelist[i])) {
-			board.restoreState(state); 
-			continue; 
+			board.restoreState(state);
+			continue;
 		}
-		board.restoreState(state); 
+		board.restoreState(state);
 		//store state 
 
 		//call perft 
-		board.makeMove(movelist[i]); 
+		board.makeMove(movelist[i]);
 		//board.printBoard(); 
-		int currNodes = perft(depth - 1); 
-		numNodes += currNodes; 
-		
+		int currNodes = perft(depth - 1);
+		numNodes += currNodes;
+
 		//print result 
 		std::cout << positionStr[board.decodeMoveSourceIndex(movelist[i])] << " " << positionStr[board.decodeMoveTargetIndex(movelist[i])];
+		if (board.decodeMovePromotePiece(movelist[i]) != noPiece) {
+			//print piece 
+			int piece = board.decodeMovePromotePiece(movelist[i]);
+			if (piece == bKnight || piece == wKnight) std::cout << "n";
+			else if (piece == bBishop || piece == bBishop) std::cout << "b";
+			else if (piece == bRook || piece == wRook) std::cout << "r";
+			else if (piece == bQueen || piece == bQueen) std::cout << "q"; 
+		}
 		std::cout << " | " << currNodes << '\n';
 
 		board.restoreState(state); 

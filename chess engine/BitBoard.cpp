@@ -1503,14 +1503,13 @@ bool BitBoard::makeMove(uint32_t move) {
 	}
 
 	//flags for some of the different branches 
-	if (denpassant) {
-		this->enpassant = 64; 
-	}
-	else if (dcapture) {
-		this->enpassant = 64; 
-	}
-	else if (ddoublePush) {
+	
+	if (ddoublePush) {
 		this->enpassant = dtargetIndex + (side == white ? 8 : -8);
+	}
+	else if (dpromotePiece != noPiece) {
+		pieces[dpiece] &= ~position[dtargetIndex];
+		pieces[dpromotePiece] |= position[dtargetIndex];
 	}
 	else {
 		this->enpassant = 64; 

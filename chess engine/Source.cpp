@@ -46,31 +46,8 @@ int main() {
 	board.parseFen(fenTricky); 
 	board.printBoard(); 
 
-	
-	/*
-	//move list 
-	moveList ml; 
-	uint32_t movelist[512]; 
-	board.generateMove(ml, movelist); 
-	board.printMoveList(ml, movelist); 
 
-	//make move 
-	cout << "making move: "; 
-	int index = 0; 
-	board.printMove(movelist[index]); 
-	board.
-	(movelist[index]);
-	board.printBoard(); 
-	
-	
-	//new move list 
-	moveList ml1; 
-	uint32_t movelist1[512]; 
-	board.generateMove(ml1, movelist1); 
-	board.printMoveList(ml1, movelist1); 
-	*/
-
-	
+	   
 	moveList ml; 
 	uint32_t movelist[512]; 
 	board.generateMove(ml, movelist); 
@@ -84,21 +61,30 @@ int main() {
 	uint32_t movelist1[512]; 
 	board.generateMove(ml1, movelist1); 
 	//board.printMoveList(ml1, movelist1); 
-	board.makeMove(movelist1[42]); 
+	board.makeMove(movelist1[7]); 
 	board.printBoard(); 
-	cout << endl << endl; 
-	//*/
 
+	
 	moveList ml2;
 	uint32_t movelist2[512]; 
 	board.generateMove(ml2, movelist2); 
-	board.printMoveList(ml2, movelist2); 
-
-	board.makeMove(movelist2[0]); //d5d6
+	//board.printMoveList(ml2, movelist2); 
+	board.makeMove(movelist2[1]); 
 	board.printBoard(); 
 
+	/*
+	moveList ml3;
+	uint32_t movelist3[512];
+	board.generateMove(ml3, movelist3);
+	board.printMoveList(ml3, movelist3);
+	board.makeMove(movelist3[9]);
+	board.printBoard();
+	*/
 
-	cout << perftTest(1) << '\n'; 
+
+
+
+	cout << perftTest(2) << '\n'; 
 }
 
 
