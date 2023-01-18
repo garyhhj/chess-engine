@@ -35,7 +35,7 @@ unsigned long long perftTest(int depth) {
 		//call perft 
 		board.makeMove(movelist[i]);
 		//board.printBoard(); 
-		int currNodes = perft(depth - 1);
+		unsigned long long currNodes = perft(depth - 1);
 		numNodes += currNodes;
 
 		//print result 
@@ -65,7 +65,7 @@ unsigned long long perft(int depth) {
 	boardState state; 
 	board.storeState(state); 
 
-	int numNodes = 0; 
+	unsigned long long numNodes = 0; 
 
 
 	if (depth == 0) {

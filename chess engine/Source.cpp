@@ -41,31 +41,32 @@ int main() {
 	string fenEnpassant = "8/8/8/5p2/8/8/8/8 b w - f6 ";
 
 
-	
 
-	
-	//load board states 
-	board.parseFen(fenTricky); 
+	/*
+		parses UCI positions commands
+
+		Example UCI commands to init position on chess board
+
+		// init start position
+		position startpos
+
+		// init start position and make the moves on chess board
+		position startpos moves e2e4 e7e5
+
+		// init position from FEN string
+		position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+		// init position from fen string and make moves on chess board
+		position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 e8g8
+	*/
 	board.printBoard(); 
+	
+	string uciCommand = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 e8g8";
+	board.parsePosition(uciCommand); 
+	
+	
+	board.printBoard();
 
-	moveList ml; 
-	uint32_t movelist[256]; 
-	board.generateMove(ml, movelist); 
-	board.printMoveList(ml, movelist); 
-
-	uint32_t move = board.parseMove("d5d6"); 
-	if (move) {
-		cout << endl; 
-		cout << "legal move, making move: "; 
-		board.printMove(move); 
-		board.makeMove(move); 
-	}
-
-	board.printBoard(); 
-
-
-
-	//cout << perftTest(6) << '\n'; 
 }
 
 

@@ -3,7 +3,8 @@
 #include "precalculation.h"
 #include "debug.h"
 #include <iostream>
-
+#include <sstream>
+#include <string>
 
 //initialize chess board 
 extern BitBoard board;
@@ -1592,4 +1593,71 @@ uint32_t BitBoard::parseMove(const std::string& move) {
 
 	//return false (illegal move or move doesn't exist) 
 	return 0; 
+}
+
+/*
+	parses UCI positions commands
+
+	Example UCI commands to init position on chess board
+
+	// init start position
+	position startpos
+
+	// init start position and make the moves on chess board
+	position startpos moves e2e4 e7e5
+
+	// init position from FEN string
+	position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+	// init position from fen string and make moves on chess board
+	position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 e8g8
+*/
+void BitBoard::parsePosition(const std::string& command) {
+	using namespace std; 
+	stringstream ss(command);
+	string word; 
+	while (ss >> word) {
+
+		//if word is position
+		if (word == "position") {
+			cout << "position" << '\n'; 
+			continue; 
+		}
+
+		//if word is starting position
+		else if (word == "startpos") {
+			string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
+			board.parseFen(fenStart);
+
+			cout << "startpos" << '\n'; 
+		}
+
+		//if word is "fen"
+		else if (word == "fen") {
+			string fen = ""; 
+
+			int count = 6; 
+			while (count--) {
+				ss >> word;
+				fen += word;
+				fen += " ";
+			}
+			
+			cout << fen << '\n'; 
+			board.parseFen(fen); 
+		}
+
+		//if word is "moves" 
+		else if (word == "moves") {
+			while (ss >> word) {
+				//print and execute moves 
+				cout << word << " "; 
+				uint32_t move = board.parseMove(word); 
+				if (move) {
+					board.makeMove(move); 
+				}
+			}
+			cout << '\n';
+		}
+	}
 }

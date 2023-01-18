@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 /*
@@ -221,6 +221,7 @@ public:
      */
 
     uint32_t parseMove(const std::string& move); 
+    void parsePosition(const std::string& command); 
 };
 
 
