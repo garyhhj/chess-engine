@@ -1549,7 +1549,7 @@ bool BitBoard::makeMove(uint32_t move) {
 
 /*
  =====================
- GUI
+ UCI 
  =====================
  */
 
@@ -1690,3 +1690,74 @@ void BitBoard::parseGo(const std::string& command) {
 	//search position depth 
 	//insert some function call later 
 }
+
+void BitBoard::uciLoop() {
+	using namespace std; 
+
+	//print engine info 
+	cout << "meowmi engine\n";
+	cout << "uciok\n";
+	cout << flush; 
+
+	//flush cout and clears cin input 
+	cout << flush; 
+	cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+
+	//game loop 
+	while (true) {
+		//clears user input 
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		//flushes output(make sure output reaches gui) 
+		cout << flush; 
+
+		//gets input 
+		string line; 
+		getline(cin, line); 
+		stringstream command(line); 
+
+		//gets first word of input 
+		string word; 
+		command >> word; 
+
+
+		//parse "isready"
+		if (word == "isready") {
+			cout << "readyok\n"; 
+			continue; 
+		}
+
+		//parse "position"
+		else if (word == "position") {
+			parsePosition(line); 
+		}
+
+		//parse "ucinewgame" 
+		else if (word == "ucinewgame") {
+			parsePosition("position startpos"); 
+		}
+
+		//parse "go"
+		else if (word == "go") {
+			parseGo(line); 
+		}
+
+		//parse "quit"
+		else if (word == "quit") {
+			//exit main loop 
+			break; 
+		}
+
+		//parse "uci"
+		else if (word == "uci") {
+			//print engine info 
+			cout << "meowmi engine\n";
+			cout << "uciok\n"; 
+		}
+	}
+
+
+
+
+}
+
