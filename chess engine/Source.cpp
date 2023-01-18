@@ -41,74 +41,87 @@ int main() {
 	string fenEnpassant = "8/8/8/5p2/8/8/8/8 b w - f6 ";
 
 
-	string fentemp = "8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - "; 
+	
 
 	
 	//load board states 
-	board.parseFen(fentemp); 
+	board.parseFen(fenTricky); 
 	board.printBoard(); 
 
-
-	/*
 	moveList ml; 
-	uint32_t movelist[512]; 
+	uint32_t movelist[256]; 
 	board.generateMove(ml, movelist); 
-	//board.printMoveList(ml, movelist); 
-	board.makeMove(movelist[5]); 
+	board.printMoveList(ml, movelist); 
+
+	uint32_t move = board.parseMove("d5d6"); 
+	if (move) {
+		cout << endl; 
+		cout << "legal move, making move: "; 
+		board.printMove(move); 
+		board.makeMove(move); 
+	}
+
 	board.printBoard(); 
-	
-	
-	
-	moveList ml1; 
-	uint32_t movelist1[512]; 
-	board.generateMove(ml1, movelist1); 
-	//board.printMoveList(ml1, movelist1); 
-	board.makeMove(movelist1[5]); 
-	board.printBoard(); 
-	
-
-	
-	moveList ml2;
-	uint32_t movelist2[512]; 
-	board.generateMove(ml2, movelist2); 
-	//board.printMoveList(ml2, movelist2); 
-	board.makeMove(movelist2[3]); 
-	board.printBoard(); 
-	
-
-	
-	moveList ml3;
-	uint32_t movelist3[512];
-	board.generateMove(ml3, movelist3);
-	//board.printMoveList(ml3, movelist3);
-	board.makeMove(movelist3[6]);
-	board.printBoard();
-	
-
-
-	moveList ml4;
-	uint32_t movelist4[512];
-	board.generateMove(ml4, movelist4);
-	//board.printMoveList(ml4, movelist4);
-	board.makeMove(movelist4[8]);
-	board.printBoard();
 
 
 
-	moveList ml5;
-	uint32_t movelist5[512];
-	board.generateMove(ml5, movelist5);
-	//board.printMoveList(ml5, movelist5);
-	board.makeMove(movelist5[8]);
-	board.printBoard();
-	*/
-
-
-
-
-
-	cout << perftTest(8) << '\n'; 
+	//cout << perftTest(6) << '\n'; 
 }
+
+
+/*
+moveList ml;
+uint32_t movelist[512];
+board.generateMove(ml, movelist);
+//board.printMoveList(ml, movelist);
+board.makeMove(movelist[5]);
+board.printBoard();
+
+
+
+moveList ml1;
+uint32_t movelist1[512];
+board.generateMove(ml1, movelist1);
+//board.printMoveList(ml1, movelist1);
+board.makeMove(movelist1[5]);
+board.printBoard();
+
+
+
+moveList ml2;
+uint32_t movelist2[512];
+board.generateMove(ml2, movelist2);
+//board.printMoveList(ml2, movelist2);
+board.makeMove(movelist2[3]);
+board.printBoard();
+
+
+
+moveList ml3;
+uint32_t movelist3[512];
+board.generateMove(ml3, movelist3);
+//board.printMoveList(ml3, movelist3);
+board.makeMove(movelist3[6]);
+board.printBoard();
+
+
+
+moveList ml4;
+uint32_t movelist4[512];
+board.generateMove(ml4, movelist4);
+//board.printMoveList(ml4, movelist4);
+board.makeMove(movelist4[8]);
+board.printBoard();
+
+
+
+moveList ml5;
+uint32_t movelist5[512];
+board.generateMove(ml5, movelist5);
+//board.printMoveList(ml5, movelist5);
+board.makeMove(movelist5[8]);
+board.printBoard();
+*/
 
 
 

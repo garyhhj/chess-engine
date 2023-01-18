@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <string>
 
 /*
  ==================================
@@ -212,6 +213,14 @@ public:
      */
 
     bool makeMove(uint32_t move);
+
+    /*
+     =====================
+     GUI
+     =====================
+     */
+
+    uint32_t parseMove(const std::string& move); 
 };
 
 

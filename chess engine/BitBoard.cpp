@@ -5,6 +5,9 @@
 #include <iostream>
 
 
+//initialize chess board 
+extern BitBoard board;
+
 /*
  ==================================
             Chess board
@@ -1539,4 +1542,54 @@ bool BitBoard::makeMove(uint32_t move) {
 
 
 	return true; 
+}
+
+
+
+/*
+ =====================
+ GUI
+ =====================
+ */
+
+//parses moves eg.(e7e8q)
+uint32_t BitBoard::parseMove(const std::string& move) {
+
+	//parse move for sourceIndex, targetIndex, promotionPiece 
+	int sourceIndex = (8 - (move[1] - '0')) * 8 + (move[0] - 'a');
+	int targetIndex = (8 - (move[3] - '0')) * 8 + (move[2] - 'a');
+
+	int promotionPiece = noPiece; 
+	if (move.size() == 5) {
+		if (move[4] == 'b') promotionPiece = (side == white ? wBishop : bBishop);
+		else if (move[4] == 'n') promotionPiece = (side == white ? wKnight : bKnight);
+		else if (move[4] == 'r') promotionPiece = (side == white ? wRook : bRook);
+		else if (move[4] == 'q') promotionPiece = (side == white ? wQueen : bQueen); 
+	}
+
+	moveList ml; 
+	uint32_t movelist[256]; 
+	board.generateMove(ml, movelist);
+
+	for (int i = 0; i < ml.index; ++i) {
+		//matching move 
+		int mlSourceIndex = board.decodeMoveSourceIndex(movelist[i]);
+		int mlTargetIndex = board.decodeMoveTargetIndex(movelist[i]); 
+		int mlPromotionPiece = board.decodeMovePromotePiece(movelist[i]); 
+
+		if (mlSourceIndex == sourceIndex && mlTargetIndex == targetIndex && mlPromotionPiece == promotionPiece) {
+			
+			//if move is legal 
+			boardState state; 
+			board.storeState(state); 
+			if (board.makeMove(movelist[i])) {
+				board.restoreState(state);
+				return movelist[i]; 
+			}
+		}
+
+	}
+
+	//return false (illegal move or move doesn't exist) 
+	return 0; 
 }
