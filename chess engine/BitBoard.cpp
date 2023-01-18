@@ -1670,7 +1670,9 @@ void BitBoard::parsePosition(const std::string& command) {
 */
 void BitBoard::parseGo(const std::string& command) {
 	using namespace std; 
-	int depth = -1; 
+
+	//default search depth 
+	int depth = 6; 
 
 	stringstream ss(command); 
 	
@@ -1686,7 +1688,8 @@ void BitBoard::parseGo(const std::string& command) {
 	}
 	
 	//search position depth 
-	//insert some function call later 
+	//cout << "searching depth of " << depth << '\n'; 
+	searchPosition(depth);
 }
 
 void BitBoard::uciLoop() {
@@ -1753,5 +1756,19 @@ void BitBoard::uciLoop() {
 		}
 		
 	}
+}
+
+
+
+/*
+ =====================
+ search position
+ =====================
+ */
+
+void BitBoard::searchPosition(int depth) {
+	using namespace std; 
+	// best move placeholder 
+	cout << "bestmove e2e4\n"; 
 }
 

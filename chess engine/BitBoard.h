@@ -224,6 +224,14 @@ public:
     void parsePosition(const std::string& command); 
     void parseGo(const std::string& command);
     void uciLoop(); 
+
+    /*
+     =====================
+     search position 
+     =====================
+     */
+
+    void searchPosition(int depth);
 };
 
 
