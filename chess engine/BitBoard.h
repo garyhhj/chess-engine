@@ -222,6 +222,7 @@ public:
 
     uint32_t parseMove(const std::string& move); 
     void parsePosition(const std::string& command); 
+    void parseGo(const std::string& command);
 };
 
 

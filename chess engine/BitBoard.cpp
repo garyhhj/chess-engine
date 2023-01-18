@@ -1661,3 +1661,32 @@ void BitBoard::parsePosition(const std::string& command) {
 		}
 	}
 }
+
+/*
+	parse UCI "go" command
+
+	Example UCI commands to make engine search for the best move
+
+	// fixed depth search
+	go depth 64
+*/
+void BitBoard::parseGo(const std::string& command) {
+	using namespace std; 
+	int depth = -1; 
+
+	stringstream ss(command); 
+	
+	string word; 
+	while (ss >> word) {
+		if (word == "go") {
+			continue; 
+		}
+
+		else if (word == "depth") {
+			ss >> depth; 
+		}
+	}
+	
+	//search position depth 
+	//insert some function call later 
+}
