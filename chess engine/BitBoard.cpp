@@ -1620,7 +1620,6 @@ void BitBoard::parsePosition(const std::string& command) {
 
 		//if word is position
 		if (word == "position") {
-			cout << "position" << '\n'; 
 			continue; 
 		}
 
@@ -1628,14 +1627,13 @@ void BitBoard::parsePosition(const std::string& command) {
 		else if (word == "startpos") {
 			string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
 			board.parseFen(fenStart);
-
-			cout << "startpos" << '\n'; 
 		}
 
 		//if word is "fen"
 		else if (word == "fen") {
+			
+			//initialize fen strin g
 			string fen = ""; 
-
 			int count = 6; 
 			while (count--) {
 				ss >> word;
@@ -1643,23 +1641,23 @@ void BitBoard::parsePosition(const std::string& command) {
 				fen += " ";
 			}
 			
-			cout << fen << '\n'; 
 			board.parseFen(fen); 
 		}
 
 		//if word is "moves" 
 		else if (word == "moves") {
 			while (ss >> word) {
-				//print and execute moves 
-				cout << word << " "; 
+				//verify legal move and execute moves 
 				uint32_t move = board.parseMove(word); 
 				if (move) {
 					board.makeMove(move); 
 				}
 			}
-			cout << '\n';
 		}
 	}
+
+	cout << '\n'; 
+	board.printBoard();
 }
 
 /*
@@ -1694,26 +1692,24 @@ void BitBoard::parseGo(const std::string& command) {
 void BitBoard::uciLoop() {
 	using namespace std; 
 
-	//print engine info 
-	cout << "meowmi engine\n";
-	cout << "uciok\n";
+	//print engine info
+	cout << "id name meowmi\n"; 
+	cout << "id name yarh\n"; 
+	cout << "uciok\n"; 
 	cout << flush; 
 
-	//flush cout and clears cin input 
+	//flushes buffer 
 	cout << flush; 
-	cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
 
 	//game loop 
 	while (true) {
-		//clears user input 
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-		//flushes output(make sure output reaches gui) 
+		//flushes buffer 
 		cout << flush; 
 
 		//gets input 
 		string line; 
 		getline(cin, line); 
+		
 		stringstream command(line); 
 
 		//gets first word of input 
@@ -1751,13 +1747,11 @@ void BitBoard::uciLoop() {
 		//parse "uci"
 		else if (word == "uci") {
 			//print engine info 
-			cout << "meowmi engine\n";
-			cout << "uciok\n"; 
+			cout << "id name meowmi\n";
+			cout << "id name yarh\n";
+			cout << "uciok\n";
 		}
+		
 	}
-
-
-
-
 }
 

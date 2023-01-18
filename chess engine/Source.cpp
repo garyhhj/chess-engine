@@ -38,34 +38,14 @@ int main() {
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 
 
-	string fenEnpassant = "8/8/8/5p2/8/8/8/8 b w - f6 ";
 
 
 
-	/*
-		parses UCI positions commands
-
-		Example UCI commands to init position on chess board
-
-		// init start position
-		position startpos
-
-		// init start position and make the moves on chess board
-		position startpos moves e2e4 e7e5
-
-		// init position from FEN string
-		position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
-
-		// init position from fen string and make moves on chess board
-		position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 e8g8
-	*/
-	board.printBoard(); 
+	//board.printBoard(); 
 	
-	string uciCommand = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 e8g8";
-	board.parsePosition(uciCommand); 
+	board.uciLoop(); 
+
 	
-	
-	board.printBoard();
 
 }
 
