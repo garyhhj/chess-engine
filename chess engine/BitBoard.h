@@ -235,6 +235,7 @@ public:
     int evaluate();
 
     int evaluateMaterial(); 
+    int evaluatePosition(); 
 };
 
 

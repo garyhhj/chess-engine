@@ -45,11 +45,11 @@ int main() {
 	if (debug) {
 		cout << "debugging" << endl; 
 
-		string fenStart1 = "rnbqkbnr/ppppppp1/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1 ";
+		string fenTemp = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
 
 		
-		board.parseFen(fenStart1); 
-		cout << board.evaluate();
+		board.parseFen(fenTemp); 
+		cout << board.evaluatePosition();
 		cout << endl; 
 
 

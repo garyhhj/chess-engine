@@ -393,7 +393,7 @@ positional scores
 */
 
 // pawn positional score
-extern const int wpawnScore[64] = {
+extern const int wpawnPositionScore[64] = {
 	90,  90,  90,  90,  90,  90,  90,  90,
 	30,  30,  30,  40,  40,  30,  30,  30,
 	20,  20,  20,  30,  30,  30,  20,  20,
@@ -404,7 +404,7 @@ extern const int wpawnScore[64] = {
 	 0,   0,   0,   0,   0,   0,   0,   0
 };
 
-extern const int bpawnScore[64] = {
+extern const int bpawnPositionScore[64] = {
 	 0,   0,   0,   0,   0,   0,   0,   0,
 	 0,   0,   0, -10, -10,   0,   0,   0,
 	 0,   0,   0,   5,   5,   0,   0,   0,
@@ -418,7 +418,7 @@ extern const int bpawnScore[64] = {
 
 
 // knight positional score
-extern const int wknightScore[64] = {
+extern const int wknightPositionScore[64] = {
 	-5,   0,   0,   0,   0,   0,   0,  -5,
 	-5,   0,   0,  10,  10,   0,   0,  -5,
 	-5,   5,  20,  20,  20,  20,   5,  -5,
@@ -429,7 +429,7 @@ extern const int wknightScore[64] = {
 	-5, -10,   0,   0,   0,   0, -10,  -5
 };
 
-extern const int bknightScore[64] = {
+extern const int bknightPositionScore[64] = {
 
 	-5, -10,   0,   0,   0,   0, -10,  -5,
 	-5,   0,   0,   0,   0,   0,   0,  -5,
@@ -443,7 +443,7 @@ extern const int bknightScore[64] = {
 
 
 // bishop positional score
-extern const int wbishopScore[64] = {
+extern const int wbishopPositionScore[64] = {
 	 0,   0,   0,   0,   0,   0,   0,   0,
 	 0,   0,   0,   0,   0,   0,   0,   0,
 	 0,   0,   0,  10,  10,   0,   0,   0,
@@ -456,7 +456,7 @@ extern const int wbishopScore[64] = {
 };
 
 
-extern const int bbishopScore[64] = {
+extern const int bbishopPositionScore[64] = {
 	 0,   0, -10,   0,   0, -10,   0,   0,
 	 0,  30,   0,   0,   0,   0,  30,   0,
 	 0,  10,   0,   0,   0,   0,  10,   0,
@@ -470,7 +470,7 @@ extern const int bbishopScore[64] = {
 
 
 // rook positional score
-extern const int wrookScore[64] = {
+extern const int wrookPositionScore[64] = {
 	50,  50,  50,  50,  50,  50,  50,  50,
 	50,  50,  50,  50,  50,  50,  50,  50,
 	 0,   0,  10,  20,  20,  10,   0,   0,
@@ -482,7 +482,7 @@ extern const int wrookScore[64] = {
 
 };
 
-extern const int bbrookScore[64] = {
+extern const int brookPositionScore[64] = {
 	 0,   0,   0,  20,  20,   0,   0,   0,
 	 0,   0,  10,  20,  20,  10,   0,   0,
 	 0,   0,  10,  20,  20,  10,   0,   0,
@@ -496,7 +496,7 @@ extern const int bbrookScore[64] = {
 
 
 // king positional score
-extern const int wkingScore[64] = {
+extern const int wkingPositionScore[64] = {
 	 0,   0,   0,   0,   0,   0,   0,   0,
 	 0,   0,   5,   5,   5,   5,   0,   0,
 	 0,   5,   5,  10,  10,   5,   5,   0,
@@ -507,7 +507,7 @@ extern const int wkingScore[64] = {
 	 0,   0,   5,   0, -15,   0,  10,   0
 };
 
-extern const int bkingScore[64] = {
+extern const int bkingPositionScore[64] = {
 	 0,  10,   0, -15,   0,   5,   0,   0,
 	 0,   5,   0,  -5,  -5,   5,   5,   0,
 	 0,   0,   5,  10,  10,   5,   0,   0,
