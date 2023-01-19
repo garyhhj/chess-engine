@@ -1773,14 +1773,22 @@ void BitBoard::searchPosition(int depth) {
 	cout << "bestmove e2e4\n"; 
 }
 
+int BitBoard::evaluateMaterial() {
+	int score = 0; 
+
+	//iterate through piece and sum their material score 
+	for (int piece = wPawn; piece <= bKing; ++piece) {
+		score += (materialScore[piece] * numBit(pieces[piece]));
+	}
+
+	return score; 
+}
+
 int BitBoard::evaluate() {
 
 
-	int score = 0; 
-	for (int piece = wPawn; piece <= bKing; ++piece) {
-		score += (materialScore[piece] * numBit(pieces[piece])); 
-	}
-
+	int score = 0;
+	score += evaluateMaterial(); 
 	//return evaluation based on side 
 	return (side == white ? score : -score); 
 }
