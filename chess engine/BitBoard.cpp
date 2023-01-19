@@ -1766,9 +1766,21 @@ void BitBoard::uciLoop() {
  =====================
  */
 
+//outputs best move after searching a certain "depth"
 void BitBoard::searchPosition(int depth) {
 	using namespace std; 
 	// best move placeholder 
 	cout << "bestmove e2e4\n"; 
 }
 
+int BitBoard::evaluate() {
+
+
+	int score = 0; 
+	for (int piece = wPawn; piece <= bKing; ++piece) {
+		score += (materialScore[piece] * numBit(pieces[piece])); 
+	}
+
+	//return evaluation based on side 
+	return (side == white ? score : -score); 
+}

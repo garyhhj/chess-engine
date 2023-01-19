@@ -232,6 +232,7 @@ public:
      */
 
     void searchPosition(int depth);
+    int evaluate(); 
 };
 
 
