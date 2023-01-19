@@ -337,3 +337,27 @@ misc
 
 //pieces from enum to letter repesentation 
 extern const char piecesLetter[12];
+
+
+/*
+=====================
+evaluation
+=====================
+*/
+
+extern const int materialScore[12];/* = {
+	100,      // white pawn score
+	300,      // white knight scrore
+	350,      // white bishop score
+	500,      // white rook score
+   1000,      // white queen score
+  10000,      // white king score
+   -100,      // black pawn score
+   -300,      // black knight scrore
+   -350,      // black bishop score
+   -500,      // black rook score
+  -1000,      // black queen score
+ -10000,      // black king score
+};*/
+
+

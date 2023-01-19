@@ -25,11 +25,11 @@ BitBoard board;
 int main() {
 	
 	
-	
+	//precalculating tables 
 	initSliderPieces(); 
 	initLeaperPiece(); 
 
-	//set some attacking pieces 
+	//fen strings 
 	string fen1 = "8/p7/8/8/8/8/8/8 b - - ";
 	string fenStart = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
 	string fenTricky = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ";
@@ -38,12 +38,31 @@ int main() {
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 
 
+	//debug 
+	bool debug = true; 
+
+	//debugging 
+	if (debug) {
+		cout << "debugging" << endl; 
 
 
 
-	//board.printBoard(); 
+
+
+
+
+
+
+	}
+	//running program 
+	else {
+		board.uciLoop(); 
+	}
+
+
+
+
 	
-	board.uciLoop(); 
 
 	
 
