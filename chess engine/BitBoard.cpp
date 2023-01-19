@@ -1788,6 +1788,7 @@ int BitBoard::evaluateMaterial() {
 //evaluate score for piece positioning 
 int BitBoard::evaluatePosition() {
 	
+	using namespace std; 
 	int score = 0; 
 	uint64_t piecePosition; 
 
@@ -1834,13 +1835,6 @@ int BitBoard::evaluatePosition() {
 		piecePosition &= piecePosition - 1;
 	}
 
-	//bPawn position scores 
-	piecePosition = pieces[bPawn];
-	while (piecePosition) {
-		score += bpawnPositionScore[lsbBitIndex(piecePosition)];
-		piecePosition &= piecePosition - 1;
-	}
-
 	//bKnight position scores 
 	piecePosition = pieces[bKnight];
 	while (piecePosition) {
@@ -1873,11 +1867,14 @@ int BitBoard::evaluatePosition() {
 }
 
 int BitBoard::evaluate() {
-
-
+	
 	int score = 0;
+	
+	//call evaluation functions 
 	score += evaluateMaterial(); 
 	score += evaluatePosition(); 
+
+
 	//return evaluation based on side 
 	return (side == white ? score : -score); 
 }
