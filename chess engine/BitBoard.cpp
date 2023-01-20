@@ -1767,11 +1767,35 @@ void BitBoard::uciLoop() {
  =====================
  */
 
+//prints move in algebraic notation ex. "e2e4"
+void BitBoard::printMoveAlgebraicNotation(uint32_t move) {
+	using namespace std; 
+
+	//prints source and target index 
+	cout << positionStr[decodeMoveSourceIndex(move)]; 
+	cout << positionStr[decodeMoveTargetIndex(move)]; 
+
+	//prints promotion piece 
+	if (decodeMovePromotePiece(move) != noPiece) {
+		int piece = decodeMovePromotePiece(move); 
+		if (piece == wKnight || piece == bKnight) cout << "n";
+		else if (piece == wBishop || piece == bBishop) cout << "b";
+		else if (piece == wRook || piece == bRook) cout << "r";
+		else if (piece == wQueen || piece == bQueen) cout << "q"; 
+	}
+}
+
+
 //outputs best move after searching a certain "depth"
 void BitBoard::searchPosition(int depth) {
 	using namespace std; 
-	// best move placeholder 
-	cout << "bestmove e2e4\n"; 
+
+	//search for best move 
+	int score = minmaxSearch(-50000, 50000, depth); 
+
+	cout << "bestmove ";
+	printMoveAlgebraicNotation(bestMove); 
+	cout << "\n"; 
 }
 
 /*
