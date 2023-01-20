@@ -108,7 +108,8 @@ BitBoard::BitBoard() :
 
 	side(white),
 	enpassant(64),
-	castle(15)
+	castle(15),
+	ply(0)
 {	}
 
 
@@ -1772,6 +1773,89 @@ void BitBoard::searchPosition(int depth) {
 	// best move placeholder 
 	cout << "bestmove e2e4\n"; 
 }
+
+/*
+* 
+* alpha is min score 
+* beta is max score 
+* depth is depth of search 
+*/
+int BitBoard::minmaxSearch(int alpha, int beta, int depth) {
+	
+	//base case 
+	if (depth == 0) {
+		return evaluate(); 
+	}
+
+	uint32_t bestMoveSofar; 
+	int oldAlpha = alpha; 
+
+	//store current board state
+	boardState state; 
+	storeState(state); 
+
+	//generate moves 
+	moveList ml; 
+	uint32_t movelist[256]; 
+	generateMove(ml, movelist); 
+
+	//iterate through moves 
+	for (int i = 0; i < ml.index; ++i) {
+
+		//skip illegal moves 
+		if (!makeMove(movelist[i])) {
+			restoreState(state); 
+			continue; 
+		}
+		restoreState(state); 
+
+		//increment half move counter 
+		++ply; 
+
+		//search child node
+		makeMove(movelist[i]);
+		int score = -minmaxSearch(-beta, -alpha, depth - 1); 
+
+		//restore state 
+		restoreState(state); 
+		--ply; 
+		
+		//reject or keep branch/moves 
+
+		//node (move) fails high 
+		if (score >= beta) {
+			return beta; 
+		}
+
+		//found better move 
+		if (score > alpha) {
+			
+			//PV node 
+			alpha = score;
+
+			if (ply == 0)
+				bestMoveSofar = movelist[i];
+		}
+
+	}
+
+	//update move
+	if (oldAlpha != alpha) {
+		bestMove = bestMoveSofar;
+	}
+
+
+	//return min value 
+	return alpha; 
+}
+
+
+/*
+ =====================
+ evaluate position
+ =====================
+ */
+
 
 //evaluate score for material 
 int BitBoard::evaluateMaterial() {

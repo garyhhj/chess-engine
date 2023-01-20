@@ -117,7 +117,7 @@ public:
 
 
 
-    /*
+     /*
      ====================
      move generation
      ====================
@@ -167,7 +167,7 @@ public:
     uint64_t wCastleMove(moveList& ml, uint32_t* moveList);
     uint64_t bCastleMove(moveList& ml, uint32_t* moveList);
 
-    /*
+     /*
      =======================
      move list 
      =======================
@@ -179,7 +179,7 @@ public:
     void printMove(uint32_t move);
     void printMoveList(const moveList ml, const uint32_t* moveList);
 
-    /*
+     /*
      =======================
      encode and decode move
      =======================
@@ -196,7 +196,7 @@ public:
     constexpr int decodeMoveCastle(uint32_t move);
 
 
-    /*
+     /*
      =====================
      preserve board state
      =====================
@@ -206,7 +206,7 @@ public:
     void restoreState(boardState& state);
 
 
-    /*
+     /*
      =====================
      make move 
      =====================
@@ -214,7 +214,7 @@ public:
 
     bool makeMove(uint32_t move);
 
-    /*
+     /*
      =====================
      UCI 
      =====================
@@ -225,42 +225,25 @@ public:
     void parseGo(const std::string& command);
     void uciLoop(); 
 
-    /*
+     /*
      =====================
      search position 
      =====================
      */
 
     void searchPosition(int depth);
-    int evaluate();
+    
+    int ply; //half move counter 
+    uint32_t bestMove; 
+    int minmaxSearch(int alpha, int beta, int depth);
 
+     /*
+     =====================
+     evaluate position
+     =====================
+     */
+
+    int evaluate();
     int evaluateMaterial(); 
     int evaluatePosition(); 
 };
-
-
-//initialize chess
-
-/*
-//pieces 
-enum : int {
-    //white 
-    wPawn,
-    wKnight,//(N)  
-    wBishop,
-    wRook,
-    wQueen,
-    wKing,
-
-    //black 
-    bPawn,
-    bKnight,//(n) 
-    bBishop,
-    bRook,
-    bQueen,
-    bKing,
-
-    //no piece 
-    noPiece = 0xf,
-};
-*/
