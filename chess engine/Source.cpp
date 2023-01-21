@@ -39,36 +39,19 @@ int main() {
 
 
 	//debug 
-	bool debug = false; 
+	bool debug = true; 
 
 	//debugging 
 	if (debug) {
 		cout << "debugging" << endl;
-		string fenTemp = "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1 ";
+
+		string fenTemp = "rn6/8/8/8/8/8/8/8 w - - ";
+
 		board.parseFen(fenTemp);
 		board.printBoard();
 
-		moveList ml;
-		uint32_t movelist[256];
 
-		board.generateMove(ml, movelist);
-
-		boardState state;
-		board.storeState(state);
-		for (int i = 0; i < ml.index; ++i) {
-			if (!board.makeMove(movelist[i])) {
-				board.restoreState(state); 
-				continue; 
-			}
-
-			board.restoreState(state); 
-
-			//print the move in the way its feed to uci 
-			board.printMoveAlgebraicNotation(movelist[i]); 
-			cout << endl; 
-		}
-
-
+		cout << board.evaluatePosition(); 
 
 		cout << endl; 
 

@@ -1931,41 +1931,42 @@ int BitBoard::evaluateMaterial() {
 int BitBoard::evaluatePosition() {
 	
 	using namespace std; 
-	int score = 0; 
+	int wScore = 0; 
+	int bScore = 0; 
 	uint64_t piecePosition; 
 
 	//wPawn position scores 
 	piecePosition = pieces[wPawn]; 
 	while (piecePosition) {
-		score += wpawnPositionScore[lsbBitIndex(piecePosition)]; 
+		wScore += wpawnPositionScore[lsbBitIndex(piecePosition)]; 
 		piecePosition &= piecePosition - 1; 
 	}
 
 	//wKnight position scores 
 	piecePosition = pieces[wKnight];
 	while (piecePosition) {
-		score += wknightPositionScore[lsbBitIndex(piecePosition)];
+		wScore += wknightPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//wBishop position scores 
 	piecePosition = pieces[wBishop];
 	while (piecePosition) {
-		score += wbishopPositionScore[lsbBitIndex(piecePosition)];
+		wScore += wbishopPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//wRook position scores 
 	piecePosition = pieces[wRook];
 	while (piecePosition) {
-		score += wrookPositionScore[lsbBitIndex(piecePosition)];
+		wScore += wrookPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//wKing position scores 
 	piecePosition = pieces[wKing];
 	while (piecePosition) {
-		score += wkingPositionScore[lsbBitIndex(piecePosition)];
+		wScore += wkingPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
@@ -1973,38 +1974,40 @@ int BitBoard::evaluatePosition() {
 	//bPawn position scores 
 	piecePosition = pieces[bPawn];
 	while (piecePosition) {
-		score += bpawnPositionScore[lsbBitIndex(piecePosition)];
+		bScore += bpawnPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//bKnight position scores 
 	piecePosition = pieces[bKnight];
 	while (piecePosition) {
-		score += bknightPositionScore[lsbBitIndex(piecePosition)];
+		bScore += bknightPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//bBishop position scores 
 	piecePosition = pieces[bBishop];
 	while (piecePosition) {
-		score += bbishopPositionScore[lsbBitIndex(piecePosition)];
+		bScore += bbishopPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//bRook position scores 
 	piecePosition = pieces[bRook];
 	while (piecePosition) {
-		score += brookPositionScore[lsbBitIndex(piecePosition)];
+		bScore += brookPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
 	//bKing position scores 
 	piecePosition = pieces[bKing];
 	while (piecePosition) {
-		score += bkingPositionScore[lsbBitIndex(piecePosition)];
+		bScore += bkingPositionScore[lsbBitIndex(piecePosition)];
 		piecePosition &= piecePosition - 1;
 	}
 
+	int score = 0; 
+	if (side == white ? score = wScore - bScore : score = bScore - wScore); 
 	return score; 
 }
 
