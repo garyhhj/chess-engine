@@ -21,6 +21,7 @@ main driver
 using namespace std; 
 
 BitBoard board;
+bool debug = false;
 
 int main() {
 	
@@ -38,26 +39,12 @@ int main() {
 	string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2K2R b KQkq - 0 1 ";
 
 
-	//debug 
-	bool debug = true; 
-
 	//debugging 
 	if (debug) {
-		cout << "debugging" << endl;
+		
+		board.uciLoop(); 
 
-		string fenTemp = "rn6/8/8/8/8/8/8/8 w - - ";
-
-		board.parseFen(fenTemp);
-		board.printBoard();
-
-
-		cout << board.evaluatePosition(); 
-
-		cout << endl; 
-
-
-
-
+		 
 
 	}
 	//running program 

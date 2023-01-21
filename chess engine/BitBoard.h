@@ -237,7 +237,7 @@ public:
     
     int ply; //half move counter 
     uint32_t bestMove; 
-    int negamaxSearch(int alpha, int beta, int depth);
+    int negamaxSearch(int alpha, int beta, int depth, uint32_t move);
 
      /*
      =====================

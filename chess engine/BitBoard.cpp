@@ -8,6 +8,7 @@
 
 //initialize chess board 
 extern BitBoard board;
+extern bool debug; 
 
 /*
  ==================================
@@ -1812,7 +1813,7 @@ void BitBoard::searchPosition(int depth) {
 	using namespace std; 
 
 	//search for best move 
-	int score = negamaxSearch(-50000, 50000, depth); 
+	int score = negamaxSearch(-50000, 50000, depth, 0); 
 
 	//cout info to gui 
 	cout << "info "; 
@@ -1831,7 +1832,7 @@ void BitBoard::searchPosition(int depth) {
 * beta is max score 
 * depth is depth of search 
 */
-int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
+int BitBoard::negamaxSearch(int alpha, int beta, int depth, uint32_t move) {
 	
 	//base case 
 	if (depth == 0) {
@@ -1867,7 +1868,17 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 
 		//search child node
 		makeMove(movelist[i]);
-		int score = -negamaxSearch(-beta, -alpha, depth - 1); 
+
+		if (debug) {
+			using namespace std;
+			cout << "searching move: ";
+			printMoveAlgebraicNotation(movelist[i]);
+		}
+		
+		int score = -negamaxSearch(-beta, -alpha, depth - 1, movelist[i]);
+		
+		
+
 
 		//restore state 
 		restoreState(state); 
@@ -1889,6 +1900,38 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 			if (ply == 0)
 				bestMoveSofar = movelist[i];
 		}
+	}
+
+	//debug 
+	if (debug) {
+		using namespace std; 
+		cout << endl; 
+
+		//parent node and child nodes 
+		//parent node
+		printMoveAlgebraicNotation(move);
+		cout << ": "; 
+
+		//child node 
+		for (int i = 0; i < ml.index; ++i) {
+
+			//skip illegal moves 
+			if (!makeMove(movelist[i])) {
+				restoreState(state);
+				continue;
+			}
+			restoreState(state);
+
+			printMoveAlgebraicNotation(movelist[i]); 
+			cout << ", "; 
+
+		}
+		cout << "\n"; 
+
+		//prints alpha and beta values 
+		cout << "alpha(min): " << alpha << " beta(max): " << beta << " oldAlpha: " << oldAlpha << endl;
+
+		cout << endl; 
 	}
 
 	//checkmate or stalemate 
@@ -2006,9 +2049,7 @@ int BitBoard::evaluatePosition() {
 		piecePosition &= piecePosition - 1;
 	}
 
-	int score = 0; 
-	if (side == white ? score = wScore - bScore : score = bScore - wScore); 
-	return score; 
+	return wScore - bScore; 
 }
 
 int BitBoard::evaluate() {
