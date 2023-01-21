@@ -1675,7 +1675,7 @@ void BitBoard::parseGo(const std::string& command) {
 	//default search depth 
 	int depth = 1; 
 
-	stringstream ss(command)
+	stringstream ss(command);
 	
 	string word; 
 	while (ss >> word) {
