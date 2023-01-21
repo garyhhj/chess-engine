@@ -1673,9 +1673,9 @@ void BitBoard::parseGo(const std::string& command) {
 	using namespace std; 
 
 	//default search depth 
-	int depth = 6; 
+	int depth = 1; 
 
-	stringstream ss(command); 
+	stringstream ss(command)
 	
 	string word; 
 	while (ss >> word) {
@@ -1688,8 +1688,11 @@ void BitBoard::parseGo(const std::string& command) {
 		}
 	}
 	
+
 	//search position depth 
 	//cout << "searching depth of " << depth << '\n'; 
+	
+	
 	searchPosition(depth);
 }
 
@@ -1791,8 +1794,14 @@ void BitBoard::searchPosition(int depth) {
 	using namespace std; 
 
 	//search for best move 
-	int score = minmaxSearch(-50000, 50000, depth); 
+	int score = negamaxSearch(-50000, 50000, depth); 
 
+	//cout info to gui 
+	cout << "info "; 
+	cout << "depth " << depth << " "; 
+	cout << "score cp " << score << "\n"; 
+
+	//cout final decision of move to gui 
 	cout << "bestmove ";
 	printMoveAlgebraicNotation(bestMove); 
 	cout << "\n"; 
@@ -1804,7 +1813,7 @@ void BitBoard::searchPosition(int depth) {
 * beta is max score 
 * depth is depth of search 
 */
-int BitBoard::minmaxSearch(int alpha, int beta, int depth) {
+int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 	
 	//base case 
 	if (depth == 0) {
@@ -1814,7 +1823,7 @@ int BitBoard::minmaxSearch(int alpha, int beta, int depth) {
 	uint32_t bestMoveSofar; 
 	int oldAlpha = alpha; 
 
-	//store current board state
+	//store current board state	
 	boardState state; 
 	storeState(state); 
 
@@ -1838,7 +1847,7 @@ int BitBoard::minmaxSearch(int alpha, int beta, int depth) {
 
 		//search child node
 		makeMove(movelist[i]);
-		int score = -minmaxSearch(-beta, -alpha, depth - 1); 
+		int score = -negamaxSearch(-beta, -alpha, depth - 1); 
 
 		//restore state 
 		restoreState(state); 

@@ -39,20 +39,37 @@ int main() {
 
 
 	//debug 
-	bool debug = true; 
+	bool debug = false; 
 
 	//debugging 
 	if (debug) {
-		cout << "debugging" << endl; 
-
-		string fenTemp = "8/8/8/8/8/8/3p4/8 w - - ";
-		
-
+		cout << "debugging" << endl;
+		string fenTemp = "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1 ";
 		board.parseFen(fenTemp);
-		board.printBoard(); 
+		board.printBoard();
+
+		moveList ml;
+		uint32_t movelist[256];
+
+		board.generateMove(ml, movelist);
+
+		boardState state;
+		board.storeState(state);
+		for (int i = 0; i < ml.index; ++i) {
+			if (!board.makeMove(movelist[i])) {
+				board.restoreState(state); 
+				continue; 
+			}
+
+			board.restoreState(state); 
+
+			//print the move in the way its feed to uci 
+			board.printMoveAlgebraicNotation(movelist[i]); 
+			cout << endl; 
+		}
 
 
-		cout << board.evaluatePosition();
+
 		cout << endl; 
 
 
@@ -62,15 +79,31 @@ int main() {
 	}
 	//running program 
 	else {
+		/* UCI commands 
+		* 
+		* UCI command: 
+		* response 
+		* 
+		* isready:
+		* readyok 
+		* 
+		* position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 e8g8:
+		* parsePosition function call 
+		* 
+		* ucinewgame 
+		* setup new game 
+		* 
+		* go depth # 
+		* paresGo function to search for move 
+		* 
+	g	* quit: 
+		* quits program 
+		* 
+		* uci: 
+		* prints engine info 
+		*/
 		board.uciLoop(); 
 	}
-
-
-
-
-	
-
-	
 
 }
 
