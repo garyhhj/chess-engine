@@ -1822,6 +1822,7 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 
 	uint32_t bestMoveSofar; 
 	int oldAlpha = alpha; 
+	int legalMoveCount = 0; 
 
 	//store current board state	
 	boardState state; 
@@ -1842,8 +1843,9 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 		}
 		restoreState(state); 
 
-		//increment half move counter 
+		//increment half move counter and legalMoveCount
 		++ply; 
+		++legalMoveCount; 
 
 		//search child node
 		makeMove(movelist[i]);
@@ -1869,8 +1871,25 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 			if (ply == 0)
 				bestMoveSofar = movelist[i];
 		}
+	}
+
+	//
+	if (!legalMoveCount) {
+		//index for king 
+		int kingIndex = lsbBitIndex(pieces[(side == white ? wKing : bKing)]); 
+		
+		//check mate 
+		if (isAttacked(kingIndex, side)) {
+			return -49000 + ply; 
+		}
+
+		//stalemate 
+		else {
+			return 0; 
+		}
 
 	}
+	
 
 	//update move
 	if (oldAlpha != alpha) {

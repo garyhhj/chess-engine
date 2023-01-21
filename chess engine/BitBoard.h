@@ -231,6 +231,7 @@ public:
      =====================
      */
 
+
     void printMoveAlgebraicNotation(uint32_t move); 
     void searchPosition(int depth);
     
