@@ -231,7 +231,7 @@ public:
      =====================
      */
 
-
+    int checkmateStalemateScore();
     void printMoveAlgebraicNotation(uint32_t move); 
     void searchPosition(int depth);
     

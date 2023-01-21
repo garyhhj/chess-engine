@@ -1770,6 +1770,24 @@ void BitBoard::uciLoop() {
  =====================
  */
 
+/*
+assumes no legal moves available 
+return checkmate or stalemate score 
+*/
+int BitBoard::checkmateStalemateScore() {
+	//index for king 
+	int kingIndex = lsbBitIndex(pieces[(side == white ? wKing : bKing)]);
+
+	//check mate 
+	if (isAttacked(kingIndex, side)) {
+		return -49000 + ply;
+	}
+	//stalemate 
+	else {
+		return 0;
+	}
+}
+
 //prints move in algebraic notation ex. "e2e4"
 void BitBoard::printMoveAlgebraicNotation(uint32_t move) {
 	using namespace std; 
@@ -1873,21 +1891,9 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth) {
 		}
 	}
 
-	//
+	//checkmate or stalemate 
 	if (!legalMoveCount) {
-		//index for king 
-		int kingIndex = lsbBitIndex(pieces[(side == white ? wKing : bKing)]); 
-		
-		//check mate 
-		if (isAttacked(kingIndex, side)) {
-			return -49000 + ply; 
-		}
-
-		//stalemate 
-		else {
-			return 0; 
-		}
-
+		return checkmateStalemateScore(); 
 	}
 	
 
