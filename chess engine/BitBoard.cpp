@@ -1836,7 +1836,19 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth, uint32_t move) {
 	
 	//base case 
 	if (depth == 0) {
-		return evaluate(); 
+
+
+		int score = quiescenceSearch(alpha, beta);
+
+		if (debug) {
+			using namespace std; 
+			cout << "searching move: "; 
+			printMoveAlgebraicNotation(move); 
+			cout << " score: " << score << endl; 
+		}
+
+
+		return score; 
 	}
 
 	uint32_t bestMoveSofar; 
@@ -1947,6 +1959,78 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth, uint32_t move) {
 
 
 	//return min value 
+	return alpha; 
+}
+
+//quiescence search
+int BitBoard::quiescenceSearch(int alpha, int beta) {
+	int standPat = evaluate(); 
+	if (standPat >= beta) {
+		return beta; 
+	}
+	if (standPat > alpha) {
+		alpha = standPat; 
+	}
+
+	boardState state; 
+	storeState(state); 
+
+	//generate moves 
+	moveList ml; 
+	uint32_t movelist[256];
+	generateMove(ml, movelist); 
+
+	//iterate through moves 
+	for (int i = 0; i < ml.index; ++i) {
+
+		//skip illegal moves 
+		if (!makeMove(movelist[i])) {
+			restoreState(state);
+			continue;
+		}
+		restoreState(state);
+
+		//skip non capture moves
+		if (!decodeMoveCapture(movelist[i])) {
+			restoreState(state); 
+			continue; 
+		}
+		restoreState(state); 
+		
+
+		//increment half move counter and legalMoveCount
+		++ply;
+
+		//search child node
+		makeMove(movelist[i]);
+
+		if (debug) {
+			using namespace std;
+			cout << "searching move: ";
+			printMoveAlgebraicNotation(movelist[i]);
+		}
+
+		int score = -quiescenceSearch(-beta, -alpha);
+
+
+		//restore state 
+		restoreState(state);
+		--ply;
+
+		//reject or keep branch/moves 
+
+		//node (move) fails high 
+		if (score >= beta) {
+			return beta;
+		}
+
+		//found better move 
+		if (score > alpha) {
+			//PV node 
+			alpha = score;
+		}
+	}
+
 	return alpha; 
 }
 

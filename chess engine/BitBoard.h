@@ -234,11 +234,11 @@ public:
     int checkmateStalemateScore();
     void printMoveAlgebraicNotation(uint32_t move); 
     void searchPosition(int depth);
-    
+
     int ply; //half move counter 
     uint32_t bestMove; 
     int negamaxSearch(int alpha, int beta, int depth, uint32_t move);
-
+    int quiescenceSearch(int alpha, int beta); 
      /*
      =====================
      evaluate position
