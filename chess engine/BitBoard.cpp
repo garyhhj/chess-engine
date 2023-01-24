@@ -1801,14 +1801,23 @@ int BitBoard::getMoveScore(uint32_t move) {
 	//move is capture 
 	if (decodeMoveCapture(move)) {
 
+		printMove(move); 
 		//get targetPiece
 		int targetIndex = decodeMoveTargetIndex(move);
+		
+		//cout << "targetIndex: " << endl; 
+		//printBoard(position[targetIndex]); 
 		for (int piece = wPawn; piece <= bKing; ++piece) {
 			
 			//board.printBoard(pieces[piece]);
+			//cout << "checking target piece: " << pieceStr[piece] << endl;
+			//printBoard(pieces[piece]); 
 			
 
-			if (pieces[piece] && position[targetIndex]) {
+			//string s; 
+			//getline(cin, s); 
+
+			if (pieces[piece] & position[targetIndex]) {
 				targetPiece = piece; 
 				break; 
 			}
