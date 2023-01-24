@@ -1795,24 +1795,9 @@ void BitBoard::uciLoop() {
  */
 
 void BitBoard::sortMoveDescending(moveList ml, uint32_t* movelist) {
-
-	//print result before sorting 
-	for (int i = 0; i < ml.index; ++i) {
-		printMoveAlgebraicNotation(movelist[i]);
-		std::cout << " score: " << getMoveScore(movelist[i]) << "\n";
-	}
-	using namespace std; 
-	cout << "\n";
-
 	std::sort(movelist, movelist + ml.index, [](uint32_t a, uint32_t b) {
 		return board.getMoveScore(a) > board.getMoveScore(b);
 		});
-	
-	//print to check result 
-	for (int i = 0; i < ml.index; ++i) {
-		printMoveAlgebraicNotation(movelist[i]); 
-		std::cout << " score: " << getMoveScore(movelist[i]) << "\n"; 
-	}
 }
 
 
@@ -1945,6 +1930,9 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth, uint32_t move) {
 	uint32_t movelist[256]; 
 	generateMove(ml, movelist); 
 
+	//sort moves 
+	sortMoveDescending(ml, movelist); 
+
 	//iterate through moves 
 	for (int i = 0; i < ml.index; ++i) {
 
@@ -1967,10 +1955,14 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth, uint32_t move) {
 			cout << "searching move: ";
 			printMoveAlgebraicNotation(movelist[i]);
 		}
+
+
+		//increment search depth if king is in check
+		int kingIndex = lsbBitIndex(pieces[(side == white ? wKing : bKing)]);
+		if (isAttacked(kingIndex, side)) { ++depth; }
+
 		
 		int score = -negamaxSearch(-beta, -alpha, depth - 1, movelist[i]);
-		
-		
 
 
 		//restore state 
