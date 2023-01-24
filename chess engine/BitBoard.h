@@ -107,6 +107,7 @@ public:
 	//constructor 
 	BitBoard();
 	void printBoard();
+    void printBoard(uint64_t bitboard); 
 
     //fen string 
     void parseFen(std::string& fen); 
@@ -231,7 +232,8 @@ public:
      =====================
      */
 
-    int checkmateStalemateScore();
+    int getMoveScore(uint32_t move); 
+    int getCheckmateStalemateScore();
     void printMoveAlgebraicNotation(uint32_t move); 
     void searchPosition(int depth);
 

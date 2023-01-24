@@ -44,14 +44,19 @@ int main() {
 		
 		
 		string fenP = "r2qr3/1pp2p1p/2n1pk2/p2pN1p1/PbPPbB2/4P1K1/1P2BPPP/R2Q3R w - g6 0 14 "; 
-		fenP = "5Q2/8/8/8/4k3/8/1K6/7r b - - 7 35 "; 
 
 		board.parseFen(fenP); 
 		board.printBoard(); 
 
 		moveList ml; 
 		uint32_t movelist[256]; 
-		board.parseGo("go depth 1"); 
+		board.generateMove(ml, movelist); 
+
+		for (int i = 0; i < ml.index; ++i) {
+			board.getMoveScore(movelist[i]); 
+		}
+		
+		//board.parseGo("go depth 1"); 
 	}
 	//running program 
 	else {

@@ -161,6 +161,28 @@ void BitBoard::printBoard() {
 	cout << '\n' << endl;
 }
 
+void BitBoard::printBoard(uint64_t bitBoard) {
+	using namespace std;
+
+	//print board 
+	for (int rank = 0; rank < 8; ++rank) {
+		cout << 8 - rank << "  ";
+		for (int file = 0; file < 8; ++file) {
+			int square = rank * 8 + file;
+
+			cout << (getBit(bitBoard, square) ? " 1 " : " 0 ");
+		}
+		cout << '\n';
+	}
+	cout << '\n';
+	cout << "    " << "a  b  c  d  e  f  g  h" << '\n';
+
+	//print board as unsigned decimal 
+	cout << "    " << "Bitboard: 0x" << hex << bitBoard << dec << '\n';
+	cout << endl;
+}
+
+
 /*
 reset board state to all zeros when possible 
 side: white
@@ -1771,11 +1793,59 @@ void BitBoard::uciLoop() {
  =====================
  */
 
+int BitBoard::getMoveScore(uint32_t move) {
+	using namespace std; 
+
+	int sourcePiece = decodeMovePiece(move);
+	int targetPiece = noPiece; 
+	//move is capture 
+	if (decodeMoveCapture(move)) {
+
+		//get targetPiece
+		int targetIndex = decodeMoveTargetIndex(move);
+		for (int piece = wPawn; piece <= bKing; ++piece) {
+			
+			//board.printBoard(pieces[piece]);
+			
+
+			if (pieces[piece] && position[targetIndex]) {
+				targetPiece = piece; 
+				break; 
+			}
+		}
+
+		//print move Score 
+		using namespace std; 
+		printMoveAlgebraicNotation(move); 
+		cout << " "; 
+		cout << "attacking and defending: " << pieceStr[sourcePiece] << " | " << pieceStr[targetPiece] << " score: " << mvvLva[sourcePiece][targetPiece] << "\n"; 
+
+		//enpassant piece 
+		if (targetPiece == noPiece) {
+			targetPiece = (side == white ? bPawn : wPawn); 
+		}
+
+		//get score 
+		return mvvLva[sourcePiece][targetPiece]; 
+	}
+	//non capture moves 
+	else {
+
+	}
+
+	//print move Score 
+	using namespace std; 
+	//cout << "not capture move score: 0\n"; 
+
+	return 0; 
+}
+
+
 /*
 assumes no legal moves available 
 return checkmate or stalemate score 
 */
-int BitBoard::checkmateStalemateScore() {
+int BitBoard::getCheckmateStalemateScore() {
 	//index for king 
 	int kingIndex = lsbBitIndex(pieces[(side == white ? wKing : bKing)]);
 
@@ -1947,7 +2017,7 @@ int BitBoard::negamaxSearch(int alpha, int beta, int depth, uint32_t move) {
 
 	//checkmate or stalemate 
 	if (!legalMoveCount) {
-		return checkmateStalemateScore(); 
+		return getCheckmateStalemateScore(); 
 	}
 	
 
