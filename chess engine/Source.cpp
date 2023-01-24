@@ -21,7 +21,7 @@ main driver
 using namespace std; 
 
 BitBoard board;
-bool debug = true;
+bool debug = true; 
 
 int main() {
 	
@@ -42,14 +42,16 @@ int main() {
 	//debugging 
 	if (debug) {
 		
-		string fenTemp = "rnb1kbnr/ppp1pppp/8/8/2Bq4/2N2p2/PPP2PPP/R1BQK2R b KQkq - 1 5 "; 
-		board.parseFen(fenTemp); 
+		
+		string fenP = "r2qr3/1pp2p1p/2n1pk2/p2pN1p1/PbPPbB2/4P1K1/1P2BPPP/R2Q3R w - g6 0 14 "; 
+		fenP = "5Q2/8/8/8/4k3/8/1K6/7r b - - 7 35 "; 
+
+		board.parseFen(fenP); 
 		board.printBoard(); 
 
-		board.parseGo("go depth 1");
-
-		 
-
+		moveList ml; 
+		uint32_t movelist[256]; 
+		board.parseGo("go depth 1"); 
 	}
 	//running program 
 	else {

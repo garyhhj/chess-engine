@@ -1827,7 +1827,6 @@ void BitBoard::searchPosition(int depth) {
 }
 
 /*
-* 
 * alpha is min score 
 * beta is max score 
 * depth is depth of search 
