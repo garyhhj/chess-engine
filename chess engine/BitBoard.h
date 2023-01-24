@@ -232,6 +232,7 @@ public:
      =====================
      */
 
+    void sortMoveDescending(moveList ml, uint32_t* movelist); 
     int getMoveScore(uint32_t move); 
     int getCheckmateStalemateScore();
     void printMoveAlgebraicNotation(uint32_t move); 

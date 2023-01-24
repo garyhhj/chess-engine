@@ -52,9 +52,7 @@ int main() {
 		uint32_t movelist[256]; 
 		board.generateMove(ml, movelist); 
 
-		for (int i = 0; i < ml.index; ++i) {
-			board.getMoveScore(movelist[i]); 
-		}
+		board.sortMoveDescending(ml, movelist); 
 		
 		//board.parseGo("go depth 1"); 
 	}

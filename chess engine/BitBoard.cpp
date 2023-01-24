@@ -2,6 +2,7 @@
 #include "macro.h"
 #include "precalculation.h"
 #include "debug.h"
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -1793,6 +1794,28 @@ void BitBoard::uciLoop() {
  =====================
  */
 
+void BitBoard::sortMoveDescending(moveList ml, uint32_t* movelist) {
+
+	//print result before sorting 
+	for (int i = 0; i < ml.index; ++i) {
+		printMoveAlgebraicNotation(movelist[i]);
+		std::cout << " score: " << getMoveScore(movelist[i]) << "\n";
+	}
+	using namespace std; 
+	cout << "\n";
+
+	std::sort(movelist, movelist + ml.index, [](uint32_t a, uint32_t b) {
+		return board.getMoveScore(a) > board.getMoveScore(b);
+		});
+	
+	//print to check result 
+	for (int i = 0; i < ml.index; ++i) {
+		printMoveAlgebraicNotation(movelist[i]); 
+		std::cout << " score: " << getMoveScore(movelist[i]) << "\n"; 
+	}
+}
+
+
 int BitBoard::getMoveScore(uint32_t move) {
 	using namespace std; 
 
@@ -1800,22 +1823,11 @@ int BitBoard::getMoveScore(uint32_t move) {
 	int targetPiece = noPiece; 
 	//move is capture 
 	if (decodeMoveCapture(move)) {
-
-		printMove(move); 
 		//get targetPiece
 		int targetIndex = decodeMoveTargetIndex(move);
-		
-		//cout << "targetIndex: " << endl; 
-		//printBoard(position[targetIndex]); 
 		for (int piece = wPawn; piece <= bKing; ++piece) {
 			
-			//board.printBoard(pieces[piece]);
-			//cout << "checking target piece: " << pieceStr[piece] << endl;
-			//printBoard(pieces[piece]); 
-			
 
-			//string s; 
-			//getline(cin, s); 
 
 			if (pieces[piece] & position[targetIndex]) {
 				targetPiece = piece; 
@@ -1823,11 +1835,6 @@ int BitBoard::getMoveScore(uint32_t move) {
 			}
 		}
 
-		//print move Score 
-		using namespace std; 
-		printMoveAlgebraicNotation(move); 
-		cout << " "; 
-		cout << "attacking and defending: " << pieceStr[sourcePiece] << " | " << pieceStr[targetPiece] << " score: " << mvvLva[sourcePiece][targetPiece] << "\n"; 
 
 		//enpassant piece 
 		if (targetPiece == noPiece) {
@@ -1841,10 +1848,6 @@ int BitBoard::getMoveScore(uint32_t move) {
 	else {
 
 	}
-
-	//print move Score 
-	using namespace std; 
-	//cout << "not capture move score: 0\n"; 
 
 	return 0; 
 }
